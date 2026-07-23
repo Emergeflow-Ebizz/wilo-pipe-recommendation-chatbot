@@ -1,0 +1,1516 @@
+{
+  "phase_3": {
+    "WBW6A-30/08/50/3-415-50-2 PUMP": {
+      "art_no": 8164590,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 78 },
+        { "flow": 70, "head": 69 },
+        { "flow": 90, "head": 65 },
+        { "flow": 110, "head": 59 },
+        { "flow": 130, "head": 51 },
+        { "flow": 150, "head": 43 },
+        { "flow": 170, "head": 35 },
+        { "flow": 190, "head": 26 }
+      ]
+    },
+    "WBW6B-30/06/50/3-415-50-2 PUMP": {
+      "art_no": 8164591,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 65, "head": 61 },
+        { "flow": 90, "head": 57 },
+        { "flow": 117, "head": 50 },
+        { "flow": 140, "head": 44 },
+        { "flow": 165, "head": 36 },
+        { "flow": 190, "head": 27 },
+        { "flow": 215, "head": 17 }
+      ]
+    },
+    "WBW6B-40/10/50/3-415-50-2 PUMP": {
+      "art_no": 8164592,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 3.0,
+        "hp": 4.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 8.5,
+      "performance_curves": [
+        { "flow": 0, "head": 111 },
+        { "flow": 65, "head": 101 },
+        { "flow": 90, "head": 95 },
+        { "flow": 117, "head": 83 },
+        { "flow": 140, "head": 74 },
+        { "flow": 165, "head": 60 },
+        { "flow": 190, "head": 45 },
+        { "flow": 215, "head": 29 }
+      ]
+    },
+    "WBW6B-50/12/50/3-415-50-2 PUMP": {
+      "art_no": 8164593,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 65, "head": 121 },
+        { "flow": 90, "head": 113 },
+        { "flow": 117, "head": 100 },
+        { "flow": 140, "head": 88 },
+        { "flow": 165, "head": 72 },
+        { "flow": 190, "head": 53 },
+        { "flow": 215, "head": 35 }
+      ]
+    },
+    "WBW6B-75/16/50/3-415-50-2_DOL PUMP": {
+      "art_no": 8164594,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 178 },
+        { "flow": 65, "head": 162 },
+        { "flow": 90, "head": 151 },
+        { "flow": 117, "head": 133 },
+        { "flow": 140, "head": 118 },
+        { "flow": 165, "head": 96 },
+        { "flow": 190, "head": 71 },
+        { "flow": 215, "head": 46 }
+      ]
+    },
+    "WBW6B-75/16/50/3-415-50-2_S/D PUMP": {
+      "art_no": 8164815,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 178 },
+        { "flow": 65, "head": 162 },
+        { "flow": 90, "head": 151 },
+        { "flow": 117, "head": 133 },
+        { "flow": 140, "head": 118 },
+        { "flow": 165, "head": 96 },
+        { "flow": 190, "head": 71 },
+        { "flow": 215, "head": 46 }
+      ]
+    },
+    "WBW6B-75/20/50/3-415-50-2_DOL PUMP": {
+      "art_no": 8164595,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 222 },
+        { "flow": 65, "head": 202 },
+        { "flow": 90, "head": 189 },
+        { "flow": 117, "head": 160 },
+        { "flow": 140, "head": 147 },
+        { "flow": 165, "head": 120 },
+        { "flow": 190, "head": 89 },
+        { "flow": 215, "head": 58 }
+      ]
+    },
+    "WBW6B-75/20/50/3-415-50-2_S/D PUMP": {
+      "art_no": 8164816,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 222 },
+        { "flow": 65, "head": 202 },
+        { "flow": 90, "head": 189 },
+        { "flow": 117, "head": 160 },
+        { "flow": 140, "head": 147 },
+        { "flow": 165, "head": 120 },
+        { "flow": 190, "head": 89 },
+        { "flow": 215, "head": 58 }
+      ]
+    },
+    "WBW6C-50/08/50/3-415-50-2 PUMP": {
+      "art_no": 8164596,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 87 },
+        { "flow": 100, "head": 81 },
+        { "flow": 130, "head": 78 },
+        { "flow": 160, "head": 72 },
+        { "flow": 190, "head": 66 },
+        { "flow": 220, "head": 58 },
+        { "flow": 250, "head": 50 },
+        { "flow": 280, "head": 39 }
+      ]
+    },
+    "WBW6C-60/10/50/3-415-50-2 PUMP": {
+      "art_no": 8164597,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 109 },
+        { "flow": 100, "head": 101 },
+        { "flow": 130, "head": 97 },
+        { "flow": 160, "head": 90 },
+        { "flow": 190, "head": 82 },
+        { "flow": 220, "head": 73 },
+        { "flow": 250, "head": 62 },
+        { "flow": 280, "head": 49 }
+      ]
+    },
+    "WBW6C-75/12/50/3-415-50-2_DOL PUMP": {
+      "art_no": 8164598,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 131 },
+        { "flow": 100, "head": 121 },
+        { "flow": 130, "head": 116 },
+        { "flow": 160, "head": 108 },
+        { "flow": 190, "head": 98 },
+        { "flow": 220, "head": 88 },
+        { "flow": 250, "head": 74 },
+        { "flow": 280, "head": 59 }
+      ]
+    },
+    "WBW6C-75/12/50/3-415-50-2_S/D PUMP": {
+      "art_no": 8164817,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 131 },
+        { "flow": 100, "head": 121 },
+        { "flow": 130, "head": 116 },
+        { "flow": 160, "head": 108 },
+        { "flow": 190, "head": 98 },
+        { "flow": 220, "head": 88 },
+        { "flow": 250, "head": 74 },
+        { "flow": 280, "head": 59 }
+      ]
+    },
+    "WBW6C-100/16/50/3-415-50-2 PUMP": {
+      "art_no": 8164599,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 174 },
+        { "flow": 100, "head": 162 },
+        { "flow": 130, "head": 155 },
+        { "flow": 160, "head": 144 },
+        { "flow": 190, "head": 131 },
+        { "flow": 220, "head": 117 },
+        { "flow": 250, "head": 99 },
+        { "flow": 280, "head": 78 }
+      ]
+    },
+    "WBW6E-30/04/50/3-415-50-2 PUMP": {
+      "art_no": 8164600,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 45 },
+        { "flow": 125, "head": 41 },
+        { "flow": 150, "head": 40 },
+        { "flow": 200, "head": 37 },
+        { "flow": 245, "head": 33 },
+        { "flow": 300, "head": 27 },
+        { "flow": 350, "head": 22 },
+        { "flow": 400, "head": 14 }
+      ]
+    },
+    "WBW6F-30/03/50/3-415-50-2 PUMP": {
+      "art_no": 8164601,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 38 },
+        { "flow": 140, "head": 35 },
+        { "flow": 200, "head": 34 },
+        { "flow": 260, "head": 31 },
+        { "flow": 320, "head": 28 },
+        { "flow": 380, "head": 24 },
+        { "flow": 440, "head": 19 },
+        { "flow": 500, "head": 13 }
+      ]
+    },
+    "WBW6F-30/03/65/3-415-50-2 PUMP": {
+      "art_no": 8188824,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 38 },
+        { "flow": 140, "head": 35 },
+        { "flow": 200, "head": 34 },
+        { "flow": 260, "head": 31 },
+        { "flow": 320, "head": 28 },
+        { "flow": 380, "head": 24 },
+        { "flow": 440, "head": 19 },
+        { "flow": 500, "head": 13 }
+      ]
+    },
+    "WBW6F-50/05/50/3-415-50-2 PUMP": {
+      "art_no": 8164602,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 64 },
+        { "flow": 140, "head": 59 },
+        { "flow": 200, "head": 56 },
+        { "flow": 260, "head": 52 },
+        { "flow": 320, "head": 46 },
+        { "flow": 380, "head": 40 },
+        { "flow": 440, "head": 32 },
+        { "flow": 500, "head": 22 }
+      ]
+    },
+    "WBW6F-50/05/65/3-415-50-2 PUMP": {
+      "art_no": 8188825,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 64 },
+        { "flow": 140, "head": 59 },
+        { "flow": 200, "head": 56 },
+        { "flow": 260, "head": 52 },
+        { "flow": 320, "head": 46 },
+        { "flow": 380, "head": 40 },
+        { "flow": 440, "head": 32 },
+        { "flow": 500, "head": 22 }
+      ]
+    },
+    "WBW6F-60/06/50/3-415-50-2 PUMP": {
+      "art_no": 8188826,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 76 },
+        { "flow": 140, "head": 71 },
+        { "flow": 200, "head": 67 },
+        { "flow": 260, "head": 62 },
+        { "flow": 320, "head": 55 },
+        { "flow": 380, "head": 47 },
+        { "flow": 440, "head": 38 },
+        { "flow": 500, "head": 26 }
+      ]
+    },
+    "WBW6F-60/06/65/3-415-50-2 PUMP": {
+      "art_no": 8188827,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 76 },
+        { "flow": 140, "head": 71 },
+        { "flow": 200, "head": 67 },
+        { "flow": 260, "head": 62 },
+        { "flow": 320, "head": 55 },
+        { "flow": 380, "head": 47 },
+        { "flow": 440, "head": 38 },
+        { "flow": 500, "head": 26 }
+      ]
+    },
+    "WBW6F-75/08/50/3-415-50-2_DOL PUMP": {
+      "art_no": 8164603,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 102 },
+        { "flow": 140, "head": 94 },
+        { "flow": 200, "head": 90 },
+        { "flow": 260, "head": 83 },
+        { "flow": 320, "head": 74 },
+        { "flow": 380, "head": 63 },
+        { "flow": 440, "head": 50 },
+        { "flow": 500, "head": 35 }
+      ]
+    },
+    "WBW6F-75/08/65/3-415-50-2_DOL PUMP": {
+      "art_no": 8188828,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 102 },
+        { "flow": 140, "head": 94 },
+        { "flow": 200, "head": 90 },
+        { "flow": 260, "head": 83 },
+        { "flow": 320, "head": 74 },
+        { "flow": 380, "head": 63 },
+        { "flow": 440, "head": 50 },
+        { "flow": 500, "head": 35 }
+      ]
+    },
+    "WBW6F-75/08/50/3-415-50-2_S/D PUMP": {
+      "art_no": 8164818,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 102 },
+        { "flow": 140, "head": 94 },
+        { "flow": 200, "head": 90 },
+        { "flow": 260, "head": 83 },
+        { "flow": 320, "head": 74 },
+        { "flow": 380, "head": 63 },
+        { "flow": 440, "head": 50 },
+        { "flow": 500, "head": 35 }
+      ]
+    },
+    "WBW6F-75/08/65/3-415-50-2_S/D PUMP": {
+      "art_no": 8188829,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 102 },
+        { "flow": 140, "head": 94 },
+        { "flow": 200, "head": 90 },
+        { "flow": 260, "head": 83 },
+        { "flow": 320, "head": 74 },
+        { "flow": 380, "head": 63 },
+        { "flow": 440, "head": 50 },
+        { "flow": 500, "head": 35 }
+      ]
+    },
+    "WBW6F-100/10/50/3-415-50-2 PUMP": {
+      "art_no": 8164604,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 127 },
+        { "flow": 140, "head": 118 },
+        { "flow": 200, "head": 112 },
+        { "flow": 260, "head": 104 },
+        { "flow": 320, "head": 92 },
+        { "flow": 380, "head": 79 },
+        { "flow": 440, "head": 63 },
+        { "flow": 500, "head": 44 }
+      ]
+    },
+    "WBW6G-50/05/65/3-415-50-2 PUMP": {
+      "art_no": 8168386,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 54 },
+        { "flow": 260, "head": 46 },
+        { "flow": 340, "head": 43 },
+        { "flow": 420, "head": 39 },
+        { "flow": 500, "head": 36 },
+        { "flow": 580, "head": 31 },
+        { "flow": 660, "head": 25 },
+        { "flow": 740, "head": 20 }
+      ]
+    },
+    "WBW6G-75/08/65/3-415-50-2_DOL PUMP": {
+      "art_no": 8168387,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 86 },
+        { "flow": 260, "head": 74 },
+        { "flow": 340, "head": 68 },
+        { "flow": 420, "head": 63 },
+        { "flow": 500, "head": 57 },
+        { "flow": 580, "head": 49 },
+        { "flow": 660, "head": 40 },
+        { "flow": 740, "head": 31 }
+      ]
+    },
+    "WBW6G-75/08/65/3-415-50-2_S/D PUMP": {
+      "art_no": 8168388,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 86 },
+        { "flow": 260, "head": 74 },
+        { "flow": 340, "head": 68 },
+        { "flow": 420, "head": 63 },
+        { "flow": 500, "head": 57 },
+        { "flow": 580, "head": 49 },
+        { "flow": 660, "head": 40 },
+        { "flow": 740, "head": 31 }
+      ]
+    },
+    "WBW6G-100/10/65/3-415-50-2 PUMP": {
+      "art_no": 8168389,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 108 },
+        { "flow": 260, "head": 92 },
+        { "flow": 340, "head": 86 },
+        { "flow": 420, "head": 79 },
+        { "flow": 500, "head": 71 },
+        { "flow": 580, "head": 61 },
+        { "flow": 660, "head": 50 },
+        { "flow": 740, "head": 39 }
+      ]
+    },
+    "WBW6G-125/12/65/3-415-50-2 PUMP": {
+      "art_no": 8168390,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 9.3,
+        "hp": 12.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 25,
+      "performance_curves": [
+        { "flow": 0, "head": 130 },
+        { "flow": 260, "head": 110 },
+        { "flow": 340, "head": 103 },
+        { "flow": 420, "head": 94 },
+        { "flow": 500, "head": 85 },
+        { "flow": 580, "head": 73 },
+        { "flow": 660, "head": 60 },
+        { "flow": 740, "head": 47 }
+      ]
+    },
+    "WBW6H-50/04/65/3-415-50-2 PUMP": {
+      "art_no": 8168391,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 46 },
+        { "flow": 310, "head": 37 },
+        { "flow": 380, "head": 34 },
+        { "flow": 450, "head": 33 },
+        { "flow": 520, "head": 30 },
+        { "flow": 620, "head": 26 },
+        { "flow": 720, "head": 20 },
+        { "flow": 820, "head": 14 }
+      ]
+    },
+    "WBW6H-50/04/75/3-415-50-2 PUMP": {
+      "art_no": 8188830,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 46 },
+        { "flow": 310, "head": 37 },
+        { "flow": 380, "head": 34 },
+        { "flow": 450, "head": 33 },
+        { "flow": 520, "head": 30 },
+        { "flow": 620, "head": 26 },
+        { "flow": 720, "head": 20 },
+        { "flow": 820, "head": 14 }
+      ]
+    },
+    "WBW6H-60/05/65/3-415-50-2 PUMP": {
+      "art_no": 8188831,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 57 },
+        { "flow": 310, "head": 46 },
+        { "flow": 380, "head": 43 },
+        { "flow": 450, "head": 41 },
+        { "flow": 520, "head": 38 },
+        { "flow": 620, "head": 32 },
+        { "flow": 720, "head": 26 },
+        { "flow": 820, "head": 17 }
+      ]
+    },
+    "WBW6H-60/05/75/3-415-50-2 PUMP": {
+      "art_no": 8188832,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 57 },
+        { "flow": 310, "head": 46 },
+        { "flow": 380, "head": 43 },
+        { "flow": 450, "head": 41 },
+        { "flow": 520, "head": 38 },
+        { "flow": 620, "head": 32 },
+        { "flow": 720, "head": 26 },
+        { "flow": 820, "head": 17 }
+      ]
+    },
+    "WBW6I-50/03/75/3-415-50-2 PUMP": {
+      "art_no": 8168392,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 35 },
+        { "flow": 420, "head": 29 },
+        { "flow": 500, "head": 27 },
+        { "flow": 580, "head": 26 },
+        { "flow": 660, "head": 22 },
+        { "flow": 740, "head": 19 },
+        { "flow": 820, "head": 14 },
+        { "flow": 900, "head": 9 }
+      ]
+    },
+    "WBW6I-75/04/75/3-415-50-2_DOL PUMP": {
+      "art_no": 8188833,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 47 },
+        { "flow": 420, "head": 38 },
+        { "flow": 500, "head": 36 },
+        { "flow": 580, "head": 34 },
+        { "flow": 660, "head": 29 },
+        { "flow": 740, "head": 25 },
+        { "flow": 820, "head": 19 },
+        { "flow": 900, "head": 12 }
+      ]
+    },
+    "WBW6I-75/04/100/3-415-50-2_DOL PUMP": {
+      "art_no": 8188834,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 47 },
+        { "flow": 420, "head": 38 },
+        { "flow": 500, "head": 36 },
+        { "flow": 580, "head": 34 },
+        { "flow": 660, "head": 29 },
+        { "flow": 740, "head": 25 },
+        { "flow": 820, "head": 19 },
+        { "flow": 900, "head": 12 }
+      ]
+    },
+    "WBW6I-75/04/75/3-415-50-2_S/D PUMP": {
+      "art_no": 8188835,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 47 },
+        { "flow": 420, "head": 38 },
+        { "flow": 500, "head": 36 },
+        { "flow": 580, "head": 34 },
+        { "flow": 660, "head": 29 },
+        { "flow": 740, "head": 25 },
+        { "flow": 820, "head": 19 },
+        { "flow": 900, "head": 12 }
+      ]
+    },
+    "WBW6I-75/04/100/3-415-50-2_S/D PUMP": {
+      "art_no": 8188836,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 47 },
+        { "flow": 420, "head": 38 },
+        { "flow": 500, "head": 36 },
+        { "flow": 580, "head": 34 },
+        { "flow": 660, "head": 29 },
+        { "flow": 740, "head": 25 },
+        { "flow": 820, "head": 19 },
+        { "flow": 900, "head": 12 }
+      ]
+    },
+    "WBW6I-75/05/75/3-415-50-2_DOL PUMP": {
+      "art_no": 8168393,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 59 },
+        { "flow": 420, "head": 48 },
+        { "flow": 500, "head": 46 },
+        { "flow": 580, "head": 43 },
+        { "flow": 660, "head": 37 },
+        { "flow": 740, "head": 31 },
+        { "flow": 820, "head": 24 },
+        { "flow": 900, "head": 16 }
+      ]
+    },
+    "WBW6I-75/05/75/3-415-50-2_S/D PUMP": {
+      "art_no": 8168394,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 59 },
+        { "flow": 420, "head": 48 },
+        { "flow": 500, "head": 46 },
+        { "flow": 580, "head": 43 },
+        { "flow": 660, "head": 37 },
+        { "flow": 740, "head": 31 },
+        { "flow": 820, "head": 24 },
+        { "flow": 900, "head": 16 }
+      ]
+    },
+    "WBW6J-75/04/75/3-415-50-2_DOL PUMP": {
+      "art_no": 8168395,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 48 },
+        { "flow": 450, "head": 38 },
+        { "flow": 550, "head": 37 },
+        { "flow": 650, "head": 35 },
+        { "flow": 750, "head": 33 },
+        { "flow": 850, "head": 30 },
+        { "flow": 950, "head": 26 },
+        { "flow": 1050, "head": 20 }
+      ]
+    },
+    "WBW6J-75/04/75/3-415-50-2_S/D PUMP": {
+      "art_no": 8168396,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 48 },
+        { "flow": 450, "head": 38 },
+        { "flow": 550, "head": 37 },
+        { "flow": 650, "head": 35 },
+        { "flow": 750, "head": 33 },
+        { "flow": 850, "head": 30 },
+        { "flow": 950, "head": 26 },
+        { "flow": 1050, "head": 20 }
+      ]
+    },
+    "WBW6J-100/05/75/3-415-50-2 PUMP": {
+      "art_no": 8168397,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 60 },
+        { "flow": 450, "head": 49 },
+        { "flow": 550, "head": 47 },
+        { "flow": 650, "head": 44 },
+        { "flow": 750, "head": 42 },
+        { "flow": 850, "head": 38 },
+        { "flow": 950, "head": 33 },
+        { "flow": 1050, "head": 25 }
+      ]
+    },
+    "WBW6K-75/03/75/3-415-50-2_DOL PUMP": {
+      "art_no": 8168398,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 37 },
+        { "flow": 620, "head": 28 },
+        { "flow": 720, "head": 26 },
+        { "flow": 820, "head": 25 },
+        { "flow": 920, "head": 24 },
+        { "flow": 1020, "head": 21 },
+        { "flow": 1120, "head": 18 },
+        { "flow": 1220, "head": 14 }
+      ]
+    },
+    "WBW6K-75/03/100/3-415-50-2_DOL PUMP": {
+      "art_no": 8188837,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 37 },
+        { "flow": 620, "head": 28 },
+        { "flow": 720, "head": 26 },
+        { "flow": 820, "head": 25 },
+        { "flow": 920, "head": 24 },
+        { "flow": 1020, "head": 21 },
+        { "flow": 1120, "head": 18 },
+        { "flow": 1220, "head": 14 }
+      ]
+    },
+    "WBW6K-75/03/75/3-415-50-2_S/D PUMP": {
+      "art_no": 8168399,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 37 },
+        { "flow": 620, "head": 28 },
+        { "flow": 720, "head": 26 },
+        { "flow": 820, "head": 25 },
+        { "flow": 920, "head": 24 },
+        { "flow": 1020, "head": 21 },
+        { "flow": 1120, "head": 18 },
+        { "flow": 1220, "head": 14 }
+      ]
+    },
+    "WBW6K-75/03/100/3-415-50-2_S/D PUMP": {
+      "art_no": 8188838,
+      "no_of_stages": 3,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 37 },
+        { "flow": 620, "head": 28 },
+        { "flow": 720, "head": 26 },
+        { "flow": 820, "head": 25 },
+        { "flow": 920, "head": 24 },
+        { "flow": 1020, "head": 21 },
+        { "flow": 1120, "head": 18 },
+        { "flow": 1220, "head": 14 }
+      ]
+    },
+    "WBW6K-100/04/75/3-415-50-2 PUMP": {
+      "art_no": 8168400,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 50 },
+        { "flow": 620, "head": 37 },
+        { "flow": 720, "head": 35 },
+        { "flow": 820, "head": 34 },
+        { "flow": 920, "head": 32 },
+        { "flow": 1020, "head": 29 },
+        { "flow": 1120, "head": 25 },
+        { "flow": 1220, "head": 19 }
+      ]
+    },
+    "WBW6K-100/04/100/3-415-50-2 PUMP": {
+      "art_no": 8188839,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 50 },
+        { "flow": 620, "head": 37 },
+        { "flow": 720, "head": 35 },
+        { "flow": 820, "head": 34 },
+        { "flow": 920, "head": 32 },
+        { "flow": 1020, "head": 29 },
+        { "flow": 1120, "head": 25 },
+        { "flow": 1220, "head": 19 }
+      ]
+    },
+    "WBW6K-125/05/75/3-415-50-2 PUMP": {
+      "art_no": 8188840,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 9.3,
+        "hp": 12.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 25,
+      "performance_curves": [
+        { "flow": 0, "head": 62 },
+        { "flow": 620, "head": 47 },
+        { "flow": 720, "head": 44 },
+        { "flow": 820, "head": 43 },
+        { "flow": 920, "head": 40 },
+        { "flow": 1020, "head": 36 },
+        { "flow": 1120, "head": 31 },
+        { "flow": 1220, "head": 24 }
+      ]
+    },
+    "WBW6K-125/05/100/3-415-50-2 PUMP": {
+      "art_no": 8188841,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 9.3,
+        "hp": 12.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 25,
+      "performance_curves": [
+        { "flow": 0, "head": 62 },
+        { "flow": 620, "head": 47 },
+        { "flow": 720, "head": 44 },
+        { "flow": 820, "head": 43 },
+        { "flow": 920, "head": 40 },
+        { "flow": 1020, "head": 36 },
+        { "flow": 1120, "head": 31 },
+        { "flow": 1220, "head": 24 }
+      ]
+    },
+    "WBW6K-150/06/75/3-415-50-2 PUMP": {
+      "art_no": 8188842,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 11.2,
+        "hp": 15.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 75,
+      "rated_current_3ph": 29,
+      "performance_curves": [
+        { "flow": 0, "head": 74 },
+        { "flow": 620, "head": 56 },
+        { "flow": 720, "head": 53 },
+        { "flow": 820, "head": 51 },
+        { "flow": 920, "head": 48 },
+        { "flow": 1020, "head": 43 },
+        { "flow": 1120, "head": 37 },
+        { "flow": 1220, "head": 29 }
+      ]
+    },
+    "WBW6K-150/06/100/3-415-50-2 PUMP": {
+      "art_no": 8188843,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 11.2,
+        "hp": 15.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 100,
+      "rated_current_3ph": 29,
+      "performance_curves": [
+        { "flow": 0, "head": 74 },
+        { "flow": 620, "head": 56 },
+        { "flow": 720, "head": 53 },
+        { "flow": 820, "head": 51 },
+        { "flow": 920, "head": 48 },
+        { "flow": 1020, "head": 43 },
+        { "flow": 1120, "head": 37 },
+        { "flow": 1220, "head": 29 }
+      ]
+    },
+    "WBW6P-30/06/50/3-415-50-2 PUMP": {
+      "art_no": 8238473,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 83 },
+        { "flow": 75, "head": 74 },
+        { "flow": 90, "head": 71 },
+        { "flow": 105, "head": 68 },
+        { "flow": 120, "head": 62 },
+        { "flow": 140, "head": 52 },
+        { "flow": 160, "head": 40 },
+        { "flow": 180, "head": 24 }
+      ]
+    },
+    "WBW6P-50/10/50/3-415-50-2 PUMP": {
+      "art_no": 8238474,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 139 },
+        { "flow": 75, "head": 123 },
+        { "flow": 90, "head": 119 },
+        { "flow": 105, "head": 113 },
+        { "flow": 120, "head": 103 },
+        { "flow": 140, "head": 87 },
+        { "flow": 160, "head": 67 },
+        { "flow": 180, "head": 40 }
+      ]
+    },
+    "WBW6Q-30/05/50/3-415-50-2 PUMP": {
+      "art_no": 8238475,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.5,
+      "performance_curves": [
+        { "flow": 0, "head": 77 },
+        { "flow": 70, "head": 72 },
+        { "flow": 100, "head": 70 },
+        { "flow": 130, "head": 66 },
+        { "flow": 160, "head": 60 },
+        { "flow": 190, "head": 50 },
+        { "flow": 220, "head": 38 },
+        { "flow": 250, "head": 25 }
+      ]
+    },
+    "WBW6Q-50/08/50/3-415-50-2 PUMP": {
+      "art_no": 8238476,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 118 },
+        { "flow": 70, "head": 113 },
+        { "flow": 100, "head": 110 },
+        { "flow": 130, "head": 100 },
+        { "flow": 160, "head": 94 },
+        { "flow": 190, "head": 78 },
+        { "flow": 220, "head": 58 },
+        { "flow": 250, "head": 32 }
+      ]
+    },
+    "WBW6R-50/06/50/3-415-50-2 PUMP": {
+      "art_no": 8238477,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 93 },
+        { "flow": 100, "head": 86 },
+        { "flow": 130, "head": 83 },
+        { "flow": 160, "head": 78 },
+        { "flow": 190, "head": 72 },
+        { "flow": 220, "head": 65 },
+        { "flow": 250, "head": 56 },
+        { "flow": 280, "head": 44 }
+      ]
+    },
+    "WBW6R-75/10/50/3-415-50-2_DOL PUMP": {
+      "art_no": 8238478,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 155 },
+        { "flow": 100, "head": 143 },
+        { "flow": 130, "head": 138 },
+        { "flow": 160, "head": 130 },
+        { "flow": 190, "head": 120 },
+        { "flow": 220, "head": 109 },
+        { "flow": 250, "head": 94 },
+        { "flow": 280, "head": 74 }
+      ]
+    },
+    "WBW6R-75/10/50/3-415-50-2_S/D PUMP": {
+      "art_no": 8238479,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 155 },
+        { "flow": 100, "head": 143 },
+        { "flow": 130, "head": 138 },
+        { "flow": 160, "head": 130 },
+        { "flow": 190, "head": 120 },
+        { "flow": 220, "head": 109 },
+        { "flow": 250, "head": 94 },
+        { "flow": 280, "head": 74 }
+      ]
+    },
+    "WBW6S-50/05/50/3-415-50-2 PUMP": {
+      "art_no": 8238480,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 80 },
+        { "flow": 140, "head": 70 },
+        { "flow": 170, "head": 68 },
+        { "flow": 200, "head": 65 },
+        { "flow": 230, "head": 61 },
+        { "flow": 275, "head": 53 },
+        { "flow": 320, "head": 43 },
+        { "flow": 365, "head": 30 }
+      ]
+    },
+    "WBW6S-60/06/50/3-415-50-2 PUMP": {
+      "art_no": 8238481,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 96 },
+        { "flow": 140, "head": 84 },
+        { "flow": 170, "head": 82 },
+        { "flow": 200, "head": 78 },
+        { "flow": 230, "head": 73 },
+        { "flow": 275, "head": 64 },
+        { "flow": 320, "head": 52 },
+        { "flow": 365, "head": 36 }
+      ]
+    },
+    "WBW6S-75/08/50/3-415-50-2_DOL PUMP": {
+      "art_no": 8238482,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 128 },
+        { "flow": 140, "head": 112 },
+        { "flow": 170, "head": 109 },
+        { "flow": 200, "head": 104 },
+        { "flow": 230, "head": 98 },
+        { "flow": 275, "head": 85 },
+        { "flow": 320, "head": 69 },
+        { "flow": 365, "head": 48 }
+      ]
+    },
+    "WBW6S-75/08/50/3-415-50-2_S/D PUMP": {
+      "art_no": 8238483,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 128 },
+        { "flow": 140, "head": 112 },
+        { "flow": 170, "head": 109 },
+        { "flow": 200, "head": 104 },
+        { "flow": 230, "head": 98 },
+        { "flow": 275, "head": 85 },
+        { "flow": 320, "head": 69 },
+        { "flow": 365, "head": 48 }
+      ]
+    },
+    "WBW6S-100/10/50/3-415-50-2 PUMP": {
+      "art_no": 8238484,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 160 },
+        { "flow": 140, "head": 140 },
+        { "flow": 170, "head": 136 },
+        { "flow": 200, "head": 130 },
+        { "flow": 230, "head": 122 },
+        { "flow": 275, "head": 106 },
+        { "flow": 320, "head": 86 },
+        { "flow": 365, "head": 60 }
+      ]
+    },
+    "WBW6T-50/04/65/3-415-50-2 PUMP": {
+      "art_no": 8238485,
+      "no_of_stages": 4,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 10,
+      "performance_curves": [
+        { "flow": 0, "head": 63 },
+        { "flow": 160, "head": 60 },
+        { "flow": 220, "head": 57 },
+        { "flow": 280, "head": 54 },
+        { "flow": 340, "head": 48 },
+        { "flow": 400, "head": 41 },
+        { "flow": 460, "head": 31 },
+        { "flow": 520, "head": 20 }
+      ]
+    },
+    "WBW6T-60/05/65/3-415-50-2 PUMP": {
+      "art_no": 8238486,
+      "no_of_stages": 5,
+      "motor_rating": {
+        "kw": 4.5,
+        "hp": 6.0
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 12,
+      "performance_curves": [
+        { "flow": 0, "head": 79 },
+        { "flow": 160, "head": 75 },
+        { "flow": 220, "head": 72 },
+        { "flow": 280, "head": 68 },
+        { "flow": 340, "head": 61 },
+        { "flow": 400, "head": 52 },
+        { "flow": 460, "head": 39 },
+        { "flow": 520, "head": 25 }
+      ]
+    },
+    "WBW6T-75/06/65/3-415-50-2_DOL PUMP": {
+      "art_no": 8238487,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 95 },
+        { "flow": 160, "head": 89 },
+        { "flow": 220, "head": 86 },
+        { "flow": 280, "head": 81 },
+        { "flow": 340, "head": 73 },
+        { "flow": 400, "head": 62 },
+        { "flow": 460, "head": 46 },
+        { "flow": 520, "head": 30 }
+      ]
+    },
+    "WBW6T-75/06/65/3-415-50-2_S/D PUMP": {
+      "art_no": 8238488,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 14.5,
+      "performance_curves": [
+        { "flow": 0, "head": 95 },
+        { "flow": 160, "head": 89 },
+        { "flow": 220, "head": 86 },
+        { "flow": 280, "head": 81 },
+        { "flow": 340, "head": 73 },
+        { "flow": 400, "head": 62 },
+        { "flow": 460, "head": 46 },
+        { "flow": 520, "head": 30 }
+      ]
+    },
+    "WBW6T-100/08/65/3-415-50-2 PUMP": {
+      "art_no": 8238489,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10.0
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 19.5,
+      "performance_curves": [
+        { "flow": 0, "head": 126 },
+        { "flow": 160, "head": 119 },
+        { "flow": 220, "head": 114 },
+        { "flow": 280, "head": 108 },
+        { "flow": 340, "head": 97 },
+        { "flow": 400, "head": 82 },
+        { "flow": 460, "head": 62 },
+        { "flow": 520, "head": 40 }
+      ]
+    },
+    "WBW6T-125/10/65/3-415-50-2 PUMP": {
+      "art_no": 8238490,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 9.3,
+        "hp": 12.5
+      },
+      "starting_method": "S/D",
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 25,
+      "performance_curves": [
+        { "flow": 0, "head": 158 },
+        { "flow": 160, "head": 149 },
+        { "flow": 220, "head": 143 },
+        { "flow": 280, "head": 135 },
+        { "flow": 340, "head": 121 },
+        { "flow": 400, "head": 103 },
+        { "flow": 460, "head": 77 },
+        { "flow": 520, "head": 50 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,563 @@
+{
+  "HMHIL102-EM-24": {
+    "art_no": 8015689,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 0, "head": 20 },
+      { "flow": 8, "head": 19 },
+      { "flow": 17, "head": 18 },
+      { "flow": 25, "head": 16 },
+      { "flow": 33, "head": 14 },
+      { "flow": 42, "head": 11 },
+      { "flow": 50, "head": 8 },
+      { "flow": 58, "head": 8 }
+    ],
+    "pressure_range_bar": "0.8 -1.84"
+  },
+  "HMHIL103-EM-24": {
+    "art_no": 8015690,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 0, "head": 29 },
+      { "flow": 8, "head": 27 },
+      { "flow": 17, "head": 26 },
+      { "flow": 25, "head": 24 },
+      { "flow": 33, "head": 21 },
+      { "flow": 42, "head": 17 },
+      { "flow": 50, "head": 13 },
+      { "flow": 58, "head": 13 }
+    ],
+    "pressure_range_bar": "1.22-2.71"
+  },
+  "HMHIL104-EM-24": {
+    "art_no": 8015691,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 0, "head": 39 },
+      { "flow": 8, "head": 38 },
+      { "flow": 17, "head": 35 },
+      { "flow": 25, "head": 32 },
+      { "flow": 33, "head": 28 },
+      { "flow": 42, "head": 23 },
+      { "flow": 50, "head": 16 },
+      { "flow": 58, "head": 16 }
+    ],
+    "pressure_range_bar": "1.61-3.7"
+  },
+  "HMHIL105-EM-24": {
+    "art_no": 8015692,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 0, "head": 50 },
+      { "flow": 8, "head": 47 },
+      { "flow": 17, "head": 44 },
+      { "flow": 25, "head": 40 },
+      { "flow": 33, "head": 34 },
+      { "flow": 42, "head": 28 },
+      { "flow": 50, "head": 20 },
+      { "flow": 58, "head": 20 }
+    ],
+    "pressure_range_bar": "1.9 - 4.67"
+  },
+  "HMHIL106-EM-24": {
+    "art_no": 8015693,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 0, "head": 61 },
+      { "flow": 8, "head": 57 },
+      { "flow": 17, "head": 53 },
+      { "flow": 25, "head": 47 },
+      { "flow": 33, "head": 40 },
+      { "flow": 42, "head": 32 },
+      { "flow": 50, "head": 22 },
+      { "flow": 58, "head": 22 }
+    ],
+    "pressure_range_bar": "2.17-5.65"
+  },
+  "HMHIL302-EM-24": {
+    "art_no": 8015695,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 22, "head": 0 },
+      { "flow": 21, "head": 17 },
+      { "flow": 19, "head": 33 },
+      { "flow": 15, "head": 50 },
+      { "flow": 11, "head": 67 },
+      { "flow": 6, "head": 83 },
+      { "flow": 1, "head": 100 }
+    ],
+    "pressure_range_bar": "0.63-2.15"
+  },
+  "HMHIL303-EM-24": {
+    "art_no": 8015696,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 33, "head": 0 },
+      { "flow": 32, "head": 17 },
+      { "flow": 27, "head": 33 },
+      { "flow": 22, "head": 50 },
+      { "flow": 16, "head": 67 },
+      { "flow": 9, "head": 83 },
+      { "flow": 1, "head": 100 }
+    ],
+    "pressure_range_bar": "0.9-3.17"
+  },
+  "HMHIL303-EM-60": {
+    "art_no": 8124572,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 33, "head": 0 },
+      { "flow": 32, "head": 17 },
+      { "flow": 27, "head": 33 },
+      { "flow": 22, "head": 50 },
+      { "flow": 16, "head": 67 },
+      { "flow": 9, "head": 83 },
+      { "flow": 1, "head": 100 }
+    ],
+    "pressure_range_bar": "0.9-3.17"
+  },
+  "HMHIL304-EM-24": {
+    "art_no": 8015697,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 43, "head": 0 },
+      { "flow": 40, "head": 17 },
+      { "flow": 35, "head": 33 },
+      { "flow": 28, "head": 50 },
+      { "flow": 21, "head": 67 },
+      { "flow": 11, "head": 83 },
+      { "flow": 1, "head": 100 }
+    ],
+    "pressure_range_bar": "1.1-4.2"
+  },
+  "HMHIL304-EM-60": {
+    "art_no": 8124573,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 43, "head": 0 },
+      { "flow": 40, "head": 17 },
+      { "flow": 35, "head": 33 },
+      { "flow": 28, "head": 50 },
+      { "flow": 21, "head": 67 },
+      { "flow": 11, "head": 83 },
+      { "flow": 1, "head": 100 }
+    ],
+    "pressure_range_bar": "1.1-4.2"
+  },
+  "HMHIL305-EM-24": {
+    "art_no": 8015698,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 55, "head": 0 },
+      { "flow": 50, "head": 17 },
+      { "flow": 44, "head": 33 },
+      { "flow": 36, "head": 50 },
+      { "flow": 26, "head": 67 },
+      { "flow": 14, "head": 83 },
+      { "flow": 2, "head": 100 }
+    ],
+    "pressure_range_bar": "1.43-5.23"
+  },
+  "HMHIL305-EM-60": {
+    "art_no": 8124574,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 55, "head": 0 },
+      { "flow": 50, "head": 17 },
+      { "flow": 44, "head": 33 },
+      { "flow": 36, "head": 50 },
+      { "flow": 26, "head": 67 },
+      { "flow": 14, "head": 83 },
+      { "flow": 2, "head": 100 }
+    ],
+    "pressure_range_bar": "1.43-5.23"
+  },
+  "HMHIL306-EM-24": {
+    "art_no": 8015699,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 67, "head": 0 },
+      { "flow": 62, "head": 17 },
+      { "flow": 56, "head": 33 },
+      { "flow": 47, "head": 50 },
+      { "flow": 36, "head": 67 },
+      { "flow": 21, "head": 83 },
+      { "flow": 3, "head": 100 }
+    ],
+    "pressure_range_bar": "2.06-6.46"
+  },
+  "HMHIL306-EM-60": {
+    "art_no": 8048006,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 67, "head": 0 },
+      { "flow": 62, "head": 17 },
+      { "flow": 56, "head": 33 },
+      { "flow": 47, "head": 50 },
+      { "flow": 36, "head": 67 },
+      { "flow": 21, "head": 83 },
+      { "flow": 3, "head": 100 }
+    ],
+    "pressure_range_bar": "2.06-6.46"
+  },
+  "HMHIL502-EM-24": {
+    "art_no": 8015700,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 22, "head": 0 },
+      { "flow": 21, "head": 17 },
+      { "flow": 20, "head": 33 },
+      { "flow": 19, "head": 50 },
+      { "flow": 17, "head": 67 },
+      { "flow": 15, "head": 83 },
+      { "flow": 13, "head": 100 },
+      { "flow": 10, "head": 117 },
+      { "flow": 7, "head": 133 },
+      { "flow": 4, "head": 150 }
+    ],
+    "pressure_range_bar": "0.72-2.15"
+  },
+  "HMHIL503-EM-24": {
+    "art_no": 8015701,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 32, "head": 0 },
+      { "flow": 31, "head": 17 },
+      { "flow": 29, "head": 33 },
+      { "flow": 27, "head": 50 },
+      { "flow": 24, "head": 67 },
+      { "flow": 21, "head": 83 },
+      { "flow": 17, "head": 100 },
+      { "flow": 13, "head": 117 },
+      { "flow": 8, "head": 133 },
+      { "flow": 2, "head": 150 }
+    ],
+    "pressure_range_bar": "0.78-3.14"
+  },
+  "HMHIL503-EM-60": {
+    "art_no": 8048005,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 32, "head": 0 },
+      { "flow": 31, "head": 17 },
+      { "flow": 29, "head": 33 },
+      { "flow": 27, "head": 50 },
+      { "flow": 24, "head": 67 },
+      { "flow": 21, "head": 83 },
+      { "flow": 17, "head": 100 },
+      { "flow": 13, "head": 117 },
+      { "flow": 8, "head": 133 },
+      { "flow": 2, "head": 150 }
+    ],
+    "pressure_range_bar": "0.78-3.14"
+  },
+  "HMHIL503-EM-100": {
+    "art_no": 8124575,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 100,
+    "performance_curves": [
+      { "flow": 32, "head": 0 },
+      { "flow": 31, "head": 17 },
+      { "flow": 29, "head": 33 },
+      { "flow": 27, "head": 50 },
+      { "flow": 24, "head": 67 },
+      { "flow": 21, "head": 83 },
+      { "flow": 17, "head": 100 },
+      { "flow": 13, "head": 117 },
+      { "flow": 8, "head": 133 },
+      { "flow": 2, "head": 150 }
+    ],
+    "pressure_range_bar": "0.78-3.14"
+  },
+  "HMHIL504-EM-24": {
+    "art_no": 8015702,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 44, "head": 0 },
+      { "flow": 42, "head": 17 },
+      { "flow": 40, "head": 33 },
+      { "flow": 37, "head": 50 },
+      { "flow": 34, "head": 67 },
+      { "flow": 29, "head": 83 },
+      { "flow": 25, "head": 100 },
+      { "flow": 19, "head": 117 },
+      { "flow": 12, "head": 133 },
+      { "flow": 5, "head": 150 }
+    ],
+    "pressure_range_bar": "1.2-4.25"
+  },
+  "HMHIL504-EM-60": {
+    "art_no": 8034755,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 44, "head": 0 },
+      { "flow": 42, "head": 17 },
+      { "flow": 40, "head": 33 },
+      { "flow": 37, "head": 50 },
+      { "flow": 34, "head": 67 },
+      { "flow": 29, "head": 83 },
+      { "flow": 25, "head": 100 },
+      { "flow": 19, "head": 117 },
+      { "flow": 12, "head": 133 },
+      { "flow": 5, "head": 150 }
+    ],
+    "pressure_range_bar": "1.2-4.25"
+  },
+  "HMHIL504-EM-100": {
+    "art_no": 8124576,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 100,
+    "performance_curves": [
+      { "flow": 44, "head": 0 },
+      { "flow": 42, "head": 17 },
+      { "flow": 40, "head": 33 },
+      { "flow": 37, "head": 50 },
+      { "flow": 34, "head": 67 },
+      { "flow": 29, "head": 83 },
+      { "flow": 25, "head": 100 },
+      { "flow": 19, "head": 117 },
+      { "flow": 12, "head": 133 },
+      { "flow": 5, "head": 150 }
+    ],
+    "pressure_range_bar": "1.2-4.25"
+  },
+  "HMHIL505-EM-24": {
+    "art_no": 8015703,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 56, "head": 0 },
+      { "flow": 54, "head": 17 },
+      { "flow": 52, "head": 33 },
+      { "flow": 49, "head": 50 },
+      { "flow": 46, "head": 67 },
+      { "flow": 41, "head": 83 },
+      { "flow": 35, "head": 100 },
+      { "flow": 28, "head": 117 },
+      { "flow": 19, "head": 133 },
+      { "flow": 8, "head": 150 }
+    ],
+    "pressure_range_bar": "1.96-5.52"
+  },
+  "HMHIL505-EM-60": {
+    "art_no": 8031944,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 60,
+    "performance_curves": [
+      { "flow": 56, "head": 0 },
+      { "flow": 54, "head": 17 },
+      { "flow": 52, "head": 33 },
+      { "flow": 49, "head": 50 },
+      { "flow": 46, "head": 67 },
+      { "flow": 41, "head": 83 },
+      { "flow": 35, "head": 100 },
+      { "flow": 28, "head": 117 },
+      { "flow": 19, "head": 133 },
+      { "flow": 8, "head": 150 }
+    ],
+    "pressure_range_bar": "1.96-5.52"
+  },
+  "HMHIL505-EM-100": {
+    "art_no": 8124577,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "pressure_tank_size_ltrs": 100,
+    "performance_curves": [
+      { "flow": 56, "head": 0 },
+      { "flow": 54, "head": 17 },
+      { "flow": 52, "head": 33 },
+      { "flow": 49, "head": 50 },
+      { "flow": 46, "head": 67 },
+      { "flow": 41, "head": 83 },
+      { "flow": 35, "head": 100 },
+      { "flow": 28, "head": 117 },
+      { "flow": 19, "head": 133 },
+      { "flow": 8, "head": 150 }
+    ],
+    "pressure_range_bar": "1.96-5.52"
+  },
+  "HMHIL902-EM-24": {
+    "art_no": 8049124,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 38,
+    "discharge_dia_mm": 32,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 22, "head": 0 },
+      { "flow": 21, "head": 33 },
+      { "flow": 20, "head": 67 },
+      { "flow": 18, "head": 100 },
+      { "flow": 16, "head": 133 },
+      { "flow": 15, "head": 150 },
+      { "flow": 14, "head": 167 },
+      { "flow": 13, "head": 183 },
+      { "flow": 11, "head": 200 },
+      { "flow": 10, "head": 217 }
+    ],
+    "pressure_range_bar": "0.98-2.14"
+  },
+  "HMHIL903-EM-24": {
+    "art_no": 8048738,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 38,
+    "discharge_dia_mm": 32,
+    "pressure_tank_size_ltrs": 24,
+    "performance_curves": [
+      { "flow": 34, "head": 0 },
+      { "flow": 33, "head": 33 },
+      { "flow": 31, "head": 67 },
+      { "flow": 29, "head": 100 },
+      { "flow": 27, "head": 133 },
+      { "flow": 25, "head": 150 },
+      { "flow": 23, "head": 167 },
+      { "flow": 21, "head": 183 },
+      { "flow": 18, "head": 200 },
+      { "flow": 15, "head": 217 }
+    ],
+    "pressure_range_bar": "1.52-3.32"
+  }
+}

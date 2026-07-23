@@ -1,0 +1,112 @@
+{
+  "WHS VN 05/1-220-50-2 PUMP": {
+    "art_no": 8249872,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 41, "head": 6 },
+      { "flow": 36, "head": 12 },
+      { "flow": 34, "head": 15 },
+      { "flow": 31, "head": 18 },
+      { "flow": 27, "head": 21 },
+      { "flow": 19, "head": 24 },
+      { "flow": 13, "head": 28 },
+      { "flow": 8, "head": 30 }
+    ]
+  },
+  "WHS VN 10/1-220-50-2 PUMP": {
+    "art_no": 8249873,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 45, "head": 6 },
+      { "flow": 40, "head": 12 },
+      { "flow": 37, "head": 15 },
+      { "flow": 36, "head": 18 },
+      { "flow": 31, "head": 21 },
+      { "flow": 24, "head": 24 },
+      { "flow": 20, "head": 28 },
+      { "flow": 16, "head": 30 },
+      { "flow": 14, "head": 32 },
+      { "flow": 8, "head": 36 }
+    ]
+  },
+  "WHS MN 05/1-220-50-2 PUMP": {
+    "art_no": 8249876,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 25, "head": 3 },
+      { "flow": 20, "head": 6 },
+      { "flow": 12.5, "head": 12 },
+      { "flow": 5, "head": 15 }
+    ]
+  },
+  "WHS MN 10/1-220-50-2 PUMP": {
+    "art_no": 8249878,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 36, "head": 6 },
+      { "flow": 32.5, "head": 12 },
+      { "flow": 28, "head": 15 },
+      { "flow": 25, "head": 18 },
+      { "flow": 21, "head": 21 },
+      { "flow": 18, "head": 24 },
+      { "flow": 16, "head": 28 },
+      { "flow": 12.5, "head": 30 },
+      { "flow": 11, "head": 32 },
+      { "flow": 8, "head": 36 }
+    ]
+  },
+  "WHS SN NEO 05/1-220-50-2 PUMP": {
+    "art_no": 8249874,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 45, "head": 6 },
+      { "flow": 43, "head": 12 },
+      { "flow": 40, "head": 18 },
+      { "flow": 30, "head": 24 },
+      { "flow": 16, "head": 28 },
+      { "flow": 8, "head": 30 }
+    ]
+  },
+  "WHS SN NEO 10/1-220-50-2 PUMP": {
+    "art_no": 8249875,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 45, "head": 12 },
+      { "flow": 43, "head": 18 },
+      { "flow": 40, "head": 24 },
+      { "flow": 30, "head": 28 },
+      { "flow": 25, "head": 30 },
+      { "flow": 8, "head": 36 }
+    ]
+  }
+}

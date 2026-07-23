@@ -1,0 +1,188 @@
+{
+  "phase_3": {
+    "‡ MNC0.5M-CI/MS": {
+      "art_no": 8278077,
+      "motor_rating": {"kw": 0.37, "hp": 0.5},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 6, "impeller_dia_mm": 109, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 215, "head": 6 }, { "flow": 175, "head": 8 }, { "flow": 138, "head": 10 }, { "flow": 100, "head": 12 }
+      ]
+    },
+    "MNC0.5M-CI/MS": {
+      "art_no": 8278078,
+      "motor_rating": {"kw": 0.37, "hp": 0.5},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 6, "impeller_dia_mm": 109, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 215, "head": 6 }, { "flow": 175, "head": 8 }, { "flow": 138, "head": 10 }, { "flow": 100, "head": 12 }
+      ]
+    },
+    "‡ MNC011M-CI/ MS": {
+      "art_no": 8000191,
+      "motor_rating": {"kw": 0.75, "hp": 1},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 7, "impeller_dia_mm": 116, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 330, "head": 6 }, { "flow": 300, "head": 8 }, { "flow": 266, "head": 10 }, { "flow": 228, "head": 12 }, { "flow": 162, "head": 14 }, { "flow": 138, "head": 15 }, { "flow": 86, "head": 16 }
+      ]
+    },
+    "MNC011M-CI/MS": {
+      "art_no": 8032436,
+      "motor_rating": {"kw": 0.75, "hp": 1},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 7, "impeller_dia_mm": 116, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 330, "head": 6 }, { "flow": 300, "head": 8 }, { "flow": 266, "head": 10 }, { "flow": 228, "head": 12 }, { "flow": 162, "head": 14 }, { "flow": 138, "head": 15 }, { "flow": 86, "head": 16 }
+      ]
+    },
+    "MNC022M-CI/GP": {
+      "art_no": 8004164,
+      "motor_rating": {"kw": 1.5, "hp": 2},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 8.5, "impeller_dia_mm": 134, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 408, "head": 10 }, { "flow": 372, "head": 12 }, { "flow": 318, "head": 14 }, { "flow": 295, "head": 15 }, { "flow": 268, "head": 16 }, { "flow": 200, "head": 18 }, { "flow": 160, "head": 19 }, { "flow": 120, "head": 20 }
+      ]
+    },
+    "MNC022M-CI/MS": {
+      "art_no": 8126164,
+      "motor_rating": {"kw": 1.5, "hp": 2},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 8.5, "impeller_dia_mm": 134, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 408, "head": 10 }, { "flow": 372, "head": 12 }, { "flow": 318, "head": 14 }, { "flow": 295, "head": 15 }, { "flow": 268, "head": 16 }, { "flow": 200, "head": 18 }, { "flow": 160, "head": 19 }, { "flow": 120, "head": 20 }
+      ]
+    },
+    "MNC022M-SS1/GP": {
+      "art_no": 8168371,
+      "motor_rating": {"kw": 1.5, "hp": 2},
+      "suction_mm": 40, "delivery_mm": 40, "solid_size_mm": 8.5, "impeller_dia_mm": 134, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 408, "head": 10 }, { "flow": 372, "head": 12 }, { "flow": 318, "head": 14 }, { "flow": 295, "head": 15 }, { "flow": 268, "head": 16 }, { "flow": 200, "head": 18 }, { "flow": 160, "head": 19 }, { "flow": 120, "head": 20 }
+      ]
+    },
+    "MNC033M-CI/GP": {
+      "art_no": 8032447,
+      "motor_rating": {"kw": 2.2, "hp": 3},
+      "suction_mm": 50, "delivery_mm": 50, "solid_size_mm": 10.5, "impeller_dia_mm": 144.3, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 564, "head": 10 }, { "flow": 540, "head": 12 }, { "flow": 516, "head": 14 }, { "flow": 474, "head": 15 }, { "flow": 444, "head": 16 }, { "flow": 378, "head": 18 }, { "flow": 342, "head": 19 }, { "flow": 306, "head": 20 }, { "flow": 216, "head": 22 }, { "flow": 126, "head": 24 }, { "flow": 60, "head": 25 }
+      ]
+    },
+    "MNC033M-CI/MS": {
+      "art_no": 8126165,
+      "motor_rating": {"kw": 2.2, "hp": 3},
+      "suction_mm": 50, "delivery_mm": 50, "solid_size_mm": 10.5, "impeller_dia_mm": 144.3, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 564, "head": 10 }, { "flow": 540, "head": 12 }, { "flow": 516, "head": 14 }, { "flow": 474, "head": 15 }, { "flow": 444, "head": 16 }, { "flow": 378, "head": 18 }, { "flow": 342, "head": 19 }, { "flow": 306, "head": 20 }, { "flow": 216, "head": 22 }, { "flow": 126, "head": 24 }, { "flow": 60, "head": 25 }
+      ]
+    },
+    "MNC033M-SS1/GP": {
+      "art_no": 8168372,
+      "motor_rating": {"kw": 2.2, "hp": 3},
+      "suction_mm": 50, "delivery_mm": 50, "solid_size_mm": 10.5, "impeller_dia_mm": 144.3, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 564, "head": 10 }, { "flow": 540, "head": 12 }, { "flow": 516, "head": 14 }, { "flow": 474, "head": 15 }, { "flow": 444, "head": 16 }, { "flow": 378, "head": 18 }, { "flow": 342, "head": 19 }, { "flow": 306, "head": 20 }, { "flow": 216, "head": 22 }, { "flow": 126, "head": 24 }, { "flow": 60, "head": 25 }
+      ]
+    },
+    "MNC055M-CI/GP": {
+      "art_no": 8032448,
+      "motor_rating": {"kw": 3.7, "hp": 5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 15.5, "impeller_dia_mm": 224, "direction_of_rotation": "CW",
+      "performance_curves": [
+        { "flow": 1100, "head": 8 }, { "flow": 1032, "head": 10 }, { "flow": 935, "head": 12 }, { "flow": 827, "head": 14 }, { "flow": 758, "head": 15 }, { "flow": 684, "head": 16 }, { "flow": 523, "head": 18 }, { "flow": 399, "head": 19 }, { "flow": 276, "head": 20 }
+      ]
+    },
+    "MNC055M-CI/MS": {
+      "art_no": 8172727,
+      "motor_rating": {"kw": 3.7, "hp": 5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 15.5, "impeller_dia_mm": 224, "direction_of_rotation": "CW",
+      "performance_curves": [
+        { "flow": 1100, "head": 8 }, { "flow": 1032, "head": 10 }, { "flow": 935, "head": 12 }, { "flow": 827, "head": 14 }, { "flow": 758, "head": 15 }, { "flow": 684, "head": 16 }, { "flow": 523, "head": 18 }, { "flow": 399, "head": 19 }, { "flow": 276, "head": 20 }
+      ]
+    },
+    "MNC055M-SS1/GP": {
+      "art_no": 8168373,
+      "motor_rating": {"kw": 3.7, "hp": 5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 15.5, "impeller_dia_mm": 224, "direction_of_rotation": "CW",
+      "performance_curves": [
+        { "flow": 1100, "head": 8 }, { "flow": 1032, "head": 10 }, { "flow": 935, "head": 12 }, { "flow": 827, "head": 14 }, { "flow": 758, "head": 15 }, { "flow": 684, "head": 16 }, { "flow": 523, "head": 18 }, { "flow": 399, "head": 19 }, { "flow": 276, "head": 20 }
+      ]
+    },
+    "MNC056M-CI/GP": {
+      "art_no": 8032449,
+      "motor_rating": {"kw": 3.7, "hp": 5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 7, "impeller_dia_mm": 174, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 532, "head": 20 }, { "flow": 502, "head": 22 }, { "flow": 456, "head": 24 }, { "flow": 428, "head": 25 }, { "flow": 409, "head": 26 }, { "flow": 342, "head": 28 }, { "flow": 295, "head": 30 }, { "flow": 209, "head": 32 }, { "flow": 133, "head": 34 }
+      ]
+    },
+    "MNC056M-CI/MS": {
+      "art_no": 8172349,
+      "motor_rating": {"kw": 3.7, "hp": 5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 7, "impeller_dia_mm": 174, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 532, "head": 20 }, { "flow": 502, "head": 22 }, { "flow": 456, "head": 24 }, { "flow": 428, "head": 25 }, { "flow": 409, "head": 26 }, { "flow": 342, "head": 28 }, { "flow": 295, "head": 30 }, { "flow": 209, "head": 32 }, { "flow": 133, "head": 34 }
+      ]
+    },
+    "MNC056M-SS1/GP": {
+      "art_no": 8168290,
+      "motor_rating": {"kw": 3.7, "hp": 5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 7, "impeller_dia_mm": 174, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 532, "head": 20 }, { "flow": 502, "head": 22 }, { "flow": 456, "head": 24 }, { "flow": 428, "head": 25 }, { "flow": 409, "head": 26 }, { "flow": 342, "head": 28 }, { "flow": 295, "head": 30 }, { "flow": 209, "head": 32 }, { "flow": 133, "head": 34 }
+      ]
+    },
+    "MNC077M-CI/GP": {
+      "art_no": 8032450,
+      "motor_rating": {"kw": 5.5, "hp": 7.5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 14.5, "impeller_dia_mm": 174, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 846, "head": 20 }, { "flow": 831, "head": 22 }, { "flow": 817, "head": 24 }, { "flow": 798, "head": 25 }, { "flow": 770, "head": 26 }, { "flow": 678, "head": 28 }, { "flow": 570, "head": 30 }, { "flow": 439, "head": 32 }, { "flow": 291, "head": 34 }
+      ]
+    },
+    "MNC077M-CI/MS": {
+      "art_no": 8172729,
+      "motor_rating": {"kw": 5.5, "hp": 7.5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 14.5, "impeller_dia_mm": 174, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 846, "head": 20 }, { "flow": 831, "head": 22 }, { "flow": 817, "head": 24 }, { "flow": 798, "head": 25 }, { "flow": 770, "head": 26 }, { "flow": 678, "head": 28 }, { "flow": 570, "head": 30 }, { "flow": 439, "head": 32 }, { "flow": 291, "head": 34 }
+      ]
+    },
+    "MNC077M-SS1/GP": {
+      "art_no": 8172728,
+      "motor_rating": {"kw": 5.5, "hp": 7.5},
+      "suction_mm": 80, "delivery_mm": 80, "solid_size_mm": 14.5, "impeller_dia_mm": 174, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 846, "head": 20 }, { "flow": 831, "head": 22 }, { "flow": 817, "head": 24 }, { "flow": 798, "head": 25 }, { "flow": 770, "head": 26 }, { "flow": 678, "head": 28 }, { "flow": 570, "head": 30 }, { "flow": 439, "head": 32 }, { "flow": 291, "head": 34 }
+      ]
+    },
+    "MNC1010-CI/GP": {
+      "art_no": 8000183,
+      "motor_rating": {"kw": 7.5, "hp": 10.0},
+      "rpm": 1450, "suction_mm": 100, "delivery_mm": 100, "solid_size_mm": 18, "impeller_dia_mm": 292, "direction_of_rotation": "CW",
+      "performance_curves": [
+        { "flow": 1900, "head": 10 }, { "flow": 1890, "head": 12 }, { "flow": 1740, "head": 14 }, { "flow": 1580, "head": 15 }, { "flow": 1425, "head": 16 }, { "flow": 1265, "head": 18 }, { "flow": 1100, "head": 19 }, { "flow": 950, "head": 20 }, { "flow": 790, "head": 22 }, { "flow": 630, "head": 24 }, { "flow": 475, "head": 25 }
+      ]
+    },
+    "MNC1212-CI/GP": {
+      "art_no": 8000184,
+      "motor_rating": {"kw": 9.3, "hp": 12.5},
+      "rpm": 1450, "suction_mm": 100, "delivery_mm": 100, "solid_size_mm": 23, "impeller_dia_mm": 292, "direction_of_rotation": "CW",
+      "performance_curves": [
+        { "flow": 2280, "head": 10 }, { "flow": 2107, "head": 12 }, { "flow": 1945, "head": 14 }, { "flow": 1780, "head": 15 }, { "flow": 1620, "head": 16 }, { "flow": 1460, "head": 18 }, { "flow": 1300, "head": 19 }, { "flow": 1135, "head": 20 }, { "flow": 970, "head": 22 }, { "flow": 810, "head": 24 }, { "flow": 650, "head": 25 }, { "flow": 490, "head": 26 }, { "flow": 325, "head": 28 }
+      ]
+    },
+    "MNC2020-CI/GP": {
+      "art_no": 8000185,
+      "motor_rating": {"kw": 15.0, "hp": 20.0},
+      "rpm": 1450, "suction_mm": 150, "delivery_mm": 150, "solid_size_mm": 34, "impeller_dia_mm": 296, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 3753, "head": 10 }, { "flow": 3490, "head": 12 }, { "flow": 3220, "head": 14 }, { "flow": 2950, "head": 15 }, { "flow": 2680, "head": 16 }, { "flow": 2410, "head": 18 }, { "flow": 2140, "head": 19 }, { "flow": 1870, "head": 20 }, { "flow": 1600, "head": 22 }, { "flow": 1330, "head": 24 }
+      ]
+    },
+    "MNC2525-CI/GP": {
+      "art_no": 8000186,
+      "motor_rating": {"kw": 18.5, "hp": 25.0},
+      "rpm": 1450, "suction_mm": 150, "delivery_mm": 150, "solid_size_mm": 40, "impeller_dia_mm": 296, "direction_of_rotation": "ACW",
+      "performance_curves": [
+        { "flow": 4218, "head": 10 }, { "flow": 3925, "head": 12 }, { "flow": 3645, "head": 14 }, { "flow": 3365, "head": 15 }, { "flow": 3080, "head": 16 }, { "flow": 2800, "head": 18 }, { "flow": 2525, "head": 19 }, { "flow": 2245, "head": 20 }, { "flow": 1960, "head": 22 }, { "flow": 1685, "head": 24 }, { "flow": 1400, "head": 25 }, { "flow": 1123, "head": 26 }
+      ]
+    }
+  }
+}

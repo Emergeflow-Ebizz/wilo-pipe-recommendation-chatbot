@@ -1,0 +1,293 @@
+{
+  "phase_3": {
+    "WPOV RAPTOR A-30/02/50/3-415-50_DOL": {
+      "art_no": 8238127,
+      "stages": 2,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 50,
+      "performance_curves": [
+        { "flow": 167, "head": 37 },
+        { "flow": 250, "head": 32 },
+        { "flow": 300, "head": 29 },
+        { "flow": 400, "head": 22 },
+        { "flow": 450, "head": 18 }
+      ]
+    },
+    "WPOV RAPTOR A-50/03/50/3-415-50_DOL": {
+      "art_no": 8238128,
+      "stages": 3,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 50,
+      "performance_curves": [
+        { "flow": 167, "head": 56 },
+        { "flow": 250, "head": 49 },
+        { "flow": 300, "head": 44 },
+        { "flow": 400, "head": 33 },
+        { "flow": 450, "head": 27 }
+      ]
+    },
+    "WPOV RAPTOR A-75/05/50/3-415-50_DOL": {
+      "art_no": 8238129,
+      "stages": 5,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 50,
+      "performance_curves": [
+        { "flow": 167, "head": 93 },
+        { "flow": 250, "head": 82 },
+        { "flow": 300, "head": 74 },
+        { "flow": 400, "head": 55 },
+        { "flow": 450, "head": 45 }
+      ]
+    },
+    "WPOV RAPTOR A-100/07/50/3-415-50_S/D": {
+      "art_no": 8238130,
+      "stages": 7,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 50,
+      "performance_curves": [
+        { "flow": 167, "head": 129 },
+        { "flow": 250, "head": 114 },
+        { "flow": 300, "head": 103 },
+        { "flow": 400, "head": 77 },
+        { "flow": 450, "head": 63 }
+      ]
+    },
+    "WPOV RAPTOR A-125/08/50/3-415-50_S/D": {
+      "art_no": 8238131,
+      "stages": 8,
+      "motor_rating": {
+        "kw": 9.3,
+        "hp": 12.5
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 50,
+      "performance_curves": [
+        { "flow": 167, "head": 148 },
+        { "flow": 250, "head": 128 },
+        { "flow": 300, "head": 116 },
+        { "flow": 400, "head": 88 },
+        { "flow": 450, "head": 72 }
+      ]
+    },
+    "WPOV RAPTOR B-50/02/65/3-415-50_DOL": {
+      "art_no": 8238132,
+      "stages": 2,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 65,
+      "performance_curves": [
+        { "flow": 250, "head": 40 },
+        { "flow": 350, "head": 38 },
+        { "flow": 450, "head": 34 },
+        { "flow": 583, "head": 28 },
+        { "flow": 750, "head": 16 }
+      ]
+    },
+    "WPOV RAPTOR B-75/03/65/3-415-50_DOL": {
+      "art_no": 8238133,
+      "stages": 3,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 65,
+      "performance_curves": [
+        { "flow": 250, "head": 60 },
+        { "flow": 350, "head": 57 },
+        { "flow": 450, "head": 51 },
+        { "flow": 583, "head": 42 },
+        { "flow": 750, "head": 24 }
+      ]
+    },
+    "WPOV RAPTOR B-100/04/65/3-415-50_S/D": {
+      "art_no": 8238134,
+      "stages": 4,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 65,
+      "performance_curves": [
+        { "flow": 250, "head": 80 },
+        { "flow": 350, "head": 76 },
+        { "flow": 450, "head": 68 },
+        { "flow": 583, "head": 56 },
+        { "flow": 750, "head": 32 }
+      ]
+    },
+    "WPOV RAPTOR B-125/05/65/3-415-50_S/D": {
+      "art_no": 8238135,
+      "stages": 5,
+      "motor_rating": {
+        "kw": 9.3,
+        "hp": 12.5
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 65,
+      "performance_curves": [
+        { "flow": 250, "head": 100 },
+        { "flow": 350, "head": 96 },
+        { "flow": 450, "head": 86 },
+        { "flow": 583, "head": 70 },
+        { "flow": 750, "head": 40 }
+      ]
+    },
+    "WPOV RAPTOR B-150/06/65/3-415-50_S/D": {
+      "art_no": 8238136,
+      "stages": 6,
+      "motor_rating": {
+        "kw": 11,
+        "hp": 15
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 65,
+      "performance_curves": [
+        { "flow": 250, "head": 120 },
+        { "flow": 350, "head": 113 },
+        { "flow": 450, "head": 104 },
+        { "flow": 583, "head": 84 },
+        { "flow": 750, "head": 48 }
+      ]
+    },
+    "WPOV RAPTOR C-50/01/75/3-415-50_DOL": {
+      "art_no": 8238137,
+      "stages": 1,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 500, "head": 25 },
+        { "flow": 584, "head": 23.5 },
+        { "flow": 667, "head": 22 },
+        { "flow": 833, "head": 17.5 },
+        { "flow": 1000, "head": 13 }
+      ]
+    },
+    "WPOV RAPTOR C-100/02/75/3-415-50_S/D": {
+      "art_no": 8238138,
+      "stages": 2,
+      "motor_rating": {
+        "kw": 7.5,
+        "hp": 10
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 500, "head": 50 },
+        { "flow": 584, "head": 47 },
+        { "flow": 667, "head": 44 },
+        { "flow": 833, "head": 35 },
+        { "flow": 1000, "head": 26 }
+      ]
+    },
+    "WPOV RAPTOR C-150/03/75/3-415-50_S/D": {
+      "art_no": 8238139,
+      "stages": 3,
+      "motor_rating": {
+        "kw": 11,
+        "hp": 15
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 500, "head": 75 },
+        { "flow": 584, "head": 71 },
+        { "flow": 667, "head": 66 },
+        { "flow": 833, "head": 53 },
+        { "flow": 1000, "head": 39 }
+      ]
+    },
+    "WPOV RAPTOR C-200/04/75/3-415-50_S/D": {
+      "art_no": 8238140,
+      "stages": 4,
+      "motor_rating": {
+        "kw": 15,
+        "hp": 20
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 500, "head": 100 },
+        { "flow": 584, "head": 94 },
+        { "flow": 667, "head": 88 },
+        { "flow": 833, "head": 70 },
+        { "flow": 1000, "head": 52 }
+      ]
+    },
+    "WPOV RAPTOR D-75/01/75/3-415-50_DOL": {
+      "art_no": 8238141,
+      "stages": 1,
+      "motor_rating": {
+        "kw": 5.5,
+        "hp": 7.5
+      },
+      "starting_method": "DOL",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 833, "head": 27 },
+        { "flow": 1000, "head": 25 },
+        { "flow": 1160, "head": 22 },
+        { "flow": 1333, "head": 18 },
+        { "flow": 1499, "head": 12 }
+      ]
+    },
+    "WPOV RAPTOR D-150/02/75/3-415-50_S/D": {
+      "art_no": 8238142,
+      "stages": 2,
+      "motor_rating": {
+        "kw": 11,
+        "hp": 15
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 833, "head": 54 },
+        { "flow": 1000, "head": 50 },
+        { "flow": 1160, "head": 44 },
+        { "flow": 1333, "head": 36 },
+        { "flow": 1499, "head": 24 }
+      ]
+    },
+    "WPOV RAPTOR D-225/03/75/3-415-50_S/D": {
+      "art_no": 8238143,
+      "stages": 3,
+      "motor_rating": {
+        "kw": 16.8,
+        "hp": 22.5
+      },
+      "starting_method": "S/D",
+      "discharge_mm": 75,
+      "performance_curves": [
+        { "flow": 833, "head": 81 },
+        { "flow": 1000, "head": 75 },
+        { "flow": 1160, "head": 66 },
+        { "flow": 1333, "head": 54 },
+        { "flow": 1499, "head": 36 }
+      ]
+    }
+  }
+}

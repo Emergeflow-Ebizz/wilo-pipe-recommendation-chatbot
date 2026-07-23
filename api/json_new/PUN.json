@@ -1,0 +1,108 @@
+{
+  "PUN-201EH-RC": {
+    "art_no": 9247267,
+    "motor_rating": {
+      "kw": 0.20,
+      "hp": 0.27
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 70, "head": 6 },
+      { "flow": 60, "head": 8 },
+      { "flow": 50, "head": 10 },
+      { "flow": 35, "head": 12 },
+      { "flow": 18, "head": 14 }
+    ]
+  },
+  "PUN-402EH-RC": {
+    "art_no": 9247268,
+    "motor_rating": {
+      "kw": 0.4,
+      "hp": 0.55
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 95, "head": 6 },
+      { "flow": 90, "head": 8 },
+      { "flow": 85, "head": 10 },
+      { "flow": 75, "head": 12 },
+      { "flow": 70, "head": 14 },
+      { "flow": 60, "head": 16 },
+      { "flow": 40, "head": 18 },
+      { "flow": 15, "head": 20 }
+    ]
+  },
+  "PUN-403EH-RC": {
+    "art_no": 9247269,
+    "motor_rating": {
+      "kw": 0.4,
+      "hp": 0.55
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 95, "head": 6 },
+      { "flow": 90, "head": 8 },
+      { "flow": 85, "head": 10 },
+      { "flow": 75, "head": 12 },
+      { "flow": 70, "head": 14 },
+      { "flow": 60, "head": 16 },
+      { "flow": 40, "head": 18 },
+      { "flow": 15, "head": 20 }
+    ]
+  },
+  "PUN-601EH-RC": {
+    "art_no": 9247273,
+    "motor_rating": {
+      "kw": 0.6,
+      "hp": 0.8
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 100, "head": 18 },
+      { "flow": 85, "head": 20 },
+      { "flow": 60, "head": 22 },
+      { "flow": 35, "head": 24 }
+    ]
+  },
+  "PUN-750EH-RC": {
+    "art_no": 9247274,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 180, "head": 14 },
+      { "flow": 170, "head": 16 },
+      { "flow": 150, "head": 18 },
+      { "flow": 130, "head": 20 },
+      { "flow": 110, "head": 22 },
+      { "flow": 75, "head": 24 }
+    ]
+  },
+  "PUN-751EH-RC": {
+    "art_no": 9247275,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 115, "head": 14 },
+      { "flow": 110, "head": 16 },
+      { "flow": 100, "head": 18 },
+      { "flow": 90, "head": 20 },
+      { "flow": 85, "head": 22 },
+      { "flow": 75, "head": 24 },
+      { "flow": 60, "head": 26 },
+      { "flow": 45, "head": 28 },
+      { "flow": 30, "head": 30 }
+    ]
+  }
+}

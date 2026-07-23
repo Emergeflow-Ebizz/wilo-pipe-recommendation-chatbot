@@ -1,0 +1,463 @@
+{
+  "#WMB05A Kushal_M": {
+    "art_no": 8224522,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 110, "head": 6 },
+      { "flow": 100, "head": 8 },
+      { "flow": 88, "head": 10 },
+      { "flow": 75, "head": 12 },
+      { "flow": 62, "head": 14 },
+      { "flow": 55, "head": 15 },
+      { "flow": 48, "head": 16 },
+      { "flow": 35, "head": 18 }
+    ]
+  },
+  "#WMB05A Kushal_ME": {
+    "art_no": 8224523,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 100, "head": 6 },
+      { "flow": 90, "head": 8 },
+      { "flow": 75, "head": 10 },
+      { "flow": 60, "head": 12 },
+      { "flow": 40, "head": 14 },
+      { "flow": 25, "head": 15 }
+    ]
+  },
+  "WMB05C Kushal_M": {
+    "art_no": 8224524,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 40,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 300, "head": 3 },
+      { "flow": 270, "head": 6 },
+      { "flow": 220, "head": 8 },
+      { "flow": 140, "head": 10 },
+      { "flow": 70, "head": 12 }
+    ]
+  },
+  "WMB05C Kushal_MEx": {
+    "art_no": 8224525,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 40,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 300, "head": 3 },
+      { "flow": 270, "head": 6 },
+      { "flow": 220, "head": 8 },
+      { "flow": 140, "head": 10 },
+      { "flow": 70, "head": 12 }
+    ]
+  },
+  "WMB05C Kushal_ME": {
+    "art_no": 8224526,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 40,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 250, "head": 3 },
+      { "flow": 220, "head": 6 },
+      { "flow": 180, "head": 8 },
+      { "flow": 110, "head": 10 },
+      { "flow": 50, "head": 12 }
+    ]
+  },
+  "WMB05J Kushal_M": {
+    "art_no": 8224527,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 40,
+    "delivery_mm": 32,
+    "performance_curves": [
+      { "flow": 250, "head": 3 },
+      { "flow": 220, "head": 6 },
+      { "flow": 180, "head": 8 },
+      { "flow": 110, "head": 10 },
+      { "flow": 50, "head": 12 }
+    ]
+  },
+  "WMB05H Kushal_M": {
+    "art_no": 8224528,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_mm": 50,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 300, "head": 3 },
+      { "flow": 270, "head": 6 },
+      { "flow": 220, "head": 8 },
+      { "flow": 140, "head": 10 },
+      { "flow": 70, "head": 12 }
+    ]
+  },
+  "#WMB10A Kushal_M": {
+    "art_no": 8224529,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 130, "head": 12 },
+      { "flow": 120, "head": 14 },
+      { "flow": 115, "head": 15 },
+      { "flow": 108, "head": 16 },
+      { "flow": 97, "head": 18 },
+      { "flow": 85, "head": 20 },
+      { "flow": 72, "head": 22 },
+      { "flow": 58, "head": 24 },
+      { "flow": 45, "head": 26 },
+      { "flow": 33, "head": 28 }
+    ]
+  },
+  "WMB10C Kushal_M": {
+    "art_no": 8224530,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_mm": 40,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 300, "head": 6 },
+      { "flow": 275, "head": 8 },
+      { "flow": 250, "head": 10 },
+      { "flow": 220, "head": 12 },
+      { "flow": 180, "head": 14 },
+      { "flow": 150, "head": 15 },
+      { "flow": 120, "head": 16 }
+    ]
+  },
+  "WMB10D Kushal_M": {
+    "art_no": 8224531,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_mm": 50,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 380, "head": 6 },
+      { "flow": 350, "head": 8 },
+      { "flow": 260, "head": 10 },
+      { "flow": 167, "head": 12 }
+    ]
+  },
+  "WMB10D Kushal_MEx": {
+    "art_no": 8229179,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_mm": 50,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 380, "head": 6 },
+      { "flow": 350, "head": 8 },
+      { "flow": 260, "head": 10 },
+      { "flow": 167, "head": 12 }
+    ]
+  },
+  "WMB10G Kushal_M": {
+    "art_no": 8224532,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "suction_mm": 75,
+    "delivery_mm": 75,
+    "performance_curves": [
+      { "flow": 620, "head": 6 },
+      { "flow": 550, "head": 8 },
+      { "flow": 300, "head": 10 }
+    ]
+  },
+  "WMB15G Kushal_M": {
+    "art_no": 8224533,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_mm": 75,
+    "delivery_mm": 75,
+    "performance_curves": [
+      { "flow": 700, "head": 6 },
+      { "flow": 600, "head": 8 },
+      { "flow": 500, "head": 10 },
+      { "flow": 400, "head": 12 }
+    ]
+  },
+  "WMB15G Kushal_M*": {
+    "art_no": 8224534,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_mm": 75,
+    "delivery_mm": 75,
+    "performance_curves": [
+      { "flow": 716, "head": 6 },
+      { "flow": 620, "head": 8 },
+      { "flow": 500, "head": 10 },
+      { "flow": 400, "head": 12 }
+    ]
+  },
+  "WMB15E Kushal_M": {
+    "art_no": 8224535,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_mm": 65,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 500, "head": 6 },
+      { "flow": 450, "head": 8 },
+      { "flow": 350, "head": 10 },
+      { "flow": 200, "head": 12 }
+    ]
+  },
+  "WMB15D Kushal_M": {
+    "art_no": 8224536,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_mm": 50,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 400, "head": 8 },
+      { "flow": 350, "head": 10 },
+      { "flow": 300, "head": 12 },
+      { "flow": 250, "head": 14 },
+      { "flow": 200, "head": 15 },
+      { "flow": 100, "head": 16 }
+    ]
+  },
+  "WMB20D Kushal_M": {
+    "art_no": 8224537,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "suction_mm": 50,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 416, "head": 6 },
+      { "flow": 400, "head": 8 },
+      { "flow": 380, "head": 10 },
+      { "flow": 350, "head": 12 },
+      { "flow": 320, "head": 14 },
+      { "flow": 300, "head": 15 },
+      { "flow": 280, "head": 16 },
+      { "flow": 240, "head": 18 },
+      { "flow": 200, "head": 20 },
+      { "flow": 150, "head": 22 },
+      { "flow": 100, "head": 24 }
+    ]
+  },
+  "WMB20E Kushal_M": {
+    "art_no": 8224538,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "suction_mm": 65,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 533, "head": 8 },
+      { "flow": 500, "head": 10 },
+      { "flow": 460, "head": 12 },
+      { "flow": 420, "head": 14 },
+      { "flow": 400, "head": 15 },
+      { "flow": 375, "head": 16 },
+      { "flow": 333, "head": 18 }
+    ]
+  },
+  "WMB20E Kushal_M**": {
+    "art_no": 8224539,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "suction_mm": 65,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 533, "head": 8 },
+      { "flow": 500, "head": 10 },
+      { "flow": 460, "head": 12 },
+      { "flow": 420, "head": 14 },
+      { "flow": 400, "head": 15 },
+      { "flow": 375, "head": 16 },
+      { "flow": 333, "head": 18 }
+    ]
+  },
+  "WMB20G Kushal_M": {
+    "art_no": 8224540,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "suction_mm": 75,
+    "delivery_mm": 75,
+    "performance_curves": [
+      { "flow": 800, "head": 6 },
+      { "flow": 725, "head": 8 },
+      { "flow": 625, "head": 10 },
+      { "flow": 466, "head": 12 }
+    ]
+  },
+  "WMB20G Kushal_M**": {
+    "art_no": 8224541,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "suction_mm": 75,
+    "delivery_mm": 75,
+    "performance_curves": [
+      { "flow": 800, "head": 6 },
+      { "flow": 725, "head": 8 },
+      { "flow": 625, "head": 10 },
+      { "flow": 466, "head": 12 }
+    ]
+  },
+  "WMB20H Kushal_M": {
+    "art_no": 8224542,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "suction_mm": 50,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 350, "head": 12 },
+      { "flow": 345, "head": 14 },
+      { "flow": 340, "head": 15 },
+      { "flow": 330, "head": 16 },
+      { "flow": 310, "head": 18 },
+      { "flow": 290, "head": 20 },
+      { "flow": 270, "head": 22 },
+      { "flow": 240, "head": 24 },
+      { "flow": 200, "head": 26 },
+      { "flow": 150, "head": 28 },
+      { "flow": 80, "head": 32 }
+    ]
+  },
+  "WMB30G Kushal_M": {
+    "art_no": 8224543,
+    "motor_rating": {
+      "kw": 2.2,
+      "hp": 3
+    },
+    "suction_mm": 75,
+    "delivery_mm": 75,
+    "performance_curves": [
+      { "flow": 1000, "head": 6 },
+      { "flow": 900, "head": 8 },
+      { "flow": 800, "head": 10 },
+      { "flow": 700, "head": 12 },
+      { "flow": 600, "head": 14 },
+      { "flow": 550, "head": 15 },
+      { "flow": 500, "head": 16 }
+    ]
+  },
+  "WMB30I Kushal_M": {
+    "art_no": 8224544,
+    "motor_rating": {
+      "kw": 2.2,
+      "hp": 3
+    },
+    "suction_mm": 100,
+    "delivery_mm": 100,
+    "performance_curves": [
+      { "flow": 1100, "head": 6 },
+      { "flow": 980, "head": 8 },
+      { "flow": 870, "head": 10 },
+      { "flow": 770, "head": 12 },
+      { "flow": 665, "head": 14 }
+    ]
+  },
+  "WMB30I Kushal_M**": {
+    "art_no": 8224545,
+    "motor_rating": {
+      "kw": 2.2,
+      "hp": 3
+    },
+    "suction_mm": 100,
+    "delivery_mm": 100,
+    "performance_curves": [
+      { "flow": 1100, "head": 6 },
+      { "flow": 980, "head": 8 },
+      { "flow": 870, "head": 10 },
+      { "flow": 770, "head": 12 },
+      { "flow": 665, "head": 14 }
+    ]
+  },
+  "WMB30E Kushal_M-CI/MS/2**": {
+    "art_no": 8229037,
+    "motor_rating": {
+      "kw": 2.2,
+      "hp": 3
+    },
+    "suction_mm": 65,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 500, "head": 8 },
+      { "flow": 460, "head": 10 },
+      { "flow": 420, "head": 12 },
+      { "flow": 400, "head": 14 },
+      { "flow": 380, "head": 15 },
+      { "flow": 330, "head": 16 },
+      { "flow": 280, "head": 18 },
+      { "flow": 240, "head": 20 },
+      { "flow": 200, "head": 22 }
+    ]
+  },
+  "WMB30E Kushal_M-CI/MS/3***": {
+    "art_no": 8233396,
+    "motor_rating": {
+      "kw": 2.2,
+      "hp": 3
+    },
+    "suction_mm": 65,
+    "delivery_mm": 50,
+    "performance_curves": [
+      { "flow": 500, "head": 8 },
+      { "flow": 460, "head": 10 },
+      { "flow": 420, "head": 12 },
+      { "flow": 400, "head": 14 },
+      { "flow": 380, "head": 15 },
+      { "flow": 330, "head": 16 },
+      { "flow": 280, "head": 18 },
+      { "flow": 240, "head": 20 },
+      { "flow": 200, "head": 22 }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "Star Z 15 TT": {
+    "article_number": 4110919,
+    "power_source": "230V, Single Phase, 50 Hz",
+    "fluid_temperature": "20°C to 65°C",
+    "total_head_m__high_medium_low": "1 max.",
+    "max_flow_lpm__high_medium_low": "4.8 max.",
+    "inlet_od_mm": 12,
+    "outlet_od_mm": 12,
+    "output_p2_w": 6,
+    "protection_class": "IP42",
+    "max_pressure_bar": 10,
+    "casing": "Brass",
+    "impeller": "GF30",
+    "shaft": "Al203",
+    "weight": 1.2
+  },
+  "Star RS 15/6": {
+    "article_number": 4063803,
+    "power_source": "230V, Single Phase, 50 Hz",
+    "fluid_temperature": "-10°C to 110°C",
+    "total_head_m__high_medium_low": "6/5/4",
+    "max_flow_lpm__high_medium_low": "64/48/40",
+    "inlet_od_mm": 25,
+    "outlet_od_mm": 25,
+    "output_p2_w": 40,
+    "protection_class": "IP44",
+    "max_pressure_bar": 10,
+    "casing": "CI",
+    "impeller": "GF40",
+    "shaft": "SS",
+    "weight": 2.2
+  },
+  "Star RS 25/6": {
+    "article_number": 4032956,
+    "power_source": "230V, Single Phase, 50 Hz",
+    "fluid_temperature": "-10°C to 110°C",
+    "total_head_m__high_medium_low": "6/5/4",
+    "max_flow_lpm__high_medium_low": "64/48/40",
+    "inlet_od_mm": 40,
+    "outlet_od_mm": 40,
+    "output_p2_w": 40,
+    "protection_class": "IP44",
+    "max_pressure_bar": 10,
+    "casing": "CI",
+    "impeller": "GF40",
+    "shaft": "SS",
+    "weight": 2.6
+  },
+  "Star RS 25/8": {
+    "article_number": 4094258,
+    "power_source": "230V, Single Phase, 50 Hz",
+    "fluid_temperature": "-10°C to 95°C",
+    "total_head_m__high_medium_low": "7.5/7/5",
+    "max_flow_lpm__high_medium_low": "90/60/40",
+    "inlet_od_mm": 40,
+    "outlet_od_mm": 40,
+    "output_p2_w": 60,
+    "protection_class": "IP44",
+    "max_pressure_bar": 10,
+    "casing": "CI",
+    "impeller": "GF40",
+    "shaft": "SS",
+    "weight": 3.5
+  },
+  "pump_models": {
+    "Star RS 25/6 Pump set + RLTC Advanced": {
+      "article_no": 8072202,
+      "hp": 0.12,
+      "kw": 0.09,
+      "duty_range_flow_lpm": "40-64",
+      "duty_range_head_m": "4-6",
+      "suction_size_mm": 40,
+      "delivery_size_mm": 40
+    },
+    "Star RS 15/6 Pump set + RLTC Advanced": {
+      "article_no": 8072258,
+      "hp": 0.12,
+      "kw": 0.09,
+      "duty_range_flow_lpm": "40-64",
+      "duty_range_head_m": "4-6",
+      "suction_size_mm": 25,
+      "delivery_size_mm": 25
+    },
+    "Star RS 25/8 Pump set + RLTC Advanced": {
+      "article_no": 8072261,
+      "hp": 0.24,
+      "kw": 0.18,
+      "duty_range_flow_lpm": "40-90",
+      "duty_range_head_m": "5-7.5",
+      "suction_size_mm": 40,
+      "delivery_size_mm": 40
+    },
+    "MHIL 102 Single Phase + RLTC Advanced": {
+      "article_no": 8072264,
+      "hp": 0.5,
+      "kw": 0.37,
+      "duty_range_flow_lpm": "8-58",
+      "duty_range_head_m": "19-8",
+      "suction_size_mm": 25,
+      "delivery_size_mm": 25
+    },
+    "MHIL 502 Single Phase + RLTC Advanced": {
+      "article_no": 8228830,
+      "hp": 0.75,
+      "kw": 0.55,
+      "duty_range_flow_lpm": "8-133",
+      "duty_range_head_m": "55.2-19.6",
+      "suction_size_mm": 32,
+      "delivery_size_mm": 25
+    }
+  }
+}
