@@ -74,6 +74,12 @@ QUESTION_ALLOWED_UNITS: dict[str, list[str]] = {
 # never need this since there's nothing to disambiguate.
 QUESTIONS_REQUIRING_STATED_UNIT: set[str] = {"borewell_size", "well_depth"}
 
+# Questions with no unit at all whose value must be a whole number (e.g.
+# num_floors - "3.5 floors" is meaningless, unlike a measurement that can
+# have a fractional part). A decimal reply must be rejected as invalid, not
+# silently truncated.
+QUESTIONS_REQUIRING_INTEGER: set[str] = {"num_floors"}
+
 # Extra domain context per question key. This is guidance only - it never
 # changes what rules.py accepts or rejects.
 QUESTION_UNIT_HINTS: dict[str, str] = {
@@ -108,21 +114,38 @@ PARSE_ANSWER_SYSTEM_PROMPT = (
     "You extract a numeric value and its unit from a user's free-text reply "
     "to a specific question. You do not validate whether the value is "
     "acceptable for this business (e.g. whether a borewell size is in a "
-    "supported range) - that is decided elsewhere. However, you must never "
-    "silently accept or silently strip the sign of a negative number for a "
-    "physical quantity that cannot be negative (borewell size, well depth, "
-    "motor power, tank capacity) - these are never valid regardless of "
-    "range. If the user's reply contains a negative number for one of "
-    "these, do not return it as the value (do not strip the minus sign to "
-    "make it positive, and do not return the negative number as-is): set "
-    "needs_clarification to true, leave value and unit null, and ask for a "
-    "valid positive value, naming the number they gave so they know what "
-    "was rejected (e.g. \"-50 isn't a valid well depth - depth can't be "
-    "negative. What is the well depth?\"). This overrides skip handling "
-    "below - even on an optional question, a negative number is treated as "
-    "an invalid value needing clarification, not a skip, since the user did "
-    "attempt to give a value. You do not perform any unit conversion "
-    "arithmetic yourself beyond identifying which unit the user meant. "
+    "supported range) - that is decided elsewhere. "
+    "EXCEPTION FIRST, applies before anything else in this paragraph: if "
+    "the question being asked is 'num_floors' (how many floors above "
+    "ground/the reservoir), zero IS a valid, normal value meaning ground "
+    "floor - never reject a zero for this specific question, only reject "
+    "a genuinely negative number for it. "
+    "For every OTHER question (borewell size, well depth, motor power, "
+    "tank capacity), you must never silently accept, silently strip the "
+    "sign of, or silently round up a non-positive number (zero or "
+    "negative) - these physical quantities must be strictly greater than "
+    "zero, and zero/negative are never valid regardless of range. If the "
+    "user's reply contains a zero or negative number for one of these "
+    "non-num_floors questions, do not return it as the value (do not strip "
+    "a minus sign to make it positive, and do not return the number "
+    "as-is): set needs_clarification to true, leave value and unit null, "
+    "and ask for a valid value greater than zero, naming the number they "
+    "gave so they know what was rejected (e.g. \"-50 isn't a valid well "
+    "depth - depth can't be negative. What is the well depth?\", or \"0 "
+    "isn't a valid borewell diameter - it must be greater than zero. What "
+    "is the borewell diameter?\"). This overrides skip handling below - "
+    "even on an optional question, a zero or negative number (for a "
+    "non-num_floors question) is treated as an invalid value needing "
+    "clarification, not a skip, since the user did attempt to give a "
+    "value. You do not perform any unit conversion arithmetic yourself "
+    "beyond identifying which unit the user meant. "
+    "If this question is listed below as one that REQUIRES A WHOLE NUMBER, "
+    "the value must be a whole number - if the user's reply is a non-whole "
+    "number (e.g. '5.5'), do not round or truncate it: set "
+    "needs_clarification to true, leave value null, and ask for a whole "
+    "number, naming the number they gave (e.g. \"5.5 isn't a whole number - "
+    "how many whole floors?\"). This question has no unit at all - never "
+    "return or ask about a unit for it. "
     "If this question is listed below as one that REQUIRES A STATED UNIT, "
     "the user must explicitly say which unit their number is in - you must "
     "never infer the unit from the number's magnitude or typical values for "
@@ -130,12 +153,14 @@ PARSE_ANSWER_SYSTEM_PROMPT = (
     "along this question's unit-ask sequence you already are is given below "
     "as a count of prior unit-ask attempts - use it exactly as follows: "
     "(a) Count is 0 (never asked yet): if the user gave a number with no "
-    "unit stated at all (e.g. just '150' or '6'), do not guess a unit and "
-    "do not return a value - set needs_clarification to true, leave value "
-    "and unit null, and ask exactly this form of question, naming the "
-    "question's own subject (not a generic word like 'that'): 'What is the "
-    "unit of <subject>?' - e.g. for well depth: 'What is the unit of well "
-    "depth?'; for borewell size: 'What is the unit of borewell size?'. "
+    "unit stated at all (e.g. just '150' or '6'), do not guess a unit - "
+    "but DO still return that number in value (leave unit null), so the "
+    "caller does not lose it while it goes and asks for the unit. Set "
+    "needs_clarification to true and ask exactly this form of question, "
+    "naming the question's own subject (not a generic word like 'that'): "
+    "'What is the unit of <subject>?' - e.g. for well depth: 'What is the "
+    "unit of well depth?'; for borewell size: 'What is the unit of "
+    "borewell size?'. "
     "(b) Count is 1 (the plain question above was already asked once): if "
     "the user's current reply still doesn't state a concrete unit - "
     "including 'idk', 'not sure', 'I don't know', or similar - set "
@@ -267,6 +292,12 @@ def parse_answer(
         if question.key in QUESTIONS_REQUIRING_STATED_UNIT
         else ""
     )
+    integer_required_line = (
+        "This question REQUIRES A WHOLE NUMBER (see the whole-number rule "
+        "above) and has no unit.\n"
+        if question.key in QUESTIONS_REQUIRING_INTEGER
+        else ""
+    )
     previous_guess = (
         f"Your previous guess for this question: {previous_value!r} {previous_unit!r}\n"
         if previous_value is not None
@@ -285,6 +316,7 @@ def parse_answer(
         f"Optional: {question.optional!r}\n"
         f"{allowed_units_line}"
         f"{unit_required_line}"
+        f"{integer_required_line}"
         f"{hint}\n"
         f"{previous_guess}"
         f"{other_questions_line}"
@@ -328,6 +360,27 @@ def parse_answer(
             data["needs_clarification"] = False
             data["clarification_question"] = None
 
+    # Defensive: a question requiring a whole number (e.g. num_floors) must
+    # never accept a fractional value - don't rely solely on the model
+    # following the whole-number instruction above. Skipped when this is a
+    # redirect, since the parsed value then belongs to whichever question
+    # redirect_key names, which may be a different, fractional-allowed one.
+    if (
+        not data.get("redirect_key")
+        and question.key in QUESTIONS_REQUIRING_INTEGER
+        and data.get("value") is not None
+        and data["value"] != int(data["value"])
+    ):
+        rejected_number = data["value"]
+        data["value"] = None
+        data["unit"] = None
+        data["skipped"] = False
+        data["needs_clarification"] = True
+        data["clarification_question"] = (
+            f"{rejected_number!r} isn't a whole number - could you give a "
+            f"whole number for \"{question.prompt}\"?"
+        )
+
     # Defensive normalization: redirect_key/skipped/needs_clarification are
     # meant to be mutually exclusive (see the system prompt), and a redirect
     # is only usable if it carries a concrete value. If the model ever
@@ -348,13 +401,17 @@ def parse_answer(
         data["needs_clarification"] = False
         data["skipped"] = False
 
-    # Defensive: these are physical quantities that can never be negative.
-    # Don't rely solely on the model following the negative-value
-    # instruction above - if a negative value ever comes back (for the
-    # current question or a redirected one), force clarification instead of
-    # silently accepting or silently stripping the sign.
+    # Defensive: these are physical quantities that must be strictly
+    # positive - zero is just as meaningless as negative for a borewell
+    # diameter, well depth, motor power, or tank capacity (unlike
+    # num_floors, where 0 legitimately means ground floor). Don't rely
+    # solely on the model following the negative-value instruction above -
+    # if a non-positive value ever comes back (for the current question or
+    # a redirected one), force clarification instead of silently accepting
+    # or silently stripping the sign.
     rejected_value = data.get("value")
-    if rejected_value is not None and rejected_value < 0:
+    target_key = data.get("redirect_key") or question.key
+    if rejected_value is not None and rejected_value <= 0 and target_key not in QUESTIONS_REQUIRING_INTEGER:
         target_prompt = question.prompt
         if data.get("redirect_key"):
             target_prompt = next(
@@ -366,9 +423,10 @@ def parse_answer(
         data["redirect_key"] = None
         data["skipped"] = False
         data["needs_clarification"] = True
+        reason = "it can't be negative" if rejected_value < 0 else "it must be greater than zero"
         data["clarification_question"] = (
             f"{rejected_value!r} isn't a valid value for \"{target_prompt}\" - "
-            "it can't be negative. Could you give a valid value?"
+            f"{reason}. Could you give a valid value?"
         )
         data["gave_up"] = False
 
