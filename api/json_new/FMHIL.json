@@ -1,0 +1,240 @@
+{
+  "FMHIL102-EM-FC": {
+    "art_no": 8018965,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 20 },
+      { "flow": 8, "head": 19 },
+      { "flow": 17, "head": 18 },
+      { "flow": 25, "head": 16 },
+      { "flow": 33, "head": 14 },
+      { "flow": 42, "head": 11 },
+      { "flow": 50, "head": 8 },
+      { "flow": 58, "head": 8 }
+    ],
+    "pressure_range_bar": "0.8 -1.84"
+  },
+  "FMHIL103-EM-FC": {
+    "art_no": 8018966,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 29 },
+      { "flow": 8, "head": 27 },
+      { "flow": 17, "head": 26 },
+      { "flow": 25, "head": 24 },
+      { "flow": 33, "head": 21 },
+      { "flow": 42, "head": 17 },
+      { "flow": 50, "head": 13 },
+      { "flow": 58, "head": 13 }
+    ],
+    "pressure_range_bar": "1.22-2.71"
+  },
+  "FMHIL104-EM-FC": {
+    "art_no": 8018967,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 39 },
+      { "flow": 8, "head": 38 },
+      { "flow": 17, "head": 35 },
+      { "flow": 25, "head": 32 },
+      { "flow": 33, "head": 28 },
+      { "flow": 42, "head": 23 },
+      { "flow": 50, "head": 16 },
+      { "flow": 58, "head": 16 }
+    ],
+    "pressure_range_bar": "1.61-3.7"
+  },
+  "FMHIL106-EM-FC": {
+    "art_no": 8018969,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 61 },
+      { "flow": 8, "head": 57 },
+      { "flow": 17, "head": 53 },
+      { "flow": 25, "head": 47 },
+      { "flow": 33, "head": 40 },
+      { "flow": 42, "head": 32 },
+      { "flow": 50, "head": 22 },
+      { "flow": 58, "head": 22 }
+    ],
+    "pressure_range_bar": "2.17-5.65"
+  },
+  "FMHIL302-EM-FC": {
+    "art_no": 8018971,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 22 },
+      { "flow": 17, "head": 21 },
+      { "flow": 33, "head": 19 },
+      { "flow": 50, "head": 15 },
+      { "flow": 67, "head": 11 },
+      { "flow": 83, "head": 6 },
+      { "flow": 100, "head": 1 }
+    ],
+    "pressure_range_bar": "0.63-2.15"
+  },
+  "FMHIL303-EM-FC": {
+    "art_no": 8018972,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 33 },
+      { "flow": 17, "head": 32 },
+      { "flow": 33, "head": 27 },
+      { "flow": 50, "head": 22 },
+      { "flow": 67, "head": 16 },
+      { "flow": 83, "head": 9 },
+      { "flow": 100, "head": 1 }
+    ],
+    "pressure_range_bar": "0.9-3.17"
+  },
+  "FMHIL304-EM-FC": {
+    "art_no": 8018973,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 43 },
+      { "flow": 17, "head": 40 },
+      { "flow": 33, "head": 35 },
+      { "flow": 50, "head": 28 },
+      { "flow": 67, "head": 21 },
+      { "flow": 83, "head": 11 },
+      { "flow": 100, "head": 1 }
+    ],
+    "pressure_range_bar": "1.1-4.2"
+  },
+  "FMHIL305-EM-FC": {
+    "art_no": 8018974,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 55 },
+      { "flow": 17, "head": 50 },
+      { "flow": 33, "head": 44 },
+      { "flow": 50, "head": 36 },
+      { "flow": 67, "head": 26 },
+      { "flow": 83, "head": 14 },
+      { "flow": 100, "head": 2 }
+    ],
+    "pressure_range_bar": "1.43-5.23"
+  },
+  "FMHIL306-EM-FC": {
+    "art_no": 8018975,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 67 },
+      { "flow": 17, "head": 62 },
+      { "flow": 33, "head": 56 },
+      { "flow": 50, "head": 47 },
+      { "flow": 67, "head": 36 },
+      { "flow": 83, "head": 21 },
+      { "flow": 100, "head": 3 }
+    ],
+    "pressure_range_bar": "2.06-6.46"
+  },
+  "FMHIL502-EM-FC": {
+    "art_no": 8018976,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 22 },
+      { "flow": 17, "head": 21 },
+      { "flow": 33, "head": 20 },
+      { "flow": 50, "head": 19 },
+      { "flow": 67, "head": 17 },
+      { "flow": 83, "head": 15 },
+      { "flow": 100, "head": 13 },
+      { "flow": 117, "head": 10 },
+      { "flow": 133, "head": 7 }
+    ],
+    "pressure_range_bar": "0.72-2.15"
+  },
+  "FMHIL503-EM-FC": {
+    "art_no": 8018977,
+    "motor_rating": {
+      "kw": 0.55,
+      "hp": 0.75
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 32 },
+      { "flow": 17, "head": 31 },
+      { "flow": 33, "head": 29 },
+      { "flow": 50, "head": 27 },
+      { "flow": 67, "head": 24 },
+      { "flow": 83, "head": 21 },
+      { "flow": 100, "head": 17 },
+      { "flow": 117, "head": 13 },
+      { "flow": 133, "head": 8 }
+    ],
+    "pressure_range_bar": "0.78-3.14"
+  },
+  "FMHIL504-EM-FC": {
+    "art_no": 8018978,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "suction_dia_mm": 32,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 44 },
+      { "flow": 17, "head": 42 },
+      { "flow": 33, "head": 40 },
+      { "flow": 50, "head": 37 },
+      { "flow": 67, "head": 34 },
+      { "flow": 83, "head": 29 },
+      { "flow": 100, "head": 25 },
+      { "flow": 117, "head": 19 },
+      { "flow": 133, "head": 12 }
+    ],
+    "pressure_range_bar": "1.2-4.25"
+  }
+}

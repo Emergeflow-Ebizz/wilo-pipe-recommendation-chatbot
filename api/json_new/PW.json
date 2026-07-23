@@ -1,0 +1,20 @@
+{
+  "PW Boost 05": {
+    "art_no": 8277772,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.50
+    },
+    "suction_dia_mm": 25,
+    "discharge_dia_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 30 },
+      { "flow": 3, "head": 27 },
+      { "flow": 8, "head": 24 },
+      { "flow": 13, "head": 20 },
+      { "flow": 16, "head": 18 },
+      { "flow": 22, "head": 12 },
+      { "flow": 30, "head": 6 }
+    ]
+  }
+}

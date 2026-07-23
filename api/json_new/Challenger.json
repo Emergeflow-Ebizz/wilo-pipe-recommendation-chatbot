@@ -1,0 +1,56 @@
+{
+  "Challenger 32/CI-SP-87/0.37-1-220-50-2": {
+    "art_no": 8278470,
+    "motor_rating": {
+      "kw": 0.37,
+      "hp": 0.5
+    },
+    "delivery_mm": 32,
+    "rated_current_a": 32,
+    "solid_size_mm": 30,
+    "performance_curves": [
+      { "flow": 220, "head": 4 },
+      { "flow": 190, "head": 5 },
+      { "flow": 140, "head": 6 },
+      { "flow": 100, "head": 7 },
+      { "flow": 25, "head": 8 }
+    ]
+  },
+  "Challenger 50/CI-SP-116/0.75-1-220-50-2": {
+    "art_no": 8278184,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1
+    },
+    "delivery_mm": 50,
+    "rated_current_a": 50,
+    "solid_size_mm": 20,
+    "performance_curves": [
+      { "flow": 350, "head": 5 },
+      { "flow": 320, "head": 6 },
+      { "flow": 275, "head": 7 },
+      { "flow": 225, "head": 8 },
+      { "flow": 160, "head": 9 },
+      { "flow": 80, "head": 10 }
+    ]
+  },
+  "Challenger 50/CI-SP-120/1.5-1-220-50-2": {
+    "art_no": 8278185,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2
+    },
+    "delivery_mm": 50,
+    "rated_current_a": 50,
+    "solid_size_mm": 20,
+    "performance_curves": [
+      { "flow": 450, "head": 8 },
+      { "flow": 400, "head": 9 },
+      { "flow": 350, "head": 10 },
+      { "flow": 275, "head": 11 },
+      { "flow": 200, "head": 12 },
+      { "flow": 100, "head": 13 },
+      { "flow": 50, "head": 14 }
+    ]
+  }
+}

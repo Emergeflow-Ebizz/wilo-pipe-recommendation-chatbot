@@ -1,0 +1,2386 @@
+{
+  "phase_1": {
+    "WBWP4B Prathak-A-08/10/32/1-220-50-2PUMP": {
+      "art_no": 8238150,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.55,
+        "hp": 0.75
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 6.2,
+      "performance_curves": [
+        { "flow": 0, "head": 57 },
+        { "flow": 28, "head": 51 },
+        { "flow": 33, "head": 48 },
+        { "flow": 38, "head": 45 },
+        { "flow": 43, "head": 40 },
+        { "flow": 48, "head": 35 },
+        { "flow": 53, "head": 28 },
+        { "flow": 58, "head": 20 }
+      ]
+    },
+    "WBWP4B Prathak-A-10/12/32/1-220-50-2PUMP": {
+      "art_no": 8238151,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 28, "head": 56 },
+        { "flow": 33, "head": 52 },
+        { "flow": 38, "head": 48 },
+        { "flow": 43, "head": 42 },
+        { "flow": 48, "head": 36 },
+        { "flow": 53, "head": 30 },
+        { "flow": 58, "head": 22 }
+      ]
+    },
+    "WBWP4B Prathak-A-15/18/32/1-220-50-2PUMP": {
+      "art_no": 8238152,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 102 },
+        { "flow": 28, "head": 91 },
+        { "flow": 33, "head": 87 },
+        { "flow": 38, "head": 80 },
+        { "flow": 43, "head": 72 },
+        { "flow": 48, "head": 63 },
+        { "flow": 53, "head": 50 },
+        { "flow": 58, "head": 36 }
+      ]
+    },
+    "WBWP4C Prathak-A-05/06/40/1-220-50-2PUMP": {
+      "art_no": 8238155,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 5.3,
+      "performance_curves": [
+        { "flow": 0, "head": 35 },
+        { "flow": 45, "head": 30 },
+        { "flow": 55, "head": 29 },
+        { "flow": 65, "head": 26 },
+        { "flow": 75, "head": 23 },
+        { "flow": 85, "head": 20 },
+        { "flow": 95, "head": 16 },
+        { "flow": 105, "head": 10 }
+      ]
+    },
+    "WBWP4C Prathak-A-10/10/40/1-220-50-2PUMP": {
+      "art_no": 8238157,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 61 },
+        { "flow": 45, "head": 53 },
+        { "flow": 55, "head": 51 },
+        { "flow": 65, "head": 48 },
+        { "flow": 75, "head": 44 },
+        { "flow": 85, "head": 38 },
+        { "flow": 95, "head": 30 },
+        { "flow": 105, "head": 20 }
+      ]
+    },
+    "WBWP4C Prathak-A-15/12/40/1-220-50-2PUMP": {
+      "art_no": 8238158,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 69 },
+        { "flow": 45, "head": 61 },
+        { "flow": 55, "head": 57 },
+        { "flow": 65, "head": 53 },
+        { "flow": 75, "head": 46 },
+        { "flow": 85, "head": 40 },
+        { "flow": 95, "head": 31 },
+        { "flow": 105, "head": 21 }
+      ]
+    },
+    "WBWP4C Prathak-A-15/15/40/1-220-50-2PUMP": {
+      "art_no": 8238159,
+      "no_of_stages": 15,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 86 },
+        { "flow": 45, "head": 76 },
+        { "flow": 55, "head": 72 },
+        { "flow": 65, "head": 66 },
+        { "flow": 75, "head": 58 },
+        { "flow": 85, "head": 50 },
+        { "flow": 95, "head": 39 },
+        { "flow": 105, "head": 26 }
+      ]
+    },
+    "WBWP4C Prathak-A-20/20/40/1-220-50-2PUMP": {
+      "art_no": 8238160,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.49,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 115 },
+        { "flow": 45, "head": 102 },
+        { "flow": 55, "head": 95 },
+        { "flow": 65, "head": 88 },
+        { "flow": 75, "head": 77 },
+        { "flow": 85, "head": 66 },
+        { "flow": 95, "head": 52 },
+        { "flow": 105, "head": 35 }
+      ]
+    },
+    "WBWP4D Prathak-A-10/08/50/1-220-50-2PUMP": {
+      "art_no": 8238163,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 50 },
+        { "flow": 55, "head": 44 },
+        { "flow": 70, "head": 41 },
+        { "flow": 85, "head": 38 },
+        { "flow": 100, "head": 33 },
+        { "flow": 115, "head": 29 },
+        { "flow": 130, "head": 23 },
+        { "flow": 145, "head": 17 }
+      ]
+    },
+    "WBWP4D Prathak-A-15/10/50/1-220-50-2PUMP": {
+      "art_no": 8238164,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 63 },
+        { "flow": 55, "head": 55 },
+        { "flow": 70, "head": 51 },
+        { "flow": 85, "head": 47 },
+        { "flow": 100, "head": 42 },
+        { "flow": 115, "head": 36 },
+        { "flow": 130, "head": 29 },
+        { "flow": 145, "head": 21 }
+      ]
+    },
+    "WBWP4D Prathak-A-20/12/50/1-220-50-2PUMP": {
+      "art_no": 8238165,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 75 },
+        { "flow": 55, "head": 66 },
+        { "flow": 70, "head": 62 },
+        { "flow": 85, "head": 57 },
+        { "flow": 100, "head": 50 },
+        { "flow": 115, "head": 43 },
+        { "flow": 130, "head": 34 },
+        { "flow": 145, "head": 25 }
+      ]
+    },
+    "WBWP4D Prathak-A-20/14/50/1-220-50-2PUMP": {
+      "art_no": 8238166,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 88 },
+        { "flow": 55, "head": 77 },
+        { "flow": 70, "head": 72 },
+        { "flow": 85, "head": 66 },
+        { "flow": 100, "head": 59 },
+        { "flow": 115, "head": 50 },
+        { "flow": 130, "head": 40 },
+        { "flow": 145, "head": 29 }
+      ]
+    },
+    "WBWP4F Prathak-A-15/08/50/1-220-50-2PUMP": {
+      "art_no": 8238173,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 52 },
+        { "flow": 60, "head": 46 },
+        { "flow": 80, "head": 44 },
+        { "flow": 100, "head": 41 },
+        { "flow": 120, "head": 35 },
+        { "flow": 140, "head": 26 },
+        { "flow": 160, "head": 21 },
+        { "flow": 180, "head": 11 }
+      ]
+    },
+    "WBWP4F Prathak-A-20/10/50/1-220-50-2PUMP": {
+      "art_no": 8238174,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 60, "head": 60 },
+        { "flow": 80, "head": 57 },
+        { "flow": 100, "head": 54 },
+        { "flow": 120, "head": 47 },
+        { "flow": 140, "head": 38 },
+        { "flow": 160, "head": 29 },
+        { "flow": 180, "head": 16 }
+      ]
+    },
+    "WBWP4F Prathak-A-20/12/50/1-220-50-2PUMP": {
+      "art_no": 8238175,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 79 },
+        { "flow": 60, "head": 69 },
+        { "flow": 80, "head": 66 },
+        { "flow": 100, "head": 61 },
+        { "flow": 120, "head": 52 },
+        { "flow": 140, "head": 39 },
+        { "flow": 160, "head": 32 },
+        { "flow": 180, "head": 17 }
+      ]
+    },
+    "WBWP4G Prathak-A-10/10/40/1-220-50-2PUMP": {
+      "art_no": 8238177,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 74 },
+        { "flow": 18, "head": 65 },
+        { "flow": 27, "head": 59 },
+        { "flow": 36, "head": 51 },
+        { "flow": 45, "head": 43 },
+        { "flow": 54, "head": 33 },
+        { "flow": 63, "head": 21 },
+        { "flow": 72, "head": 9 }
+      ]
+    },
+    "WBWP4G Prathak-A-15/14/40/1-220-50-2PUMP": {
+      "art_no": 8238178,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 104 },
+        { "flow": 18, "head": 91 },
+        { "flow": 27, "head": 83 },
+        { "flow": 36, "head": 71 },
+        { "flow": 45, "head": 60 },
+        { "flow": 54, "head": 46 },
+        { "flow": 63, "head": 29 },
+        { "flow": 72, "head": 13 }
+      ]
+    },
+    "WBWP4G Prathak-A-20/18/40/1-220-50-2PUMP": {
+      "art_no": 8238179,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 18, "head": 117 },
+        { "flow": 27, "head": 106 },
+        { "flow": 36, "head": 92 },
+        { "flow": 45, "head": 77 },
+        { "flow": 54, "head": 59 },
+        { "flow": 63, "head": 38 },
+        { "flow": 72, "head": 16 }
+      ]
+    },
+    "WBWP4G Prathak-A-20/20/40/1-220-50-2PUMP": {
+      "art_no": 8238180,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 148 },
+        { "flow": 18, "head": 130 },
+        { "flow": 27, "head": 118 },
+        { "flow": 36, "head": 102 },
+        { "flow": 45, "head": 86 },
+        { "flow": 54, "head": 66 },
+        { "flow": 63, "head": 42 },
+        { "flow": 72, "head": 18 }
+      ]
+    },
+    "WBWP4H Prathak-A-10/08/40/1-220-50-2PUMP": {
+      "art_no": 8238183,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 66 },
+        { "flow": 35, "head": 58 },
+        { "flow": 45, "head": 54 },
+        { "flow": 55, "head": 50 },
+        { "flow": 65, "head": 44 },
+        { "flow": 75, "head": 37 },
+        { "flow": 85, "head": 30 },
+        { "flow": 87, "head": 22 }
+      ]
+    },
+    "WBWP4H Prathak-A-15/10/40/1-220-50-2PUMP": {
+      "art_no": 8238184,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 83 },
+        { "flow": 35, "head": 72 },
+        { "flow": 45, "head": 68 },
+        { "flow": 55, "head": 62 },
+        { "flow": 65, "head": 55 },
+        { "flow": 75, "head": 46 },
+        { "flow": 85, "head": 38 },
+        { "flow": 87, "head": 28 }
+      ]
+    },
+    "WBWP4H Prathak-A-15/12/40/1-220-50-2PUMP": {
+      "art_no": 8238185,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 100 },
+        { "flow": 35, "head": 86 },
+        { "flow": 45, "head": 82 },
+        { "flow": 55, "head": 74 },
+        { "flow": 65, "head": 66 },
+        { "flow": 75, "head": 55 },
+        { "flow": 85, "head": 46 },
+        { "flow": 87, "head": 34 }
+      ]
+    },
+    "WBWP4H Prathak-A-15/14/40/1-220-50-2PUMP": {
+      "art_no": 8238187,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 116 },
+        { "flow": 35, "head": 101 },
+        { "flow": 45, "head": 95 },
+        { "flow": 55, "head": 87 },
+        { "flow": 65, "head": 77 },
+        { "flow": 75, "head": 64 },
+        { "flow": 85, "head": 53 },
+        { "flow": 87, "head": 39 }
+      ]
+    },
+    "WBWP4H Prathak-A-20/16/40/1-220-50-2PUMP": {
+      "art_no": 8238188,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 35, "head": 115 },
+        { "flow": 45, "head": 109 },
+        { "flow": 55, "head": 99 },
+        { "flow": 65, "head": 88 },
+        { "flow": 75, "head": 74 },
+        { "flow": 85, "head": 60 },
+        { "flow": 87, "head": 44 }
+      ]
+    },
+    "WBWP4I Prathak-A-05/08/40/1-220-50-2PUMP": {
+      "art_no": 8238190,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 5.3,
+      "performance_curves": [
+        { "flow": 0, "head": 61 },
+        { "flow": 14, "head": 54 },
+        { "flow": 21, "head": 49 },
+        { "flow": 28, "head": 43 },
+        { "flow": 35, "head": 37 },
+        { "flow": 42, "head": 29 },
+        { "flow": 49, "head": 19 },
+        { "flow": 56, "head": 8 }
+      ]
+    },
+    "WBWP4I Prathak-A-08/10/40/1-220-50-2PUMP": {
+      "art_no": 8238191,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.55,
+        "hp": 0.75
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 6.2,
+      "performance_curves": [
+        { "flow": 0, "head": 76 },
+        { "flow": 14, "head": 67 },
+        { "flow": 21, "head": 61 },
+        { "flow": 28, "head": 54 },
+        { "flow": 35, "head": 46 },
+        { "flow": 42, "head": 36 },
+        { "flow": 49, "head": 24 },
+        { "flow": 56, "head": 10 }
+      ]
+    },
+    "WBWP4I Prathak-A-10/14/40/1-220-50-2PUMP": {
+      "art_no": 8238192,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 106 },
+        { "flow": 14, "head": 94 },
+        { "flow": 21, "head": 85 },
+        { "flow": 28, "head": 76 },
+        { "flow": 35, "head": 64 },
+        { "flow": 42, "head": 50 },
+        { "flow": 49, "head": 34 },
+        { "flow": 56, "head": 14 }
+      ]
+    },
+    "WBWP4I Prathak-A-10/16/40/1-220-50-2PUMP": {
+      "art_no": 8238193,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 121 },
+        { "flow": 14, "head": 107 },
+        { "flow": 21, "head": 97 },
+        { "flow": 28, "head": 87 },
+        { "flow": 35, "head": 73 },
+        { "flow": 42, "head": 57 },
+        { "flow": 49, "head": 39 },
+        { "flow": 56, "head": 16 }
+      ]
+    },
+    "WBWP4I Prathak-A-15/18/40/1-220-50-2PUMP": {
+      "art_no": 8238194,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 137 },
+        { "flow": 14, "head": 121 },
+        { "flow": 21, "head": 110 },
+        { "flow": 28, "head": 97 },
+        { "flow": 35, "head": 83 },
+        { "flow": 42, "head": 64 },
+        { "flow": 49, "head": 43 },
+        { "flow": 56, "head": 18 }
+      ]
+    },
+    "WBWP4I Prathak-A-15/20/40/1-220-50-2PUMP": {
+      "art_no": 8238195,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 152 },
+        { "flow": 14, "head": 134 },
+        { "flow": 21, "head": 122 },
+        { "flow": 28, "head": 108 },
+        { "flow": 35, "head": 92 },
+        { "flow": 42, "head": 72 },
+        { "flow": 49, "head": 48 },
+        { "flow": 56, "head": 20 }
+      ]
+    },
+    "WBWP4I Prathak-A-20/25/40/1-220-50-2 PUMP": {
+      "art_no": 8238197,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 190 },
+        { "flow": 14, "head": 168 },
+        { "flow": 21, "head": 153 },
+        { "flow": 28, "head": 135 },
+        { "flow": 35, "head": 115 },
+        { "flow": 42, "head": 90 },
+        { "flow": 49, "head": 60 },
+        { "flow": 56, "head": 25 }
+      ]
+    },
+    "WBWP4J Prathak-A-10/18/32/1-220-50-2PUMP": {
+      "art_no": 8238203,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 117 },
+        { "flow": 13, "head": 104 },
+        { "flow": 21, "head": 95 },
+        { "flow": 29, "head": 85 },
+        { "flow": 37, "head": 72 },
+        { "flow": 45, "head": 59 },
+        { "flow": 53, "head": 40 },
+        { "flow": 61, "head": 20 }
+      ]
+    },
+    "WBWP4J Prathak-A-15/20/32/1-220-50-2PUMP": {
+      "art_no": 8238204,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 130 },
+        { "flow": 13, "head": 116 },
+        { "flow": 21, "head": 106 },
+        { "flow": 29, "head": 94 },
+        { "flow": 37, "head": 80 },
+        { "flow": 45, "head": 66 },
+        { "flow": 53, "head": 44 },
+        { "flow": 61, "head": 22 }
+      ]
+    },
+    "WBWP4J Prathak-A-15/26/32/1-220-50-2PUMP": {
+      "art_no": 8238205,
+      "no_of_stages": 26,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 169 },
+        { "flow": 13, "head": 151 },
+        { "flow": 21, "head": 138 },
+        { "flow": 29, "head": 122 },
+        { "flow": 37, "head": 104 },
+        { "flow": 45, "head": 86 },
+        { "flow": 53, "head": 57 },
+        { "flow": 61, "head": 29 }
+      ]
+    },
+    "WBWP4J Prathak-A-20/30/32/1-220-50-2PUMP": {
+      "art_no": 8229546,
+      "no_of_stages": 30,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 213 },
+        { "flow": 13, "head": 189 },
+        { "flow": 21, "head": 174 },
+        { "flow": 29, "head": 156 },
+        { "flow": 37, "head": 135 },
+        { "flow": 45, "head": 111 },
+        { "flow": 53, "head": 78 },
+        { "flow": 61, "head": 36 }
+      ]
+    },
+    "WBWP4J Prathak-A-20/35/32/1-220-50-2PUMP": {
+      "art_no": 8238207,
+      "no_of_stages": 35,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 249 },
+        { "flow": 13, "head": 221 },
+        { "flow": 21, "head": 203 },
+        { "flow": 29, "head": 182 },
+        { "flow": 37, "head": 158 },
+        { "flow": 45, "head": 130 },
+        { "flow": 53, "head": 91 },
+        { "flow": 61, "head": 42 }
+      ]
+    },
+    "WBWP4M Prathak-A-20/06/65/1-220-50-2PUMP": {
+      "art_no": 8238218,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 32 },
+        { "flow": 180, "head": 25 },
+        { "flow": 220, "head": 23 },
+        { "flow": 260, "head": 21 },
+        { "flow": 300, "head": 19 },
+        { "flow": 340, "head": 17 },
+        { "flow": 380, "head": 14 },
+        { "flow": 420, "head": 11 }
+      ]
+    },
+    "WBWP4B Prathak-C-08/10/32/1-220-50-2PUMP": {
+      "art_no": 8278140,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.55,
+        "hp": 0.75
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 6.2,
+      "performance_curves": [
+        { "flow": 0, "head": 57 },
+        { "flow": 28, "head": 51 },
+        { "flow": 33, "head": 48 },
+        { "flow": 38, "head": 45 },
+        { "flow": 43, "head": 40 },
+        { "flow": 48, "head": 35 },
+        { "flow": 53, "head": 28 },
+        { "flow": 58, "head": 20 }
+      ]
+    },
+    "WBWP4B Prathak-C-10/12/32/1-220-50-2PUMP": {
+      "art_no": 8278141,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 28, "head": 56 },
+        { "flow": 33, "head": 52 },
+        { "flow": 38, "head": 48 },
+        { "flow": 43, "head": 42 },
+        { "flow": 48, "head": 36 },
+        { "flow": 53, "head": 30 },
+        { "flow": 58, "head": 22 }
+      ]
+    },
+    "WBWP4B Prathak-C-15/18/32/1-220-50-2PUMP": {
+      "art_no": 8278142,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 102 },
+        { "flow": 28, "head": 91 },
+        { "flow": 33, "head": 87 },
+        { "flow": 38, "head": 80 },
+        { "flow": 43, "head": 72 },
+        { "flow": 48, "head": 63 },
+        { "flow": 53, "head": 50 },
+        { "flow": 58, "head": 36 }
+      ]
+    },
+    "WBWP4C Prathak-C-05/06/40/1-220-50-2PUMP": {
+      "art_no": 8278143,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 5.3,
+      "performance_curves": [
+        { "flow": 0, "head": 35 },
+        { "flow": 45, "head": 30 },
+        { "flow": 55, "head": 29 },
+        { "flow": 65, "head": 26 },
+        { "flow": 75, "head": 23 },
+        { "flow": 85, "head": 20 },
+        { "flow": 95, "head": 16 },
+        { "flow": 105, "head": 10 }
+      ]
+    },
+    "WBWP4C Prathak-C-10/10/40/1-220-50-2PUMP": {
+      "art_no": 8278144,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 61 },
+        { "flow": 45, "head": 53 },
+        { "flow": 55, "head": 51 },
+        { "flow": 65, "head": 48 },
+        { "flow": 75, "head": 44 },
+        { "flow": 85, "head": 38 },
+        { "flow": 95, "head": 30 },
+        { "flow": 105, "head": 20 }
+      ]
+    },
+    "WBWP4C Prathak-C-15/12/40/1-220-50-2PUMP": {
+      "art_no": 8278145,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 69 },
+        { "flow": 45, "head": 61 },
+        { "flow": 55, "head": 57 },
+        { "flow": 65, "head": 53 },
+        { "flow": 75, "head": 46 },
+        { "flow": 85, "head": 40 },
+        { "flow": 95, "head": 31 },
+        { "flow": 105, "head": 21 }
+      ]
+    },
+    "WBWP4C Prathak-C-15/15/40/1-220-50-2PUMP": {
+      "art_no": 8278146,
+      "no_of_stages": 15,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 86 },
+        { "flow": 45, "head": 76 },
+        { "flow": 55, "head": 72 },
+        { "flow": 65, "head": 66 },
+        { "flow": 75, "head": 58 },
+        { "flow": 85, "head": 50 },
+        { "flow": 95, "head": 39 },
+        { "flow": 105, "head": 26 }
+      ]
+    },
+    "WBWP4C Prathak-C-20/20/40/1-220-50-2PUMP": {
+      "art_no": 8278147,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 115 },
+        { "flow": 45, "head": 102 },
+        { "flow": 55, "head": 95 },
+        { "flow": 65, "head": 88 },
+        { "flow": 75, "head": 77 },
+        { "flow": 85, "head": 66 },
+        { "flow": 95, "head": 52 },
+        { "flow": 105, "head": 35 }
+      ]
+    },
+    "WBWP4C Prathak-C-30/25/40/1-220-50-2PUMP": {
+      "art_no": 8238161,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 150 },
+        { "flow": 45, "head": 127 },
+        { "flow": 55, "head": 119 },
+        { "flow": 65, "head": 110 },
+        { "flow": 75, "head": 97 },
+        { "flow": 85, "head": 83 },
+        { "flow": 95, "head": 66 },
+        { "flow": 105, "head": 44 }
+      ]
+    },
+    "WBWP4C Prathak-C-30/30/40/1-220-50-2PUMP": {
+      "art_no": 8238162,
+      "no_of_stages": 30,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 173 },
+        { "flow": 45, "head": 152 },
+        { "flow": 55, "head": 143 },
+        { "flow": 65, "head": 132 },
+        { "flow": 75, "head": 116 },
+        { "flow": 85, "head": 99 },
+        { "flow": 95, "head": 79 },
+        { "flow": 105, "head": 52 }
+      ]
+    },
+    "WBWP4D Prathak-C-10/08/50/1-220-50-2PUMP": {
+      "art_no": 8278149,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 50 },
+        { "flow": 55, "head": 44 },
+        { "flow": 70, "head": 41 },
+        { "flow": 85, "head": 38 },
+        { "flow": 100, "head": 33 },
+        { "flow": 115, "head": 29 },
+        { "flow": 130, "head": 23 },
+        { "flow": 145, "head": 17 }
+      ]
+    },
+    "WBWP4D Prathak-C-15/10/50/1-220-50-2PUMP": {
+      "art_no": 8278150,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 63 },
+        { "flow": 55, "head": 55 },
+        { "flow": 70, "head": 51 },
+        { "flow": 85, "head": 47 },
+        { "flow": 100, "head": 42 },
+        { "flow": 115, "head": 36 },
+        { "flow": 130, "head": 29 },
+        { "flow": 145, "head": 21 }
+      ]
+    },
+    "WBWP4D Prathak-C-20/12/50/1-220-50-2PUMP": {
+      "art_no": 8278151,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 75 },
+        { "flow": 55, "head": 66 },
+        { "flow": 70, "head": 62 },
+        { "flow": 85, "head": 57 },
+        { "flow": 100, "head": 50 },
+        { "flow": 115, "head": 43 },
+        { "flow": 130, "head": 34 },
+        { "flow": 145, "head": 25 }
+      ]
+    },
+    "WBWP4D Prathak-C-20/14/50/1-220-50-2PUMP": {
+      "art_no": 8278152,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 88 },
+        { "flow": 55, "head": 77 },
+        { "flow": 70, "head": 72 },
+        { "flow": 85, "head": 66 },
+        { "flow": 100, "head": 59 },
+        { "flow": 115, "head": 50 },
+        { "flow": 130, "head": 40 },
+        { "flow": 145, "head": 29 }
+      ]
+    },
+    "WBWP4D Prathak-C-30/19/50/1-220-50-2PUMP": {
+      "art_no": 8238167,
+      "no_of_stages": 19,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 120 },
+        { "flow": 55, "head": 104 },
+        { "flow": 70, "head": 98 },
+        { "flow": 85, "head": 89 },
+        { "flow": 100, "head": 79 },
+        { "flow": 115, "head": 68 },
+        { "flow": 130, "head": 54 },
+        { "flow": 145, "head": 39 }
+      ]
+    },
+    "WBWP4F Prathak-C-15/08/50/1-220-50-2PUMP": {
+      "art_no": 8278155,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 52 },
+        { "flow": 60, "head": 46 },
+        { "flow": 80, "head": 44 },
+        { "flow": 100, "head": 41 },
+        { "flow": 120, "head": 35 },
+        { "flow": 140, "head": 26 },
+        { "flow": 160, "head": 21 },
+        { "flow": 180, "head": 11 }
+      ]
+    },
+    "WBWP4F Prathak-C-20/10/50/1-220-50-2PUMP": {
+      "art_no": 8278156,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 60, "head": 60 },
+        { "flow": 80, "head": 57 },
+        { "flow": 100, "head": 54 },
+        { "flow": 120, "head": 47 },
+        { "flow": 140, "head": 38 },
+        { "flow": 160, "head": 29 },
+        { "flow": 180, "head": 16 }
+      ]
+    },
+    "WBWP4F Prathak-C-20/12/50/1-220-50-2PUMP": {
+      "art_no": 8278157,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 79 },
+        { "flow": 60, "head": 69 },
+        { "flow": 80, "head": 66 },
+        { "flow": 100, "head": 61 },
+        { "flow": 120, "head": 52 },
+        { "flow": 140, "head": 39 },
+        { "flow": 160, "head": 32 },
+        { "flow": 180, "head": 17 }
+      ]
+    },
+    "WBWP4F Prathak-C-30/15/50/1-220-50-2PUMP": {
+      "art_no": 8238176,
+      "no_of_stages": 15,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 101 },
+        { "flow": 60, "head": 87 },
+        { "flow": 80, "head": 82 },
+        { "flow": 100, "head": 77 },
+        { "flow": 120, "head": 65 },
+        { "flow": 140, "head": 49 },
+        { "flow": 160, "head": 40 },
+        { "flow": 180, "head": 21 }
+      ]
+    },
+    "WBWP4G Prathak-C-10/10/40/1-220-50-2PUMP": {
+      "art_no": 8278159,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 74 },
+        { "flow": 18, "head": 65 },
+        { "flow": 27, "head": 59 },
+        { "flow": 36, "head": 51 },
+        { "flow": 45, "head": 43 },
+        { "flow": 54, "head": 33 },
+        { "flow": 63, "head": 21 },
+        { "flow": 72, "head": 9 }
+      ]
+    },
+    "WBWP4G Prathak-C-15/14/40/1-220-50-2PUMP": {
+      "art_no": 8278160,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 104 },
+        { "flow": 18, "head": 91 },
+        { "flow": 27, "head": 83 },
+        { "flow": 36, "head": 71 },
+        { "flow": 45, "head": 60 },
+        { "flow": 54, "head": 46 },
+        { "flow": 63, "head": 29 },
+        { "flow": 72, "head": 13 }
+      ]
+    },
+    "WBWP4G Prathak-C-20/18/40/1-220-50-2PUMP": {
+      "art_no": 8278161,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 18, "head": 117 },
+        { "flow": 27, "head": 106 },
+        { "flow": 36, "head": 92 },
+        { "flow": 45, "head": 77 },
+        { "flow": 54, "head": 59 },
+        { "flow": 63, "head": 38 },
+        { "flow": 72, "head": 16 }
+      ]
+    },
+    "WBWP4G Prathak-C-20/20/40/1-220-50-2PUMP": {
+      "art_no": 8278162,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 148 },
+        { "flow": 18, "head": 130 },
+        { "flow": 27, "head": 118 },
+        { "flow": 36, "head": 102 },
+        { "flow": 45, "head": 86 },
+        { "flow": 54, "head": 66 },
+        { "flow": 63, "head": 42 },
+        { "flow": 72, "head": 18 }
+      ]
+    },
+    "WBWP4H Prathak-C-10/08/40/1-220-50-2PUMP": {
+      "art_no": 8278165,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 66 },
+        { "flow": 35, "head": 58 },
+        { "flow": 45, "head": 54 },
+        { "flow": 55, "head": 50 },
+        { "flow": 65, "head": 44 },
+        { "flow": 75, "head": 37 },
+        { "flow": 85, "head": 30 },
+        { "flow": 87, "head": 22 }
+      ]
+    },
+    "WBWP4H Prathak-C-15/10/40/1-220-50-2PUMP": {
+      "art_no": 8278166,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 83 },
+        { "flow": 35, "head": 72 },
+        { "flow": 45, "head": 68 },
+        { "flow": 55, "head": 62 },
+        { "flow": 65, "head": 55 },
+        { "flow": 75, "head": 46 },
+        { "flow": 85, "head": 38 },
+        { "flow": 87, "head": 28 }
+      ]
+    },
+    "WBWP4H Prathak-C-15/12/40/1-220-50-2PUMP": {
+      "art_no": 8278167,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 100 },
+        { "flow": 35, "head": 86 },
+        { "flow": 45, "head": 82 },
+        { "flow": 55, "head": 74 },
+        { "flow": 65, "head": 66 },
+        { "flow": 75, "head": 55 },
+        { "flow": 85, "head": 46 },
+        { "flow": 87, "head": 34 }
+      ]
+    },
+    "WBWP4H Prathak-C-15/14/40/1-220-50-2PUMP": {
+      "art_no": 8278168,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 116 },
+        { "flow": 35, "head": 101 },
+        { "flow": 45, "head": 95 },
+        { "flow": 55, "head": 87 },
+        { "flow": 65, "head": 77 },
+        { "flow": 75, "head": 64 },
+        { "flow": 85, "head": 53 },
+        { "flow": 87, "head": 39 }
+      ]
+    },
+    "WBWP4H Prathak-C-20/16/40/1-220-50-2PUMP": {
+      "art_no": 8278169,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 35, "head": 115 },
+        { "flow": 45, "head": 109 },
+        { "flow": 55, "head": 99 },
+        { "flow": 65, "head": 88 },
+        { "flow": 75, "head": 74 },
+        { "flow": 85, "head": 60 },
+        { "flow": 87, "head": 44 }
+      ]
+    },
+    "WBWP4H Prathak-C-30/23/40/1-220-50-2PUMP": {
+      "art_no": 8229531,
+      "no_of_stages": 23,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 191 },
+        { "flow": 35, "head": 166 },
+        { "flow": 45, "head": 156 },
+        { "flow": 55, "head": 143 },
+        { "flow": 65, "head": 127 },
+        { "flow": 75, "head": 106 },
+        { "flow": 85, "head": 87 },
+        { "flow": 87, "head": 64 }
+      ]
+    },
+    "WBWP4I Prathak-C-05/08/40/1-220-50-2PUMP": {
+      "art_no": 8278233,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 5.3,
+      "performance_curves": [
+        { "flow": 0, "head": 61 },
+        { "flow": 14, "head": 54 },
+        { "flow": 21, "head": 49 },
+        { "flow": 28, "head": 43 },
+        { "flow": 35, "head": 37 },
+        { "flow": 42, "head": 29 },
+        { "flow": 49, "head": 19 },
+        { "flow": 56, "head": 8 }
+      ]
+    },
+    "WBWP4I Prathak-C-08/10/40/1-220-50-2PUMP": {
+      "art_no": 8278170,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 0.55,
+        "hp": 0.75
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 6.2,
+      "performance_curves": [
+        { "flow": 0, "head": 76 },
+        { "flow": 14, "head": 67 },
+        { "flow": 21, "head": 61 },
+        { "flow": 28, "head": 54 },
+        { "flow": 35, "head": 46 },
+        { "flow": 42, "head": 36 },
+        { "flow": 49, "head": 24 },
+        { "flow": 56, "head": 10 }
+      ]
+    },
+    "WBWP4I Prathak-C-10/14/40/1-220-50-2PUMP": {
+      "art_no": 8278171,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 106 },
+        { "flow": 14, "head": 94 },
+        { "flow": 21, "head": 85 },
+        { "flow": 28, "head": 76 },
+        { "flow": 35, "head": 64 },
+        { "flow": 42, "head": 50 },
+        { "flow": 49, "head": 34 },
+        { "flow": 56, "head": 14 }
+      ]
+    },
+    "WBWP4I Prathak-C-10/16/40/1-220-50-2PUMP": {
+      "art_no": 8278172,
+      "no_of_stages": 16,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 121 },
+        { "flow": 14, "head": 107 },
+        { "flow": 21, "head": 97 },
+        { "flow": 28, "head": 87 },
+        { "flow": 35, "head": 73 },
+        { "flow": 42, "head": 57 },
+        { "flow": 49, "head": 39 },
+        { "flow": 56, "head": 16 }
+      ]
+    },
+    "WBWP4I Prathak-C-15/18/40/1-220-50-2PUMP": {
+      "art_no": 8278173,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 137 },
+        { "flow": 14, "head": 121 },
+        { "flow": 21, "head": 110 },
+        { "flow": 28, "head": 97 },
+        { "flow": 35, "head": 83 },
+        { "flow": 42, "head": 64 },
+        { "flow": 49, "head": 43 },
+        { "flow": 56, "head": 18 }
+      ]
+    },
+    "WBWP4I Prathak-C-15/20/40/1-220-50-2PUMP": {
+      "art_no": 8278174,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 152 },
+        { "flow": 14, "head": 134 },
+        { "flow": 21, "head": 122 },
+        { "flow": 28, "head": 108 },
+        { "flow": 35, "head": 92 },
+        { "flow": 42, "head": 72 },
+        { "flow": 49, "head": 48 },
+        { "flow": 56, "head": 20 }
+      ]
+    },
+    "WBWP4I Prathak-C-20/25/40/1-220-50-2PUMP": {
+      "art_no": 8278175,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 190 },
+        { "flow": 14, "head": 168 },
+        { "flow": 21, "head": 153 },
+        { "flow": 28, "head": 135 },
+        { "flow": 35, "head": 115 },
+        { "flow": 42, "head": 90 },
+        { "flow": 49, "head": 60 },
+        { "flow": 56, "head": 25 }
+      ]
+    },
+    "WBWP4J Prathak-C-10/18/32/1-220-50-2PUMP": {
+      "art_no": 8278177,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 7.5,
+      "performance_curves": [
+        { "flow": 0, "head": 117 },
+        { "flow": 13, "head": 104 },
+        { "flow": 21, "head": 95 },
+        { "flow": 29, "head": 85 },
+        { "flow": 37, "head": 72 },
+        { "flow": 45, "head": 59 },
+        { "flow": 53, "head": 40 },
+        { "flow": 61, "head": 20 }
+      ]
+    },
+    "WBWP4J Prathak-C-15/20/32/1-220-50-2PUMP": {
+      "art_no": 8278178,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 130 },
+        { "flow": 13, "head": 116 },
+        { "flow": 21, "head": 106 },
+        { "flow": 29, "head": 94 },
+        { "flow": 37, "head": 80 },
+        { "flow": 45, "head": 66 },
+        { "flow": 53, "head": 44 },
+        { "flow": 61, "head": 22 }
+      ]
+    },
+    "WBWP4J Prathak-C-15/26/32/1-220-50-2PUMP": {
+      "art_no": 8278179,
+      "no_of_stages": 26,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 10.5,
+      "performance_curves": [
+        { "flow": 0, "head": 169 },
+        { "flow": 13, "head": 151 },
+        { "flow": 21, "head": 138 },
+        { "flow": 29, "head": 122 },
+        { "flow": 37, "head": 104 },
+        { "flow": 45, "head": 86 },
+        { "flow": 53, "head": 57 },
+        { "flow": 61, "head": 29 }
+      ]
+    },
+    "WBWP4J Prathak-C-20/30/32/1-220-50-2PUMP": {
+      "art_no": 8278180,
+      "no_of_stages": 30,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 213 },
+        { "flow": 13, "head": 189 },
+        { "flow": 21, "head": 174 },
+        { "flow": 29, "head": 156 },
+        { "flow": 37, "head": 135 },
+        { "flow": 45, "head": 111 },
+        { "flow": 53, "head": 78 },
+        { "flow": 61, "head": 36 }
+      ]
+    },
+    "WBWP4J Prathak-C-20/35/32/1-220-50-2PUMP": {
+      "art_no": 8278181,
+      "no_of_stages": 35,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 249 },
+        { "flow": 13, "head": 221 },
+        { "flow": 21, "head": 203 },
+        { "flow": 29, "head": 182 },
+        { "flow": 37, "head": 158 },
+        { "flow": 45, "head": 130 },
+        { "flow": 53, "head": 91 },
+        { "flow": 61, "head": 42 }
+      ]
+    },
+    "WBWP4J Prathak-C-30/40/32/1-220-50-2PUMP": {
+      "art_no": 8238208,
+      "no_of_stages": 40,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 284 },
+        { "flow": 13, "head": 252 },
+        { "flow": 21, "head": 232 },
+        { "flow": 29, "head": 208 },
+        { "flow": 37, "head": 180 },
+        { "flow": 45, "head": 148 },
+        { "flow": 53, "head": 104 },
+        { "flow": 61, "head": 48 }
+      ]
+    },
+    "WBWP4K Prathak-C-30/07/65/1-220-50-2PUMP": {
+      "art_no": 8238212,
+      "no_of_stages": 7,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 40 },
+        { "flow": 145, "head": 33 },
+        { "flow": 190, "head": 29 },
+        { "flow": 235, "head": 27 },
+        { "flow": 280, "head": 23 },
+        { "flow": 325, "head": 20 },
+        { "flow": 370, "head": 16 },
+        { "flow": 415, "head": 12 }
+      ]
+    },
+    "WBWP4M Prathak-C-20/06/65/1-220-50-2PUMP": {
+      "art_no": 8278182,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_1ph": 13.8,
+      "performance_curves": [
+        { "flow": 0, "head": 32 },
+        { "flow": 180, "head": 25 },
+        { "flow": 220, "head": 23 },
+        { "flow": 260, "head": 21 },
+        { "flow": 300, "head": 19 },
+        { "flow": 340, "head": 17 },
+        { "flow": 380, "head": 14 },
+        { "flow": 420, "head": 11 }
+      ]
+    },
+    "WBWP4M Prathak-C-30/08/65/1-220-50-2PUMP": {
+      "art_no": 8238219,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_1ph": 19.8,
+      "performance_curves": [
+        { "flow": 0, "head": 43 },
+        { "flow": 180, "head": 33 },
+        { "flow": 220, "head": 31 },
+        { "flow": 260, "head": 28 },
+        { "flow": 300, "head": 25 },
+        { "flow": 340, "head": 23 },
+        { "flow": 380, "head": 19 },
+        { "flow": 420, "head": 15 }
+      ]
+    }
+  },
+  "phase_3": {
+    "WBWP4C Prathak-A-20/20/40/3-415-50-2PUMP": {
+      "art_no": 8238236,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 115 },
+        { "flow": 45, "head": 102 },
+        { "flow": 55, "head": 95 },
+        { "flow": 65, "head": 88 },
+        { "flow": 75, "head": 77 },
+        { "flow": 85, "head": 66 },
+        { "flow": 95, "head": 52 },
+        { "flow": 105, "head": 35 }
+      ]
+    },
+    "WBWP4C Prathak-C-20/20/40/3-415-50-2PUMP": {
+      "art_no": 8278148,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 115 },
+        { "flow": 45, "head": 102 },
+        { "flow": 55, "head": 95 },
+        { "flow": 65, "head": 88 },
+        { "flow": 75, "head": 77 },
+        { "flow": 85, "head": 66 },
+        { "flow": 95, "head": 52 },
+        { "flow": 105, "head": 35 }
+      ]
+    },
+    "WBWP4C Prathak-C-30/25/40/3-415-50-2PUMP": {
+      "art_no": 8238237,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 150 },
+        { "flow": 45, "head": 127 },
+        { "flow": 55, "head": 119 },
+        { "flow": 65, "head": 110 },
+        { "flow": 75, "head": 97 },
+        { "flow": 85, "head": 83 },
+        { "flow": 95, "head": 66 },
+        { "flow": 105, "head": 44 }
+      ]
+    },
+    "WBWP4C Prathak-C-30/30/40/3-415-50-2PUMP": {
+      "art_no": 8238238,
+      "no_of_stages": 30,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 173 },
+        { "flow": 45, "head": 152 },
+        { "flow": 55, "head": 143 },
+        { "flow": 65, "head": 132 },
+        { "flow": 75, "head": 116 },
+        { "flow": 85, "head": 99 },
+        { "flow": 95, "head": 79 },
+        { "flow": 105, "head": 52 }
+      ]
+    },
+    "WBWP4D Prathak-A-20/12/50/3-415-50-2PUMP": {
+      "art_no": 8238243,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 75 },
+        { "flow": 55, "head": 66 },
+        { "flow": 70, "head": 62 },
+        { "flow": 85, "head": 57 },
+        { "flow": 100, "head": 50 },
+        { "flow": 115, "head": 43 },
+        { "flow": 130, "head": 34 },
+        { "flow": 145, "head": 25 }
+      ]
+    },
+    "WBWP4D Prathak-A-20/14/50/3-415-50-2PUMP": {
+      "art_no": 8238244,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 88 },
+        { "flow": 55, "head": 77 },
+        { "flow": 70, "head": 72 },
+        { "flow": 85, "head": 66 },
+        { "flow": 100, "head": 59 },
+        { "flow": 115, "head": 50 },
+        { "flow": 130, "head": 40 },
+        { "flow": 145, "head": 29 }
+      ]
+    },
+    "WBWP4D Prathak-C-20/12/50/3-415-50-2PUMP": {
+      "art_no": 8278153,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 75 },
+        { "flow": 55, "head": 66 },
+        { "flow": 70, "head": 62 },
+        { "flow": 85, "head": 57 },
+        { "flow": 100, "head": 50 },
+        { "flow": 115, "head": 43 },
+        { "flow": 130, "head": 34 },
+        { "flow": 145, "head": 25 }
+      ]
+    },
+    "WBWP4D Prathak-C-20/14/50/3-415-50-2PUMP": {
+      "art_no": 8278154,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 82 },
+        { "flow": 55, "head": 70 },
+        { "flow": 70, "head": 67 },
+        { "flow": 85, "head": 62 },
+        { "flow": 100, "head": 56 },
+        { "flow": 115, "head": 47 },
+        { "flow": 130, "head": 37 },
+        { "flow": 145, "head": 25 }
+      ]
+    },
+    "WBWP4D Prathak-C-30/19/50/3-415-50-2PUMP": {
+      "art_no": 8238245,
+      "no_of_stages": 19,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 120 },
+        { "flow": 55, "head": 104 },
+        { "flow": 70, "head": 98 },
+        { "flow": 85, "head": 89 },
+        { "flow": 100, "head": 79 },
+        { "flow": 115, "head": 68 },
+        { "flow": 130, "head": 54 },
+        { "flow": 145, "head": 39 }
+      ]
+    },
+    "WBWP4D Prathak-C-50/30/50/3-415-50-2PUMP": {
+      "art_no": 8238247,
+      "no_of_stages": 30,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 195 },
+        { "flow": 55, "head": 165 },
+        { "flow": 70, "head": 154 },
+        { "flow": 85, "head": 141 },
+        { "flow": 100, "head": 125 },
+        { "flow": 115, "head": 107 },
+        { "flow": 130, "head": 86 },
+        { "flow": 145, "head": 62 }
+      ]
+    },
+    "WBWP4F Prathak-A-20/10/50/3-415-50-2PUMP": {
+      "art_no": 8238256,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 60, "head": 60 },
+        { "flow": 80, "head": 57 },
+        { "flow": 100, "head": 54 },
+        { "flow": 120, "head": 47 },
+        { "flow": 140, "head": 38 },
+        { "flow": 160, "head": 29 },
+        { "flow": 180, "head": 16 }
+      ]
+    },
+    "WBWP4F Prathak-C-20/10/50/3-415-50-2PUMP": {
+      "art_no": 8278158,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 60, "head": 60 },
+        { "flow": 80, "head": 57 },
+        { "flow": 100, "head": 54 },
+        { "flow": 120, "head": 47 },
+        { "flow": 140, "head": 38 },
+        { "flow": 160, "head": 29 },
+        { "flow": 180, "head": 16 }
+      ]
+    },
+    "WBWP4F Prathak-C-20/12/50/3-415-50-2PUMP": {
+      "art_no": 8238257,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 79 },
+        { "flow": 60, "head": 69 },
+        { "flow": 80, "head": 66 },
+        { "flow": 100, "head": 61 },
+        { "flow": 120, "head": 52 },
+        { "flow": 140, "head": 39 },
+        { "flow": 160, "head": 32 },
+        { "flow": 180, "head": 17 }
+      ]
+    },
+    "WBWP4F Prathak-C-30/15/50/3-415-50-2PUMP": {
+      "art_no": 8238258,
+      "no_of_stages": 15,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 101 },
+        { "flow": 60, "head": 87 },
+        { "flow": 80, "head": 82 },
+        { "flow": 100, "head": 77 },
+        { "flow": 120, "head": 65 },
+        { "flow": 140, "head": 49 },
+        { "flow": 160, "head": 40 },
+        { "flow": 180, "head": 21 }
+      ]
+    },
+    "WBWP4F Prathak-C-50/20/50/3-415-50-2PUMP": {
+      "art_no": 8238260,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 132 },
+        { "flow": 60, "head": 116 },
+        { "flow": 80, "head": 110 },
+        { "flow": 100, "head": 102 },
+        { "flow": 120, "head": 87 },
+        { "flow": 140, "head": 65 },
+        { "flow": 160, "head": 53 },
+        { "flow": 180, "head": 29 }
+      ]
+    },
+    "WBWP4F Prathak-C-50/25/50/3-415-50-2PUMP": {
+      "art_no": 8238261,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 50,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 163 },
+        { "flow": 60, "head": 145 },
+        { "flow": 80, "head": 137 },
+        { "flow": 100, "head": 128 },
+        { "flow": 120, "head": 108 },
+        { "flow": 140, "head": 82 },
+        { "flow": 160, "head": 67 },
+        { "flow": 180, "head": 36 }
+      ]
+    },
+    "WBWP4G Prathak-A-20/18/40/3-415-50-2PUMP": {
+      "art_no": 8238264,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 18, "head": 117 },
+        { "flow": 27, "head": 106 },
+        { "flow": 36, "head": 92 },
+        { "flow": 45, "head": 77 },
+        { "flow": 54, "head": 59 },
+        { "flow": 63, "head": 38 },
+        { "flow": 72, "head": 16 }
+      ]
+    },
+    "WBWP4G Prathak-A-20/20/40/3-415-50-2PUMP": {
+      "art_no": 8238265,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 148 },
+        { "flow": 18, "head": 130 },
+        { "flow": 27, "head": 118 },
+        { "flow": 36, "head": 102 },
+        { "flow": 45, "head": 86 },
+        { "flow": 54, "head": 66 },
+        { "flow": 63, "head": 42 },
+        { "flow": 72, "head": 18 }
+      ]
+    },
+    "WBWP4G Prathak-C-20/18/40/3-415-50-2PUMP": {
+      "art_no": 8278163,
+      "no_of_stages": 18,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 133 },
+        { "flow": 18, "head": 117 },
+        { "flow": 27, "head": 106 },
+        { "flow": 36, "head": 92 },
+        { "flow": 45, "head": 77 },
+        { "flow": 54, "head": 59 },
+        { "flow": 63, "head": 38 },
+        { "flow": 72, "head": 16 }
+      ]
+    },
+    "WBWP4G Prathak-C-20/20/40/3-415-50-2PUMP": {
+      "art_no": 8278164,
+      "no_of_stages": 20,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 148 },
+        { "flow": 18, "head": 130 },
+        { "flow": 27, "head": 118 },
+        { "flow": 36, "head": 102 },
+        { "flow": 45, "head": 86 },
+        { "flow": 54, "head": 66 },
+        { "flow": 63, "head": 42 },
+        { "flow": 72, "head": 18 }
+      ]
+    },
+    "WBWP4G Prathak-C-30/24/40/3-415-50-2PUMP": {
+      "art_no": 8238266,
+      "no_of_stages": 24,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 180 },
+        { "flow": 18, "head": 156 },
+        { "flow": 27, "head": 142 },
+        { "flow": 36, "head": 127 },
+        { "flow": 45, "head": 108 },
+        { "flow": 54, "head": 84 },
+        { "flow": 63, "head": 58 },
+        { "flow": 72, "head": 22 }
+      ]
+    },
+    "WBWP4G Prathak-C-30/30/40/3-415-50-2PUMP": {
+      "art_no": 8238267,
+      "no_of_stages": 30,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 225 },
+        { "flow": 18, "head": 195 },
+        { "flow": 27, "head": 177 },
+        { "flow": 36, "head": 159 },
+        { "flow": 45, "head": 135 },
+        { "flow": 54, "head": 105 },
+        { "flow": 63, "head": 72 },
+        { "flow": 72, "head": 27 }
+      ]
+    },
+    "WBWP4G Prathak-C-50/50/40/3-415-50-2PUMP": {
+      "art_no": 8238270,
+      "no_of_stages": 50,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 370 },
+        { "flow": 18, "head": 325 },
+        { "flow": 27, "head": 295 },
+        { "flow": 36, "head": 255 },
+        { "flow": 45, "head": 215 },
+        { "flow": 54, "head": 165 },
+        { "flow": 63, "head": 120 },
+        { "flow": 72, "head": 45 }
+      ]
+    },
+    "WBWP4H Prathak-C-15/10/32/3-415-50-2PUMP": {
+      "art_no": 8278565,
+      "no_of_stages": 10,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 83 },
+        { "flow": 35, "head": 72 },
+        { "flow": 45, "head": 68 },
+        { "flow": 55, "head": 62 },
+        { "flow": 65, "head": 55 },
+        { "flow": 75, "head": 46 },
+        { "flow": 85, "head": 38 },
+        { "flow": 87, "head": 28 }
+      ]
+    },
+    "WBWP4H Prathak-C-15/12/32/3-415-50-2PUMP": {
+      "art_no": 8278566,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 1.1,
+        "hp": 1.5
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 100 },
+        { "flow": 35, "head": 86 },
+        { "flow": 45, "head": 82 },
+        { "flow": 55, "head": 74 },
+        { "flow": 65, "head": 66 },
+        { "flow": 75, "head": 55 },
+        { "flow": 85, "head": 46 },
+        { "flow": 87, "head": 34 }
+      ]
+    },
+    "WBWP4H Prathak-C-50/35/40/3-415-50-2PUMP": {
+      "art_no": 8238280,
+      "no_of_stages": 35,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 298 },
+        { "flow": 35, "head": 252 },
+        { "flow": 45, "head": 238 },
+        { "flow": 55, "head": 217 },
+        { "flow": 65, "head": 193 },
+        { "flow": 75, "head": 161 },
+        { "flow": 85, "head": 131 },
+        { "flow": 87, "head": 96 }
+      ]
+    },
+    "WBWP4H Prathak-C-50/40/40/3-415-50-2PUMP": {
+      "art_no": 8238281,
+      "no_of_stages": 40,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 340 },
+        { "flow": 35, "head": 288 },
+        { "flow": 45, "head": 272 },
+        { "flow": 55, "head": 248 },
+        { "flow": 65, "head": 220 },
+        { "flow": 75, "head": 184 },
+        { "flow": 85, "head": 150 },
+        { "flow": 87, "head": 110 }
+      ]
+    },
+    "WBWP4I Prathak-A-20/25/40/3-415-50-2PUMP": {
+      "art_no": 8238289,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 190 },
+        { "flow": 14, "head": 168 },
+        { "flow": 21, "head": 152 },
+        { "flow": 28, "head": 135 },
+        { "flow": 35, "head": 115 },
+        { "flow": 42, "head": 90 },
+        { "flow": 49, "head": 60 },
+        { "flow": 56, "head": 25 }
+      ]
+    },
+    "WBWP4I Prathak-C-20/25/40/3-415-50-2PUMP": {
+      "art_no": 8278176,
+      "no_of_stages": 25,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 190 },
+        { "flow": 14, "head": 168 },
+        { "flow": 21, "head": 152 },
+        { "flow": 28, "head": 135 },
+        { "flow": 35, "head": 115 },
+        { "flow": 42, "head": 90 },
+        { "flow": 49, "head": 60 },
+        { "flow": 56, "head": 25 }
+      ]
+    },
+    "WBWP4I Prathak-C-30/34/40/3-415-50-2PUMP": {
+      "art_no": 8238290,
+      "no_of_stages": 34,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 40,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 258 },
+        { "flow": 14, "head": 228 },
+        { "flow": 21, "head": 207 },
+        { "flow": 28, "head": 184 },
+        { "flow": 35, "head": 156 },
+        { "flow": 42, "head": 122 },
+        { "flow": 49, "head": 82 },
+        { "flow": 56, "head": 34 }
+      ]
+    },
+    "WBWP4J Prathak-C-30/40/32/3-415-50-2PUMP": {
+      "art_no": 8238301,
+      "no_of_stages": 40,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 32,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 284 },
+        { "flow": 13, "head": 252 },
+        { "flow": 21, "head": 232 },
+        { "flow": 29, "head": 208 },
+        { "flow": 37, "head": 180 },
+        { "flow": 45, "head": 148 },
+        { "flow": 53, "head": 104 },
+        { "flow": 61, "head": 48 }
+      ]
+    },
+    "WBWP4K Prathak-C-50/12/65/3-415-50-2PUMP": {
+      "art_no": 8238308,
+      "no_of_stages": 12,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 67 },
+        { "flow": 145, "head": 54 },
+        { "flow": 190, "head": 49 },
+        { "flow": 235, "head": 45 },
+        { "flow": 280, "head": 40 },
+        { "flow": 325, "head": 34 },
+        { "flow": 370, "head": 27 },
+        { "flow": 415, "head": 19 }
+      ]
+    },
+    "WBWP4L Prathak-C-30/09/65/3-415-50-2PUMP": {
+      "art_no": 8238312,
+      "no_of_stages": 9,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 46 },
+        { "flow": 155, "head": 37 },
+        { "flow": 200, "head": 33 },
+        { "flow": 245, "head": 30 },
+        { "flow": 290, "head": 26 },
+        { "flow": 335, "head": 22 },
+        { "flow": 380, "head": 16 },
+        { "flow": 425, "head": 9 }
+      ]
+    },
+    "WBWP4L Prathak-C-50/14/65/3-415-50-2PUMP": {
+      "art_no": 8238314,
+      "no_of_stages": 14,
+      "motor_rating": {
+        "kw": 3.7,
+        "hp": 5.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 10.6,
+      "performance_curves": [
+        { "flow": 0, "head": 71 },
+        { "flow": 155, "head": 57 },
+        { "flow": 200, "head": 51 },
+        { "flow": 245, "head": 46 },
+        { "flow": 290, "head": 40 },
+        { "flow": 335, "head": 33 },
+        { "flow": 380, "head": 25 },
+        { "flow": 425, "head": 14 }
+      ]
+    },
+    "WBWP4M Prathak-A-20/06/65/3-415-50-2PUMP": {
+      "art_no": 8238316,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 32 },
+        { "flow": 180, "head": 25 },
+        { "flow": 220, "head": 23 },
+        { "flow": 260, "head": 21 },
+        { "flow": 300, "head": 19 },
+        { "flow": 340, "head": 17 },
+        { "flow": 380, "head": 14 },
+        { "flow": 420, "head": 11 }
+      ]
+    },
+    "WBWP4M Prathak-C-20/06/65/3-415-50-2PUMP": {
+      "art_no": 8278183,
+      "no_of_stages": 6,
+      "motor_rating": {
+        "kw": 1.5,
+        "hp": 2.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 4.8,
+      "performance_curves": [
+        { "flow": 0, "head": 32 },
+        { "flow": 180, "head": 25 },
+        { "flow": 220, "head": 23 },
+        { "flow": 260, "head": 21 },
+        { "flow": 300, "head": 19 },
+        { "flow": 340, "head": 17 },
+        { "flow": 380, "head": 14 },
+        { "flow": 420, "head": 11 }
+      ]
+    },
+    "WBWP4M Prathak-C-30/08/65/3-415-50-2PUMP": {
+      "art_no": 8238317,
+      "no_of_stages": 8,
+      "motor_rating": {
+        "kw": 2.2,
+        "hp": 3.0
+      },
+      "discharge_dia_mm": 65,
+      "rated_current_3ph": 6.9,
+      "performance_curves": [
+        { "flow": 0, "head": 43 },
+        { "flow": 180, "head": 33 },
+        { "flow": 220, "head": 31 },
+        { "flow": 260, "head": 28 },
+        { "flow": 300, "head": 25 },
+        { "flow": 340, "head": 23 },
+        { "flow": 380, "head": 19 },
+        { "flow": 420, "head": 15 }
+      ]
+    }
+  }
+}

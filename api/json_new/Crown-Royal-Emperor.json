@@ -1,0 +1,204 @@
+{
+  "phase_1": {
+    "Wilo Crown AXA L05": {
+      "art_no": 8278343,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.50
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 38, "head": 6 },
+        { "flow": 33, "head": 9 },
+        { "flow": 30, "head": 12 },
+        { "flow": 27, "head": 15 },
+        { "flow": 23, "head": 18 },
+        { "flow": 19, "head": 21 },
+        { "flow": 15, "head": 24 },
+        { "flow": 10, "head": 27 }
+      ]
+    },
+    "Wilo Crown AXA L10": {
+      "art_no": 8278344,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.00
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 41, "head": 6 },
+        { "flow": 38, "head": 9 },
+        { "flow": 35, "head": 12 },
+        { "flow": 32, "head": 15 },
+        { "flow": 29, "head": 18 },
+        { "flow": 26, "head": 21 },
+        { "flow": 23, "head": 24 },
+        { "flow": 20, "head": 27 },
+        { "flow": 17, "head": 30 },
+        { "flow": 14, "head": 33 },
+        { "flow": 10, "head": 36 }
+      ]
+    },
+    "Wilo Crown AXA 05": {
+      "art_no": 8258801,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.50
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 34, "head": 6 },
+        { "flow": 24, "head": 12 },
+        { "flow": 16, "head": 18 },
+        { "flow": 8, "head": 22 },
+        { "flow": 5, "head": 24 }
+      ]
+    },
+    "Wilo Crown AXA 10": {
+      "art_no": 8258802,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.00
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 46, "head": 6 },
+        { "flow": 36, "head": 12 },
+        { "flow": 30, "head": 18 },
+        { "flow": 26, "head": 22 },
+        { "flow": 24, "head": 24 },
+        { "flow": 22, "head": 26 },
+        { "flow": 15, "head": 30 },
+        { "flow": 6, "head": 34 },
+        { "flow": 4, "head": 36 }
+      ]
+    },
+    "Wilo Mini Royal 05": {
+      "art_no": 8195648,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.50
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 42, "head": 6 },
+        { "flow": 34, "head": 12 },
+        { "flow": 26, "head": 18 },
+        { "flow": 18, "head": 24 },
+        { "flow": 10, "head": 30 }
+      ]
+    },
+    "Wilo Mini Royal 10": {
+      "art_no": 8195649,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.00
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 63, "head": 6 },
+        { "flow": 55, "head": 12 },
+        { "flow": 48, "head": 18 },
+        { "flow": 42, "head": 24 },
+        { "flow": 34, "head": 30 },
+        { "flow": 24, "head": 36 },
+        { "flow": 12, "head": 45 }
+      ]
+    },
+    "Wilo Mini Emperor 055": {
+      "art_no": 8224516,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.50
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 40, "head": 6 },
+        { "flow": 32, "head": 12 },
+        { "flow": 23, "head": 18 },
+        { "flow": 14, "head": 24 },
+        { "flow": 6, "head": 28 },
+        { "flow": 2, "head": 30 }
+      ]
+    },
+    "Wilo Mini Emperor 10": {
+      "art_no": 8224517,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.00
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 53, "head": 6 },
+        { "flow": 45, "head": 12 },
+        { "flow": 38, "head": 18 },
+        { "flow": 30, "head": 24 },
+        { "flow": 23, "head": 28 },
+        { "flow": 20, "head": 30 },
+        { "flow": 10, "head": 36 }
+      ]
+    },
+    "Wilo Mini Emperor 15": {
+      "art_no": 8224519,
+      "motor_rating": {
+        "kw": 1.10,
+        "hp": 1.50
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 70, "head": 18 },
+        { "flow": 62, "head": 24 },
+        { "flow": 56, "head": 28 },
+        { "flow": 53, "head": 30 },
+        { "flow": 46, "head": 36 },
+        { "flow": 32, "head": 48 },
+        { "flow": 25, "head": 54 }
+      ]
+    }
+  },
+  "phase_3": {
+    "Wilo Mini Royal 05_3PH": {
+      "art_no": 8200241,
+      "motor_rating": {
+        "kw": 0.37,
+        "hp": 0.50
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 42, "head": 6 },
+        { "flow": 34, "head": 12 },
+        { "flow": 26, "head": 18 },
+        { "flow": 18, "head": 24 },
+        { "flow": 10, "head": 30 }
+      ]
+    },
+    "Wilo Mini Royal 10_3PH": {
+      "art_no": 8200242,
+      "motor_rating": {
+        "kw": 0.75,
+        "hp": 1.00
+      },
+      "suction_mm": 25,
+      "delivery_mm": 25,
+      "performance_curves": [
+        { "flow": 63, "head": 6 },
+        { "flow": 55, "head": 12 },
+        { "flow": 48, "head": 18 },
+        { "flow": 42, "head": 24 },
+        { "flow": 34, "head": 30 },
+        { "flow": 24, "head": 36 },
+        { "flow": 12, "head": 45 }
+      ]
+    }
+  }
+}

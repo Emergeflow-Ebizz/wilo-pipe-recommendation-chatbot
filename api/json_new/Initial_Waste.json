@@ -1,0 +1,20 @@
+{
+  "INITIAL WASTE 14-9": {
+    "art_no": 4263608,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.00
+    },
+    "suction_mm": 40,
+    "delivery_mm": 40,
+    "free_passage_mm": 20,
+    "performance_curves": [
+      { "flow": 235, "head": 3 },
+      { "flow": 200, "head": 4 },
+      { "flow": 185, "head": 5 },
+      { "flow": 150, "head": 6 },
+      { "flow": 100, "head": 7 },
+      { "flow": 70, "head": 8 }
+    ]
+  }
+}

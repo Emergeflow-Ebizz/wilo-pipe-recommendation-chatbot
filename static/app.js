@@ -1,0 +1,1287 @@
+(function () {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // Backend config
+  // ---------------------------------------------------------------------
+  // Requires CORS enabled on the FastAPI side. Since this page is opened via
+  // file://, the browser sends Origin: null, so the backend's
+  // CORSMiddleware needs allow_origins=["*"] (a specific origin won't match).
+  //
+  // Locally, `uvicorn app.main:app` serves routes unprefixed
+  // (e.g. /water_transfer/recommend), so file:// / localhost keep hitting
+  // that directly. On Vercel, vercel.json routes "/api/(.*)" to
+  // api/index.py, which mounts the same app under /api - so any other host
+  // uses the relative "/api" prefix instead.
+  var API_BASE_URL =
+    window.location.protocol === "file:" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "localhost"
+      ? "http://127.0.0.1:8000"
+      : "/api";
+
+  function prettifyKey(key) {
+    return key
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, function (c) {
+        return c.toUpperCase();
+      });
+  }
+
+  function formatDetailValue(value) {
+    if (typeof value === "number" && !Number.isInteger(value)) {
+      return String(Math.round(value * 100) / 100);
+    }
+    return String(value);
+  }
+
+  // next_question's "unit" field (e.g. borewell_size -> "inch") is display-only,
+  // it's never asked as its own question, but /recommend still requires a
+  // companion "<field>_unit" answer. The naming doesn't follow one consistent
+  // rule (borewell_size -> borewell_unit, well_depth -> well_depth_unit), so
+  // known cases are mapped explicitly; anything new falls back to "<key>_unit"
+  // and is harmless to send even when unused, since the backend ignores
+  // extra fields it doesn't recognize.
+  var UNIT_FIELD_OVERRIDES = {
+    borewell_size: "borewell_unit",
+    well_depth: "well_depth_unit",
+  };
+  function unitFieldNameFor(key) {
+    return UNIT_FIELD_OVERRIDES[key] || key + "_unit";
+  }
+
+  // tank_filling's inside_or_outside and horizontal_or_vertical are the only
+  // fixed-choice questions the backend currently has; they go through
+  // /answer_category (ParsedCategory) instead of /answer (ParsedAnswer).
+  var CATEGORY_QUESTION_KEYS = ["inside_or_outside", "horizontal_or_vertical"];
+
+  // ---------------------------------------------------------------------
+  // Conversation flow. The application question and lead-capture are fixed;
+  // everything about sizing the pump (which questions to ask, in what order)
+  // is driven live by the backend's /{slug}/next_question endpoint.
+  // ---------------------------------------------------------------------
+  var phoneValidate = function (value) {
+    return /^\d{10}$/.test(value.trim()) ? null : "Please enter a valid 10-digit phone number.";
+  };
+  var emailValidate = function (value) {
+    return /^\S+@\S+\.\S+$/.test(value.trim()) ? null : "Please enter a valid email address.";
+  };
+  var pincodeValidate = function (value) {
+    return /^\d{6}$/.test(value.trim()) ? null : "Please enter a valid 6-digit pincode.";
+  };
+
+  var FLOW = [
+    {
+      id: "application",
+      kind: "options",
+      bot: function () {
+        return "Hi there! I can help you pick the right Wilo pump. What's your application?";
+      },
+      options: [
+        {
+          label: "Water extraction from a borewell/well",
+          value: "water-transfer",
+          icon: "⛽",
+          subtitle: "Borewell to overhead tank",
+        },
+        {
+          label: "Transfer of water from a ground-level reservoir to an elevated tank",
+          value: "tank-filling",
+          icon: "💧",
+          subtitle: "Ground tank to upper tank",
+        },
+        // {
+        //   label: "Pressure Boosting",
+        //   value: "pressure-boosting",
+        //   icon: "🌀",
+        //   subtitle: "Steady water pressure",
+        // },
+        // {
+        //   label: "Dewatering",
+        //   value: "dewatering",
+        //   icon: "🌊",
+        //   subtitle: "Remove unwanted water",
+        // },
+        // {
+        //   label: "Hot Water Circulation",
+        //   value: "hot-water-circulation",
+        //   icon: "♨️",
+        //   subtitle: "Hot water recirculation",
+        // },
+      ],
+      next: function (value) {
+        if (value === "water-transfer") return "__dynamic__water_transfer";
+        if (value === "tank-filling") return "__dynamic__tank_filling";
+        return "coming-soon";
+      },
+    },
+    {
+      id: "coming-soon",
+      kind: "options",
+      bot: function () {
+        return "That application isn't available yet, we're still adding support for it. For now you can try Water Transfer, or pick another application below.";
+      },
+      options: [
+        { label: "Back to applications", value: "back", icon: "↩️", subtitle: "Choose a different one" },
+      ],
+      next: function () {
+        return "application";
+      },
+    },
+    {
+      id: "explore-more",
+      kind: "options",
+      bot: function () {
+        return "Would you like to explore a few more pump options, or shall we go ahead with the next steps?";
+      },
+      options: [
+        { label: "Yes, show me more", value: "more", icon: "🔍", subtitle: "See another option" },
+        { label: "No, proceed", value: "proceed", icon: "✅", subtitle: "Continue to next steps" },
+      ],
+      next: function (value) {
+        return value === "more" ? "application" : "lead-name";
+      },
+    },
+    {
+      id: "lead-name",
+      kind: "input",
+      bot: function () {
+        return "One last thing, could I get your name so our dealer can reach out to you?";
+      },
+      placeholder: "Your name",
+      next: function () {
+        return "lead-phone";
+      },
+    },
+    {
+      id: "lead-phone",
+      kind: "input",
+      bot: function (answers) {
+        return "Thanks, " + answers["lead-name"] + "! What's your phone number?";
+      },
+      placeholder: "10-digit mobile number",
+      validate: phoneValidate,
+      next: function () {
+        return "lead-email";
+      },
+    },
+    {
+      id: "lead-email",
+      kind: "input",
+      bot: function () {
+        return "Got it. What's your email address?";
+      },
+      placeholder: "you@example.com",
+      validate: emailValidate,
+      next: function () {
+        return "lead-pincode";
+      },
+    },
+    {
+      id: "lead-pincode",
+      kind: "input",
+      bot: function () {
+        return "And what's your pincode?";
+      },
+      placeholder: "6-digit pincode",
+      validate: pincodeValidate,
+      next: function () {
+        return "thank-you";
+      },
+    },
+    {
+      id: "thank-you",
+      kind: "final",
+      bot: function (answers) {
+        return (
+          "Thank you, " +
+          answers["lead-name"] +
+          "! Our dealer will reach out to you shortly, and your details have been shared with dealer."
+        );
+      },
+      next: null,
+    },
+  ];
+
+  function getStep(id) {
+    for (var i = 0; i < FLOW.length; i++) {
+      if (FLOW[i].id === id) return FLOW[i];
+    }
+    throw new Error("Unknown conversation step: " + id);
+  }
+
+  // ---------------------------------------------------------------------
+  // Conversation state (mutated in place, then re-rendered)
+  // ---------------------------------------------------------------------
+  var messageCounter = 0;
+  function nextMessageId() {
+    messageCounter += 1;
+    return "msg-" + messageCounter;
+  }
+
+  function timestamp() {
+    return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
+  var state = {
+    messages: [],
+    answers: {},
+    currentStepId: null,
+    awaitingKind: null,
+    inputError: null,
+    virtualOptions: null, // [{ label, onSelect }] - used for backend-driven branches
+    useCaseSlug: null, // "water_transfer" | "tank_filling" while the dynamic loop is active
+    dynamicAnswers: {}, // accumulated answers fed to next_question, then to recommend as-is
+    unitAskAttempts: {}, // question_key -> retry count, sent back to /answer as unit_ask_attempts
+    currentQuestion: null, // last { key, prompt, unit, optional } from next_question
+    lastRecommendation: null, // the ok recommendation, kept around for /explain_model follow-ups
+  };
+
+  function addBotMessage(text) {
+    state.messages.push({ id: nextMessageId(), role: "bot", timestamp: timestamp(), text: text, kind: "text" });
+  }
+  function addUserMessage(text) {
+    state.messages.push({ id: nextMessageId(), role: "user", timestamp: timestamp(), text: text, kind: "text" });
+  }
+  function addRecommendationMessage(recommendation, tiedAlternatives) {
+    state.messages.push({
+      id: nextMessageId(),
+      role: "bot",
+      timestamp: timestamp(),
+      kind: "recommendation",
+      recommendation: recommendation,
+      tiedAlternatives: tiedAlternatives || [],
+    });
+  }
+
+  function initConversation() {
+    state.messages.push({ id: nextMessageId(), role: "bot", timestamp: timestamp(), kind: "welcome" });
+    var first = FLOW[0];
+    addBotMessage(first.bot({}));
+    state.currentStepId = first.id;
+    state.awaitingKind = first.kind;
+  }
+
+  function jumpToStep(stepId) {
+    var step = getStep(stepId);
+    state.virtualOptions = null;
+    state.inputError = null;
+    addBotMessage(step.bot(state.answers));
+    state.currentStepId = step.id;
+    state.awaitingKind = step.kind;
+  }
+
+  function showUnreachableBackendError(retryFn) {
+    addBotMessage(
+      "I couldn't reach the recommendation service. Make sure the backend is running at " +
+        API_BASE_URL +
+        " and try again."
+    );
+    state.awaitingKind = "options";
+    state.virtualOptions = [
+      {
+        label: "Retry",
+        icon: "🔁",
+        subtitle: "Try connecting again",
+        onSelect: function () {
+          addUserMessage("Retry");
+          return retryFn();
+        },
+      },
+    ];
+    render();
+  }
+
+  /** Offers to answer a free-text question about the just-shown recommendation
+   * via /explain_model, looping back here after each answer so the user can
+   * ask more than one before moving on. */
+  function offerExplainOrContinue() {
+    state.awaitingKind = "options";
+    state.virtualOptions = [
+      {
+        label: "Ask a question about this pump",
+        icon: "💬",
+        subtitle: "Get more details from the assistant",
+        onSelect: function () {
+          addUserMessage("Ask a question about this pump");
+          state.awaitingKind = "explain-input";
+          addBotMessage("Sure, what would you like to know?");
+          render();
+        },
+      },
+      {
+        label: "Continue",
+        icon: "➡️",
+        subtitle: "Move on to next steps",
+        onSelect: function () {
+          addUserMessage("Continue");
+          jumpToStep("explore-more");
+          render();
+        },
+      },
+    ];
+    render();
+  }
+
+  /** Sends a free-text follow-up about state.lastRecommendation to
+   * /explain_model and shows the plain-language answer. */
+  async function submitExplainQuestion(rawValue) {
+    var trimmed = rawValue.trim();
+    if (!trimmed) return;
+
+    addUserMessage(trimmed);
+    state.awaitingKind = "loading";
+    render();
+
+    var data;
+    try {
+      var res = await fetch(API_BASE_URL + "/explain_model", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recommendation: state.lastRecommendation, user_question: trimmed }),
+      });
+      data = await res.json();
+    } catch (err) {
+      showUnreachableBackendError(function () {
+        return submitExplainQuestion(rawValue);
+      });
+      return;
+    }
+
+    addBotMessage(data.answer || "Sorry, I couldn't find an answer to that.");
+    offerExplainOrContinue();
+  }
+
+  /** Calls the recommendation backend for the active use case and handles
+   * ok / confirmation_required / rejected / network-error. */
+  async function runRecommendation(confirmOversize) {
+    state.awaitingKind = "loading";
+    state.virtualOptions = null;
+    addBotMessage("Let me find the best pump for you...");
+    render();
+
+    var payload = Object.assign({}, state.dynamicAnswers);
+    if (typeof confirmOversize === "boolean") payload.confirm_oversize = confirmOversize;
+
+    var data;
+    try {
+      var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/recommend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      data = await res.json();
+    } catch (err) {
+      showUnreachableBackendError(function () {
+        return runRecommendation(confirmOversize);
+      });
+      return;
+    }
+
+    if (data.status === "ok") {
+      addBotMessage("Based on what you shared, here's a pump that matches your requirement:");
+      addRecommendationMessage(data.recommendation, data.recommendation && data.recommendation.tied_alternatives);
+      state.lastRecommendation = data.recommendation;
+      offerExplainOrContinue();
+      return;
+    }
+
+    if (data.status === "confirmation_required") {
+      addBotMessage(data.message || "This selection looks oversized for your setup. Do you want to proceed anyway?");
+      state.awaitingKind = "options";
+      state.virtualOptions = [
+        {
+          label: "Yes, use it anyway",
+          icon: "✅",
+          subtitle: "Proceed with this setup",
+          onSelect: function () {
+            addUserMessage("Yes, use it anyway");
+            return runRecommendation(true);
+          },
+        },
+        {
+          label: "No, don't use it",
+          icon: "✋",
+          subtitle: "Decline the oversized pump",
+          onSelect: function () {
+            addUserMessage("No, don't use it");
+            return runRecommendation(false);
+          },
+        },
+      ];
+      render();
+      return;
+    }
+
+    // status === "rejected" (or anything unrecognized)
+    addBotMessage(data.message || "Sorry, we couldn't find a suitable pump for these inputs.");
+    jumpToStep("explore-more");
+    render();
+  }
+
+  /** Asks the backend what to ask next for the active use case; once it
+   * returns question: null, moves on to /recommend. */
+  async function fetchNextQuestion() {
+    state.awaitingKind = "loading";
+    state.virtualOptions = null;
+    render();
+
+    var data;
+    try {
+      var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/next_question", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answers: state.dynamicAnswers }),
+      });
+      data = await res.json();
+    } catch (err) {
+      showUnreachableBackendError(fetchNextQuestion);
+      return;
+    }
+
+    if (data.question) {
+      state.currentQuestion = data.question;
+      state.awaitingKind = "dynamic-input";
+      addBotMessage(data.question.prompt);
+      render();
+      return;
+    }
+
+    return runRecommendation();
+  }
+
+  /** A required question that comes back "skipped" (or given-up-on) re-prompts
+   * the user; an optional one is recorded as null and the loop moves on. */
+  function handleUnansweredQuestion(question) {
+    if (!question.optional) {
+      state.awaitingKind = "dynamic-input";
+      state.inputError = "This one's required, please provide a value.";
+      render();
+      return;
+    }
+    state.dynamicAnswers[question.key] = null;
+    state.currentQuestion = null;
+    fetchNextQuestion();
+  }
+
+  /** Sends the user's free-text reply to the backend's fixed-choice parser
+   * (ParsedCategory) for questions like inside_or_outside / horizontal_or_vertical. */
+  async function submitCategoryAnswer(question, trimmed) {
+    var payload = { question_key: question.key, user_text: trimmed };
+
+    var data;
+    try {
+      var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/answer_category", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      data = await res.json();
+    } catch (err) {
+      showUnreachableBackendError(function () {
+        return submitCategoryAnswer(question, trimmed);
+      });
+      return;
+    }
+
+    if (data.needs_clarification) {
+      addBotMessage(data.clarification_question || "Could you clarify that?");
+      state.awaitingKind = "dynamic-input";
+      render();
+      return;
+    }
+
+    if (data.skipped) {
+      handleUnansweredQuestion(question);
+      return;
+    }
+
+    state.dynamicAnswers[question.key] = data.category;
+    state.currentQuestion = null;
+    fetchNextQuestion();
+  }
+
+  /** Sends the user's free-text reply to the backend's LLM parser (ParsedAnswer)
+   * for the current question; loops back on needs_clarification without
+   * advancing (tracking retries via unit_ask_attempts), reroutes the value to
+   * redirect_key if the user answered a different question, treats gave_up as
+   * an unanswered/optional-skip, otherwise records the parsed value (+ unit)
+   * and moves to the next question. */
+  async function submitFreeTextAnswer(question, trimmed) {
+    var payload = { question_key: question.key, user_text: trimmed };
+    var previousValue = state.dynamicAnswers[question.key];
+    if (previousValue !== undefined && previousValue !== null) {
+      payload.previous_value = previousValue;
+      var previousUnit = state.dynamicAnswers[unitFieldNameFor(question.key)];
+      if (previousUnit !== undefined) payload.previous_unit = previousUnit;
+    }
+    if (state.unitAskAttempts[question.key]) {
+      payload.unit_ask_attempts = state.unitAskAttempts[question.key];
+    }
+
+    var data;
+    try {
+      var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      data = await res.json();
+    } catch (err) {
+      showUnreachableBackendError(function () {
+        return submitFreeTextAnswer(question, trimmed);
+      });
+      return;
+    }
+
+    if (data.needs_clarification) {
+      state.unitAskAttempts[question.key] = (state.unitAskAttempts[question.key] || 0) + 1;
+      addBotMessage(data.clarification_question || "Could you clarify that?");
+      state.awaitingKind = "dynamic-input";
+      render();
+      return;
+    }
+    delete state.unitAskAttempts[question.key];
+
+    if (data.gave_up) {
+      handleUnansweredQuestion(question);
+      return;
+    }
+
+    if (data.redirect_key) {
+      state.dynamicAnswers[data.redirect_key] = data.value;
+      if (data.unit) state.dynamicAnswers[unitFieldNameFor(data.redirect_key)] = data.unit;
+      state.currentQuestion = null;
+      fetchNextQuestion();
+      return;
+    }
+
+    if (data.skipped) {
+      handleUnansweredQuestion(question);
+      return;
+    }
+
+    state.dynamicAnswers[question.key] = data.value;
+    var unit = data.unit || question.unit;
+    if (unit) state.dynamicAnswers[unitFieldNameFor(question.key)] = unit;
+
+    state.currentQuestion = null;
+    fetchNextQuestion();
+  }
+
+  function submitDynamicAnswer(rawValue) {
+    var question = state.currentQuestion;
+    if (!question) return;
+    var trimmed = rawValue.trim();
+    if (!trimmed) return;
+
+    addUserMessage(trimmed);
+    state.inputError = null;
+    state.awaitingKind = "loading";
+    render();
+
+    if (CATEGORY_QUESTION_KEYS.indexOf(question.key) !== -1) {
+      return submitCategoryAnswer(question, trimmed);
+    }
+    return submitFreeTextAnswer(question, trimmed);
+  }
+
+  /** Advances through fixed steps, stopping at the next question, a dynamic
+   * question-flow kickoff, or the end. */
+  function advance(fromStep, answerValue) {
+    var nextId = fromStep.next ? fromStep.next(answerValue, state.answers) : null;
+    if (!nextId) {
+      state.awaitingKind = "final";
+      return null;
+    }
+    if (nextId.indexOf("__dynamic__") === 0) {
+      state.useCaseSlug = nextId.slice("__dynamic__".length);
+      state.dynamicAnswers = {};
+      state.unitAskAttempts = {};
+      state.currentQuestion = null;
+      return fetchNextQuestion(); // returns a Promise
+    }
+    var nextStep = getStep(nextId);
+    addBotMessage(nextStep.bot(state.answers));
+    state.currentStepId = nextStep.id;
+    state.awaitingKind = nextStep.kind;
+    state.inputError = null;
+    return null;
+  }
+
+  function submitOption(value, label) {
+    if (state.virtualOptions) return; // handled via chip's own onSelect
+    var step = getStep(state.currentStepId);
+    if (step.kind !== "options") return;
+    state.answers[step.id] = value;
+    addUserMessage(label);
+    advance(step, value);
+    render();
+  }
+
+  function submitText(rawValue) {
+    var step = getStep(state.currentStepId);
+    if (step.kind !== "input") return;
+    var trimmed = rawValue.trim();
+    if (!trimmed) return;
+    var error = step.validate ? step.validate(trimmed) : null;
+    if (error) {
+      state.inputError = error;
+      render();
+      return;
+    }
+    state.answers[step.id] = trimmed;
+    addUserMessage(trimmed);
+    advance(step, trimmed);
+    render();
+  }
+
+  // ---------------------------------------------------------------------
+  // Rendering
+  // ---------------------------------------------------------------------
+  var el = {};
+
+  function mascotImage() {
+    var img = document.createElement("img");
+    img.className = "mascot";
+    img.src = "./mascot.jpeg";
+    img.alt = "Wilo Pumps Selection Chatbot mascot";
+    return img;
+  }
+
+  function buildWelcomeCard() {
+    var card = document.createElement("div");
+    card.className = "welcome-card";
+
+    var textWrap = document.createElement("div");
+    textWrap.className = "welcome-text";
+
+    var greet = document.createElement("p");
+    greet.className = "greet";
+    greet.textContent = "👋 Hi! I'm your";
+
+    var brand = document.createElement("p");
+    brand.className = "brand-name";
+    brand.textContent = "Wilo Pumps Selection Chatbot";
+
+    var line1 = document.createElement("p");
+    line1.textContent = "I'll help you find the right pump for your application.";
+
+    var line2 = document.createElement("p");
+    line2.textContent = "Let's get started.";
+
+    var time = document.createElement("div");
+    time.className = "time";
+    time.textContent = timestamp();
+
+    textWrap.appendChild(greet);
+    textWrap.appendChild(brand);
+    textWrap.appendChild(line1);
+    textWrap.appendChild(line2);
+    textWrap.appendChild(time);
+
+    card.appendChild(textWrap);
+    card.appendChild(mascotImage());
+    return card;
+  }
+
+  var PUMP_ICON_SVG =
+    '<svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true">' +
+    '<rect x="4" y="24" width="28" height="18" rx="4" fill="#3f8f7f" />' +
+    '<rect x="10" y="30" width="6" height="6" fill="#e3f3ef" />' +
+    '<rect x="20" y="30" width="6" height="6" fill="#e3f3ef" />' +
+    '<circle cx="44" cy="30" r="13" fill="#2f6f62" />' +
+    '<circle cx="44" cy="30" r="7" fill="#e3f3ef" />' +
+    '<rect x="42" y="10" width="4" height="14" fill="#2f6f62" />' +
+    '<rect x="2" y="42" width="60" height="4" rx="2" fill="#2f6f62" />' +
+    "</svg>";
+
+  var LIST_ICON_SVG =
+    '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style="vertical-align:-2px;margin-right:6px;">' +
+    '<circle cx="2.5" cy="4" r="1.5" fill="#fff" />' +
+    '<circle cx="2.5" cy="10" r="1.5" fill="#fff" />' +
+    '<circle cx="2.5" cy="16" r="1.5" fill="#fff" />' +
+    '<rect x="6" y="3" width="13" height="2" rx="1" fill="#fff" />' +
+    '<rect x="6" y="9" width="13" height="2" rx="1" fill="#fff" />' +
+    '<rect x="6" y="15" width="13" height="2" rx="1" fill="#fff" />' +
+    "</svg>";
+
+  function formatPhaseValue(raw) {
+    var match = String(raw).match(/(\d+)/);
+    return match ? match[1] + " Phase" : prettifyKey(String(raw));
+  }
+
+  function appendUnitIfPlainNumber(value, unit) {
+    var text = formatDetailValue(value);
+    return /^-?[\d.,]+$/.test(String(value)) ? text + " " + unit : text;
+  }
+
+  // Backend "details" fields are internal/engineering data (spec sheet names,
+  // matching-target values, etc). Only these customer-relevant fields are
+  // shown on the recommendation card; anything else is left out on purpose.
+  var DETAIL_DISPLAY_RULES = [
+    {
+      test: function (key) {
+        return /flow/i.test(key);
+      },
+      label: "Flow",
+      format: formatDetailValue,
+    },
+    {
+      test: function (key) {
+        return /head/i.test(key) && !/target/i.test(key);
+      },
+      label: "Head",
+      format: function (value) {
+        return appendUnitIfPlainNumber(value, "m");
+      },
+    },
+    {
+      test: function (key) {
+        return /^hp$/i.test(key) || /motor/i.test(key) || /power/i.test(key);
+      },
+      label: "Motor Power",
+      format: function (value) {
+        return appendUnitIfPlainNumber(value, "HP");
+      },
+    },
+    {
+      test: function (key) {
+        return /phase/i.test(key);
+      },
+      label: "Phase",
+      format: formatPhaseValue,
+    },
+    {
+      test: function (key) {
+        return /fill/i.test(key) && /time/i.test(key);
+      },
+      label: "Fill Time",
+      format: function (value) {
+        return appendUnitIfPlainNumber(value, "min");
+      },
+    },
+  ];
+
+  // The "View Pump Details" modal shows more than the summary card: every
+  // detail field the backend returns except internal ones (spec sheet name,
+  // the raw curve array, which gets its own chart instead of a text row).
+  var TECHNICAL_DETAIL_BLACKLIST = ["sheet", "performance_curve"];
+  var TECHNICAL_DETAIL_RULES = DETAIL_DISPLAY_RULES.concat([
+    {
+      test: function (key) {
+        return /target/i.test(key) && /head/i.test(key);
+      },
+      label: "Target Head",
+      format: function (value) {
+        return appendUnitIfPlainNumber(value, "m");
+      },
+    },
+  ]);
+
+  function buildTechnicalPointsRows(recommendation) {
+    var details = recommendation.details || {};
+    var rows = [];
+    if (recommendation.art_no != null) {
+      rows.push({ label: "Article No.", value: String(recommendation.art_no) });
+    }
+    Object.keys(details).forEach(function (key) {
+      if (TECHNICAL_DETAIL_BLACKLIST.indexOf(key) !== -1) return;
+      var value = details[key];
+      if (value == null || value === "") return;
+      var rule = TECHNICAL_DETAIL_RULES.find(function (r) {
+        return r.test(key);
+      });
+      rows.push({
+        label: rule ? rule.label : prettifyKey(key),
+        value: rule ? rule.format(value) : formatDetailValue(value),
+      });
+    });
+    return rows;
+  }
+
+  /** Renders the backend's real {flow, head} performance curve as an SVG line
+   * chart, with the pump's actual matched duty point marked on the curve. */
+  function buildPerformanceCurveSVG(curvePoints, matchedHead, flowAtMatch) {
+    var width = 300;
+    var height = 190;
+    var padding = 32;
+
+    var points = curvePoints
+      .filter(function (p) {
+        return typeof p.flow === "number" && typeof p.head === "number";
+      })
+      .slice()
+      .sort(function (a, b) {
+        return a.flow - b.flow;
+      });
+    if (!points.length) return null;
+
+    var maxFlow = Math.max.apply(
+      null,
+      points.map(function (p) {
+        return p.flow;
+      })
+    );
+    var maxHead = Math.max.apply(
+      null,
+      points.map(function (p) {
+        return p.head;
+      })
+    );
+    if (!maxFlow || !maxHead) return null;
+
+    function xFor(flow) {
+      return padding + (flow / maxFlow) * (width - padding * 2);
+    }
+    function yFor(head) {
+      return height - padding - (head / maxHead) * (height - padding * 2);
+    }
+
+    var pathD = points
+      .map(function (p, i) {
+        return (i === 0 ? "M" : "L") + xFor(p.flow).toFixed(1) + "," + yFor(p.head).toFixed(1);
+      })
+      .join(" ");
+
+    var markup =
+      '<svg viewBox="0 0 ' +
+      width +
+      " " +
+      height +
+      '" width="100%" height="190" role="img" aria-label="Pump performance curve">' +
+      '<line x1="' +
+      padding +
+      '" y1="' +
+      padding / 2 +
+      '" x2="' +
+      padding +
+      '" y2="' +
+      (height - padding) +
+      '" stroke="#e4e7e6" stroke-width="1" />' +
+      '<line x1="' +
+      padding +
+      '" y1="' +
+      (height - padding) +
+      '" x2="' +
+      (width - padding / 2) +
+      '" y2="' +
+      (height - padding) +
+      '" stroke="#e4e7e6" stroke-width="1" />' +
+      '<path d="' +
+      pathD +
+      '" fill="none" stroke="#3f8f7f" stroke-width="2.5" stroke-linejoin="round" />';
+
+    if (typeof flowAtMatch === "number" && typeof matchedHead === "number") {
+      var dotX = xFor(flowAtMatch);
+      var dotY = yFor(matchedHead);
+      markup += '<circle cx="' + dotX.toFixed(1) + '" cy="' + dotY.toFixed(1) + '" r="5" fill="#2f6f62" stroke="#fff" stroke-width="2" />';
+
+      var tipLines = [formatDetailValue(flowAtMatch), formatDetailValue(matchedHead) + " m"];
+      var tipW = 56;
+      var tipH = 34;
+      var tipX = Math.min(Math.max(dotX - tipW / 2, padding), width - padding / 2 - tipW);
+      var tipY = Math.max(dotY - tipH - 10, 2);
+      markup +=
+        '<rect x="' +
+        tipX.toFixed(1) +
+        '" y="' +
+        tipY.toFixed(1) +
+        '" width="' +
+        tipW +
+        '" height="' +
+        tipH +
+        '" rx="6" fill="#fff" stroke="#e4e7e6" stroke-width="1" />' +
+        '<text x="' +
+        (tipX + tipW / 2).toFixed(1) +
+        '" y="' +
+        (tipY + 14).toFixed(1) +
+        '" text-anchor="middle" font-size="10" font-weight="700" fill="#1c2a28">' +
+        tipLines[0] +
+        "</text>" +
+        '<text x="' +
+        (tipX + tipW / 2).toFixed(1) +
+        '" y="' +
+        (tipY + 26).toFixed(1) +
+        '" text-anchor="middle" font-size="10" font-weight="700" fill="#1c2a28">' +
+        tipLines[1] +
+        "</text>";
+    }
+
+    markup +=
+      '<text x="' +
+      width / 2 +
+      '" y="' +
+      (height - 6) +
+      '" text-anchor="middle" font-size="10" fill="#6b7a78">Flow</text>' +
+      '<text x="10" y="' +
+      height / 2 +
+      '" text-anchor="middle" font-size="10" fill="#6b7a78" transform="rotate(-90 10 ' +
+      height / 2 +
+      ')">Head</text>' +
+      "</svg>";
+
+    return markup;
+  }
+
+  // A details field naming the pump's category (e.g. "End-Suction Centrifugal
+  // Pump") is shown as a subtitle under the model name when the backend
+  // provides one; nothing is fabricated when it doesn't.
+  function findPumpSubtitle(details) {
+    var key = Object.keys(details).find(function (k) {
+      return /type|category|series/i.test(k);
+    });
+    return key ? details[key] : null;
+  }
+
+  var PD_TABS = ["Overview", "Performance", "Dimensions", "Docs"];
+
+  function openPumpDetailsModal(recommendation) {
+    el.detailsBody.innerHTML = "";
+    el.detailsFav.setAttribute("aria-pressed", "false");
+
+    var details = recommendation.details || {};
+    var subtitle = findPumpSubtitle(details);
+
+    var modelRow = document.createElement("div");
+    modelRow.className = "pd-model-row";
+    var modelName = document.createElement("div");
+    modelName.className = "pd-model-name";
+    modelName.textContent = recommendation.model_name || "Unknown model";
+    modelRow.appendChild(modelName);
+    el.detailsBody.appendChild(modelRow);
+
+    if (subtitle) {
+      var subtitleEl = document.createElement("div");
+      subtitleEl.className = "pd-subtitle";
+      subtitleEl.textContent = subtitle;
+      el.detailsBody.appendChild(subtitleEl);
+    }
+
+    var tabs = document.createElement("div");
+    tabs.className = "pd-tabs";
+    PD_TABS.forEach(function (label, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "pd-tab" + (i === 0 ? " active" : "");
+      btn.textContent = label;
+      if (i !== 0) btn.disabled = true;
+      tabs.appendChild(btn);
+    });
+    el.detailsBody.appendChild(tabs);
+
+    var panel = document.createElement("div");
+    panel.className = "pd-panel";
+
+    var curveMarkup =
+      details.performance_curve && details.performance_curve.length
+        ? buildPerformanceCurveSVG(details.performance_curve, details.matched_head, details.flow)
+        : null;
+
+    if (curveMarkup) {
+      var panelTitle = document.createElement("div");
+      panelTitle.className = "pd-panel-title";
+      panelTitle.textContent = "Performance Curve";
+      panel.appendChild(panelTitle);
+
+      var chartWrap = document.createElement("div");
+      chartWrap.innerHTML = curveMarkup;
+      panel.appendChild(chartWrap);
+
+      var legend = document.createElement("div");
+      legend.className = "chart-legend";
+      legend.innerHTML = '<span class="dot"></span> Your matched operating point';
+      panel.appendChild(legend);
+    }
+    el.detailsBody.appendChild(panel);
+
+    var techTitle = document.createElement("div");
+    techTitle.className = "tech-points-title";
+    techTitle.textContent = "Technical Data";
+    el.detailsBody.appendChild(techTitle);
+
+    var table = document.createElement("div");
+    table.className = "specs-table";
+    buildTechnicalPointsRows(recommendation).forEach(function (row) {
+      var line = document.createElement("div");
+      line.className = "spec-line";
+      var k = document.createElement("span");
+      k.textContent = row.label;
+      var v = document.createElement("span");
+      v.textContent = row.value;
+      line.appendChild(k);
+      line.appendChild(v);
+      table.appendChild(line);
+    });
+    el.detailsBody.appendChild(table);
+
+    el.detailsBackdrop.hidden = false;
+  }
+
+  function closePumpDetailsModal() {
+    el.detailsBackdrop.hidden = true;
+  }
+
+  function buildRecommendationCard(recommendation, tierLabel) {
+    var card = document.createElement("div");
+    card.className = "card";
+
+    var details = recommendation.details || {};
+
+    var banner = document.createElement("div");
+    banner.className = "card-banner";
+    banner.appendChild(document.createTextNode(tierLabel));
+
+    var body = document.createElement("div");
+    body.className = "card-body";
+
+    var catLabel = document.createElement("div");
+    catLabel.className = "cat-label";
+    catLabel.textContent = "Model";
+
+    var modelName = document.createElement("div");
+    modelName.className = "model-name";
+    modelName.textContent = recommendation.model_name || "Unknown model";
+
+    var specs = document.createElement("div");
+    specs.className = "specs";
+
+    var icon = document.createElement("div");
+    icon.className = "pump-icon";
+    icon.innerHTML = PUMP_ICON_SVG;
+
+    var table = document.createElement("div");
+    table.className = "specs-table";
+    DETAIL_DISPLAY_RULES.forEach(function (rule) {
+      var matchedKey = Object.keys(details).find(rule.test);
+      if (matchedKey == null || details[matchedKey] == null || details[matchedKey] === "") return;
+      var line = document.createElement("div");
+      line.className = "spec-line";
+      var k = document.createElement("span");
+      k.textContent = rule.label;
+      var v = document.createElement("span");
+      v.textContent = rule.format(details[matchedKey]);
+      line.appendChild(k);
+      line.appendChild(v);
+      table.appendChild(line);
+    });
+    if (recommendation.art_no != null) {
+      var artLine = document.createElement("div");
+      artLine.className = "spec-line";
+      var artKey = document.createElement("span");
+      artKey.textContent = "Article No.";
+      var artVal = document.createElement("span");
+      artVal.textContent = String(recommendation.art_no);
+      artLine.appendChild(artKey);
+      artLine.appendChild(artVal);
+      table.appendChild(artLine);
+    }
+
+    specs.appendChild(icon);
+    specs.appendChild(table);
+
+    var viewBtn = document.createElement("button");
+    viewBtn.type = "button";
+    viewBtn.className = "view-btn";
+    viewBtn.innerHTML = LIST_ICON_SVG + "View Pump Details";
+    viewBtn.addEventListener("click", function () {
+      openPumpDetailsModal(recommendation);
+    });
+
+    body.appendChild(catLabel);
+    body.appendChild(modelName);
+    body.appendChild(specs);
+    body.appendChild(viewBtn);
+
+    card.appendChild(banner);
+    card.appendChild(body);
+    return card;
+  }
+
+  function buildRecommendationRow(message) {
+    var row = document.createElement("div");
+    row.className = "row bot";
+    row.style.maxWidth = "100%";
+    row.style.gap = "10px";
+    row.appendChild(buildRecommendationCard(message.recommendation, "Best Fit"));
+
+    var alternatives = message.tiedAlternatives || [];
+    if (alternatives.length) {
+      var tag = document.createElement("div");
+      tag.className = "section-tag";
+      tag.textContent = "Other similar options";
+      row.appendChild(tag);
+      alternatives.forEach(function (alt) {
+        if (alt && typeof alt === "object" && alt.model_name) {
+          row.appendChild(buildRecommendationCard(alt, "Alternative"));
+        }
+      });
+    }
+    return row;
+  }
+
+  function buildOptionCard(option, onClick) {
+    var card = document.createElement("button");
+    card.type = "button";
+    card.className = "option-card";
+
+    var icon = document.createElement("span");
+    icon.className = "option-icon";
+    icon.textContent = option.icon || "•";
+
+    var text = document.createElement("span");
+    text.className = "option-text";
+
+    var title = document.createElement("span");
+    title.className = "option-title";
+    title.textContent = option.label;
+    text.appendChild(title);
+
+    if (option.subtitle) {
+      var subtitle = document.createElement("span");
+      subtitle.className = "option-subtitle";
+      subtitle.textContent = option.subtitle;
+      text.appendChild(subtitle);
+    }
+
+    card.appendChild(icon);
+    card.appendChild(text);
+    card.addEventListener("click", onClick);
+    return card;
+  }
+
+  function buildMessageRow(message) {
+    var row = document.createElement("div");
+    row.className = "row " + message.role;
+
+    var bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = message.text;
+
+    var time = document.createElement("div");
+    time.className = "time";
+    time.textContent = message.timestamp;
+
+    row.appendChild(bubble);
+    row.appendChild(time);
+    return row;
+  }
+
+  function composerPlaceholder() {
+    if (state.awaitingKind === "dynamic-input" && state.currentQuestion) {
+      var q = state.currentQuestion;
+      var hint = q.unit ? " in " + q.unit : "";
+      return "Enter a value" + hint + (q.optional ? ", or 'skip'" : "");
+    }
+    if (state.awaitingKind === "explain-input") return "Ask your question";
+    if (state.awaitingKind === "input") return getStep(state.currentStepId).placeholder;
+    if (state.awaitingKind === "loading") return "Checking...";
+    return "Choose an option above";
+  }
+
+  function render() {
+    el.thread.innerHTML = "";
+    state.messages.forEach(function (message) {
+      if (message.kind === "welcome") {
+        el.thread.appendChild(buildWelcomeCard());
+        return;
+      }
+      if (message.kind === "recommendation") {
+        el.thread.appendChild(buildRecommendationRow(message));
+        return;
+      }
+      el.thread.appendChild(buildMessageRow(message));
+    });
+
+    if (state.virtualOptions) {
+      var vOptions = document.createElement("div");
+      vOptions.className = "option-list";
+      state.virtualOptions.forEach(function (option) {
+        vOptions.appendChild(
+          buildOptionCard(option, function () {
+            state.virtualOptions = null;
+            option.onSelect();
+          })
+        );
+      });
+      el.thread.appendChild(vOptions);
+    } else if (state.awaitingKind === "options") {
+      var step = getStep(state.currentStepId);
+      var options = document.createElement("div");
+      options.className = "option-list";
+      step.options.forEach(function (option) {
+        options.appendChild(
+          buildOptionCard(option, function () {
+            submitOption(option.value, option.label);
+          })
+        );
+      });
+      el.thread.appendChild(options);
+    }
+
+    var isInputStep =
+      (state.awaitingKind === "input" || state.awaitingKind === "dynamic-input" || state.awaitingKind === "explain-input") &&
+      !state.virtualOptions;
+    el.composerInput.disabled = !isInputStep;
+    el.composerInput.placeholder = composerPlaceholder();
+    if (!isInputStep) el.composerInput.value = "";
+    el.sendBtn.disabled = !isInputStep || !el.composerInput.value.trim();
+
+    if (state.inputError) {
+      el.inputError.textContent = state.inputError;
+      el.inputError.hidden = false;
+    } else {
+      el.inputError.hidden = true;
+    }
+
+    el.thread.scrollTop = el.thread.scrollHeight;
+  }
+
+  function handleSend() {
+    if (el.composerInput.disabled) return;
+    var value = el.composerInput.value;
+    if (!value.trim()) return;
+    el.composerInput.value = "";
+    if (state.awaitingKind === "dynamic-input") {
+      submitDynamicAnswer(value);
+    } else if (state.awaitingKind === "explain-input") {
+      submitExplainQuestion(value);
+    } else {
+      submitText(value);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    el.thread = document.getElementById("thread");
+    el.composerInput = document.getElementById("composer-input");
+    el.sendBtn = document.getElementById("send-btn");
+    el.inputError = document.getElementById("input-error");
+    el.detailsBackdrop = document.getElementById("details-backdrop");
+    el.detailsBody = document.getElementById("details-body");
+    el.detailsClose = document.getElementById("details-close");
+    el.detailsFav = document.getElementById("details-fav");
+
+    el.sendBtn.addEventListener("click", handleSend);
+    el.composerInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") handleSend();
+    });
+    el.composerInput.addEventListener("input", function () {
+      el.sendBtn.disabled = el.composerInput.disabled || !el.composerInput.value.trim();
+    });
+
+    el.detailsClose.addEventListener("click", closePumpDetailsModal);
+    el.detailsFav.addEventListener("click", function () {
+      var pressed = el.detailsFav.getAttribute("aria-pressed") === "true";
+      el.detailsFav.setAttribute("aria-pressed", pressed ? "false" : "true");
+    });
+    el.detailsBackdrop.addEventListener("click", function (event) {
+      if (event.target === el.detailsBackdrop) closePumpDetailsModal();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !el.detailsBackdrop.hidden) closePumpDetailsModal();
+    });
+
+    initConversation();
+    render();
+  });
+})();

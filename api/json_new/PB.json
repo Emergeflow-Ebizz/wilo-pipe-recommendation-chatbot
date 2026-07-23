@@ -1,0 +1,66 @@
+{
+  "PB-088": {
+    "art_no": 8196049,
+    "motor_rating": {
+      "kw": 0.09,
+      "hp": 0.13
+    },
+    "suction_mm": 15,
+    "delivery_mm": 15,
+    "performance_curves": [
+      { "flow": 0, "head": 8 },
+      { "flow": 5, "head": 7.5 },
+      { "flow": 10, "head": 6.5 },
+      { "flow": 15, "head": 5 },
+      { "flow": 20, "head": 3.5 },
+      { "flow": 25, "head": 2.5 },
+      { "flow": 30, "head": 2 }
+    ]
+  },
+  "PB-200": {
+    "art_no": 8196050,
+    "motor_rating": {
+      "kw": 0.2,
+      "hp": 0.26
+    },
+    "suction_mm": 25,
+    "delivery_mm": 25,
+    "performance_curves": [
+      { "flow": 0, "head": 15 },
+      { "flow": 5, "head": 14 },
+      { "flow": 10, "head": 13.5 },
+      { "flow": 15, "head": 12.5 },
+      { "flow": 20, "head": 11 },
+      { "flow": 25, "head": 10 },
+      { "flow": 30, "head": 8.5 },
+      { "flow": 35, "head": 6.5 },
+      { "flow": 40, "head": 4 },
+      { "flow": 45, "head": 2 }
+    ]
+  },
+  "PB-400": {
+    "art_no": 8196051,
+    "motor_rating": {
+      "kw": 0.4,
+      "hp": 0.53
+    },
+    "suction_mm": 40,
+    "delivery_mm": 40,
+    "performance_curves": [
+      { "flow": 0, "head": 20 },
+      { "flow": 5, "head": 19 },
+      { "flow": 10, "head": 18 },
+      { "flow": 15, "head": 17 },
+      { "flow": 20, "head": 16 },
+      { "flow": 25, "head": 15 },
+      { "flow": 30, "head": 14 },
+      { "flow": 35, "head": 13 },
+      { "flow": 40, "head": 12 },
+      { "flow": 45, "head": 11 },
+      { "flow": 50, "head": 10 },
+      { "flow": 55, "head": 8 },
+      { "flow": 60, "head": 6 },
+      { "flow": 65, "head": 4 }
+    ]
+  }
+}

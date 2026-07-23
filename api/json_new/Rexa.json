@@ -1,0 +1,91 @@
+{
+  "REXA MINI3-V04.09/M05-523/A-5M": {
+    "art_no": 3094002,
+    "motor_rating": {
+      "kw": 0.5,
+      "hp": 0.75
+    },
+    "discharge_mm": 40,
+    "solid_size_mm": 40,
+    "performance_curves": [
+      { "flow": 303, "head": 3 },
+      { "flow": 275, "head": 4 },
+      { "flow": 242, "head": 5 },
+      { "flow": 205, "head": 6 },
+      { "flow": 159, "head": 7 },
+      { "flow": 102, "head": 8 }
+    ]
+  },
+  "REXA MINI3-V04.11/M06-523/A-5M": {
+    "art_no": 3094005,
+    "motor_rating": {
+      "kw": 0.6,
+      "hp": 0.9
+    },
+    "discharge_mm": 40,
+    "solid_size_mm": 40,
+    "performance_curves": [
+      { "flow": 350, "head": 3 },
+      { "flow": 330, "head": 4 },
+      { "flow": 290, "head": 5 },
+      { "flow": 265, "head": 6 },
+      { "flow": 222, "head": 7 },
+      { "flow": 170, "head": 8 },
+      { "flow": 126, "head": 9 },
+      { "flow": 53, "head": 10 }
+    ]
+  },
+  "REXA MINI3-V04.13/M08-523/A-5M": {
+    "art_no": 3094007,
+    "motor_rating": {
+      "kw": 0.75,
+      "hp": 1.0
+    },
+    "discharge_mm": 40,
+    "solid_size_mm": 40,
+    "performance_curves": [
+      { "flow": 350, "head": 4 },
+      { "flow": 330, "head": 5 },
+      { "flow": 308, "head": 6 },
+      { "flow": 280, "head": 7 },
+      { "flow": 250, "head": 8 },
+      { "flow": 210, "head": 9 },
+      { "flow": 177, "head": 10 },
+      { "flow": 58, "head": 12 }
+    ]
+  },
+  "Rexa PRO-S03-112A/21T011X540/": {
+    "art_no": 6093105,
+    "motor_rating": {
+      "kw": 1.1,
+      "hp": 1.5
+    },
+    "discharge_mm": 32,
+    "performance_curves": [
+      { "flow": 350, "head": 2 },
+      { "flow": 333, "head": 4 },
+      { "flow": 300, "head": 8 },
+      { "flow": 250, "head": 12 },
+      { "flow": 220, "head": 14 },
+      { "flow": 183, "head": 16 },
+      { "flow": 117, "head": 20 },
+      { "flow": 33, "head": 24 },
+      { "flow": 100, "head": 28 }
+    ]
+  },
+  "Rexa PRO-S03-123A/21T015X540/": {
+    "art_no": 6093104,
+    "motor_rating": {
+      "kw": 1.5,
+      "hp": 2.0
+    },
+    "discharge_mm": 32,
+    "performance_curves": [
+      { "flow": 317, "head": 16 },
+      { "flow": 283, "head": 20 },
+      { "flow": 233, "head": 24 },
+      { "flow": 133, "head": 28 },
+      { "flow": 50, "head": 32 }
+    ]
+  }
+}
