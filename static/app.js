@@ -194,10 +194,27 @@
       kind: "final",
       bot: function (answers) {
         return (
-          "Thank you, " +
+          "✅ Thank you, " +
           answers["lead-name"] +
           "! Our dealer will reach out to you shortly, and your details have been shared with dealer."
         );
+      },
+      followUp: function () {
+        return [
+          {
+            kind: "text",
+            text:
+              "🙏 Thank you for visiting Wilo!\n\n" +
+              "We appreciate your interest in our products and services. If you need any further assistance, our support team is ready to help. 😊",
+          },
+          {
+            kind: "html",
+            html:
+              "Contact Support:<br>" +
+              '📧 <a href="mailto:sales@wilo.com">sales@wilo.com</a><br>' +
+              '🌐 <a href="https://wilo.com/in/en/Dealers/" target="_blank" rel="noopener noreferrer">https://wilo.com/in/en/Dealers/</a>',
+          },
+        ];
       },
       next: null,
     },
@@ -240,6 +257,19 @@
   function addBotMessage(text) {
     state.messages.push({ id: nextMessageId(), role: "bot", timestamp: timestamp(), text: text, kind: "text" });
   }
+  function addBotHtmlMessage(html) {
+    state.messages.push({ id: nextMessageId(), role: "bot", timestamp: timestamp(), html: html, kind: "html" });
+  }
+  /** Adds a step's main bot message, then any followUp messages (text or
+   * html) it defines, e.g. the multi-message sign-off on "thank-you". */
+  function addStepMessages(step, answers) {
+    addBotMessage(step.bot(answers));
+    if (!step.followUp) return;
+    step.followUp(answers).forEach(function (msg) {
+      if (msg.kind === "html") addBotHtmlMessage(msg.html);
+      else addBotMessage(msg.text);
+    });
+  }
   function addUserMessage(text) {
     state.messages.push({ id: nextMessageId(), role: "user", timestamp: timestamp(), text: text, kind: "text" });
   }
@@ -266,7 +296,7 @@
     var step = getStep(stepId);
     state.virtualOptions = null;
     state.inputError = null;
-    addBotMessage(step.bot(state.answers));
+    addStepMessages(step, state.answers);
     state.currentStepId = step.id;
     state.awaitingKind = step.kind;
   }
@@ -602,7 +632,7 @@
       return fetchNextQuestion(); // returns a Promise
     }
     var nextStep = getStep(nextId);
-    addBotMessage(nextStep.bot(state.answers));
+    addStepMessages(nextStep, state.answers);
     state.currentStepId = nextStep.id;
     state.awaitingKind = nextStep.kind;
     state.inputError = null;
@@ -1156,7 +1186,11 @@
 
     var bubble = document.createElement("div");
     bubble.className = "bubble";
-    bubble.textContent = message.text;
+    if (message.kind === "html") {
+      bubble.innerHTML = message.html;
+    } else {
+      bubble.textContent = message.text;
+    }
 
     var time = document.createElement("div");
     time.className = "time";

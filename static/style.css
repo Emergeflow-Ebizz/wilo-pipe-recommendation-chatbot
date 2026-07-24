@@ -318,6 +318,11 @@ body {
   color: #fff;
   border-radius: 18px 18px 4px 18px;
 }
+.bubble a {
+  color: var(--teal-dark);
+  font-weight: 600;
+  text-decoration: underline;
+}
 .time {
   font-size: 11px;
   color: var(--muted);
