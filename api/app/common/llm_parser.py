@@ -415,7 +415,6 @@ def parse_answer(
             data["needs_clarification"] = False
             data["clarification_question"] = None
 
-<<<<<<< HEAD
     # Clarification question: if we're asking for missing value/unit, generate
     # the clarification question with high temperature so the wording varies.
     # The LLM decides what's actually missing based on what was extracted.
@@ -455,9 +454,6 @@ def parse_answer(
             ).strip()
         except LLMUnavailableError:
             data["clarification_question"] = "We cannot recommend you a model because of missing information."
-
-=======
->>>>>>> 12ef642 (Update backend with improved water transfer logic and LLM enhancements)
     # Defensive: a question requiring a whole number (e.g. num_floors) must
     # never accept a fractional value - don't rely solely on the model
     # following the whole-number instruction above. Skipped when this is a
