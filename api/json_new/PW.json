@@ -8,7 +8,6 @@
     "suction_dia_mm": 25,
     "discharge_dia_mm": 25,
     "performance_curves": [
-      { "flow": 0, "head": 30 },
       { "flow": 3, "head": 27 },
       { "flow": 8, "head": 24 },
       { "flow": 13, "head": 20 },

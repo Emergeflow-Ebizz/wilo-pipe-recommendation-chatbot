@@ -9,7 +9,6 @@
     "suction_mm": 32,
     "delivery_mm": 32,
     "performance_curves": [
-      { "flow": 0, "head": 70 },
       { "flow": 29, "head": 52 },
       { "flow": 36, "head": 48 },
       { "flow": 43, "head": 43 },
@@ -29,7 +28,6 @@
     "suction_mm": 32,
     "delivery_mm": 32,
     "performance_curves": [
-      { "flow": 0, "head": 45 },
       { "flow": 33, "head": 40 },
       { "flow": 42, "head": 38 },
       { "flow": 51, "head": 35 },
@@ -49,7 +47,6 @@
     "suction_mm": 32,
     "delivery_mm": 32,
     "performance_curves": [
-      { "flow": 0, "head": 54 },
       { "flow": 33, "head": 47 },
       { "flow": 42, "head": 44 },
       { "flow": 51, "head": 39 },
