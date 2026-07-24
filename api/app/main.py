@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -30,17 +29,14 @@ from app.use_cases.water_transfer.rules import (
     MAX_BOREWELL_SIZE,
     MIN_BOREWELL_SIZE,
     NoModelAvailableError,
+    OVERSIZE_DECLINE_MESSAGE,
     WaterTransferUseCase,
+    calculate_head as water_transfer_calculate_head,
+    normalize_well_depth,
 )
+from app.use_cases.tank_filling.rules import calculate_head as tank_filling_calculate_head
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 USE_CASES = {
     uc.slug: uc
@@ -160,6 +156,7 @@ class WaterTransferResponse(BaseModel):
     status: str
     message: str | None = None
     recommendation: PumpRecommendation | None = None
+    target_head: float | None = None
 
 
 @app.post("/water_transfer/recommend", response_model=WaterTransferResponse)
@@ -182,28 +179,36 @@ def water_transfer_recommend(request: WaterTransferRequest) -> WaterTransferResp
         "well_depth_unit": request.well_depth_unit,
         "desired_motor_power_hp": request.motor_power_hp,
     }
+    well_depth_ft = normalize_well_depth(request.well_depth, request.well_depth_unit)
+    target_head = water_transfer_calculate_head(well_depth_ft, request.num_floors)
 
     confirm_oversize = request.confirm_oversize
+    explicitly_declined = False
     if request.confirm_oversize_text is not None:
         try:
             confirm_oversize = llm_parser.parse_yes_no(request.confirm_oversize_text)
+            explicitly_declined = not confirm_oversize
         except llm_parser.AmbiguousConfirmationError:
             confirm_oversize = False
 
     try:
         recommendation = uc.select_pump(answers)
     except BorewellTooSmallError as e:
-        return WaterTransferResponse(status="rejected", message=_explain(str(e), facts))
+        return WaterTransferResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
     except BorewellOversizeConfirmationRequired as e:
+        if explicitly_declined:
+            return WaterTransferResponse(
+                status="rejected", message=_explain(OVERSIZE_DECLINE_MESSAGE, facts), target_head=target_head
+            )
         if not confirm_oversize:
             return WaterTransferResponse(status="confirmation_required", message=_explain(str(e), facts))
         answers["borewell_size"] = (MAX_BOREWELL_SIZE, "inch")
         try:
             recommendation = uc.select_pump(answers)
         except NoModelAvailableError as e:
-            return WaterTransferResponse(status="rejected", message=_explain(str(e), facts))
+            return WaterTransferResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
     except NoModelAvailableError as e:
-        return WaterTransferResponse(status="rejected", message=_explain(str(e), facts))
+        return WaterTransferResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
 
     return WaterTransferResponse(status="ok", recommendation=recommendation)
 
@@ -212,6 +217,7 @@ class TankFillingResponse(BaseModel):
     status: str
     message: str | None = None
     recommendation: PumpRecommendation | None = None
+    target_head: float | None = None
 
 
 @app.post("/tank_filling/recommend", response_model=TankFillingResponse)
@@ -232,11 +238,12 @@ def tank_filling_recommend(request: TankFillingRequest) -> TankFillingResponse:
         "num_floors": request.num_floors,
         "desired_motor_power_hp": request.motor_power_hp,
     }
+    target_head = tank_filling_calculate_head(request.num_floors)
 
     try:
         recommendation = uc.select_pump(answers)
     except NoTankFillingMatchError as e:
-        return TankFillingResponse(status="rejected", message=_explain(str(e), facts))
+        return TankFillingResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
 
     return TankFillingResponse(status="ok", recommendation=recommendation)
 
