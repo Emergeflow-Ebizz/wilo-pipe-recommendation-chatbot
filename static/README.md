@@ -1,39 +1,41 @@
-# Wilo-Pump-Selection-Chatbot---Velotech
+# Wilo Pump Selection Chatbot - Frontend
 
-Chatbot backend serving 5 independent pump-selection use cases. A UI lets the
-user pick one of the 5 up front; the backend runs that use case's fixed
-question sequence and rule engine to recommend a pump. The LLM is only used to
-parse free-text answers into structured values, not to choose the pump.
-
-## Data
-
-`json_new/` holds every model-family catalog file (Challenger, WBW-3,
-WBW-4 Prathak, etc.) in one shared folder. Use cases reference these files by
-name via their own `sheet_map.py` rather than owning private copies.
+A static, vanilla JS/CSS/HTML chat widget that walks a user through selecting
+a Wilo pump for their application. It talks to the Wilo pump-selection
+backend (FastAPI service, hosted separately) for use-case questions, answer
+parsing, and pump recommendations.
 
 ## Structure
 
-- `app/common/` - shared catalog loading (`catalog_loader.load_sheet`), unit conversions
-  (`units.py`), LLM parsing, session state
-- `app/use_cases/<slug>/` - each use case's own `sheet_map.py` (selector value to
-  `json_new/` filename), `questions.py` (fixed question sequence), and `rules.py`
-  (deterministic pump-selection rule engine)
-- `tests/` - unit tests for shared code and per-use-case rule engines
+- `index.html` - page shell and chat widget markup
+- `app.js` - conversation flow (application/use-case picker, lead-capture
+  steps, thank-you sign-off) and all calls to the backend API
+- `style.css` - chat widget styling
+- `favicon.svg`, `WILO_Logo_2013.svg`, `mascot.jpeg` - static assets
 
-## Use cases
+## Backend
 
-| Slug                    | Status              |
-| ----------------------- | ------------------- |
-| `water_transfer`        | Implemented         |
-| `tank_filling`          | implemented         |
-| `pressure_boosting`     | Not yet implemented |
-| `dewatering`            | Not yet implemented |
-| `hot_water_circulation` | Not yet implemented |
+`app.js` calls a backend at `API_BASE_URL` (currently hardcoded to
+`http://127.0.0.1:8000`) for:
 
-## Running
+- `/{use_case_slug}/next_question`, `/answer_category`, `/answer` - drives the
+  use case's question sequence
+- `/{use_case_slug}/recommend` - runs the rule engine and returns a
+  recommended pump
+- `/explain_model` - LLM-generated explanation for a recommended model
+
+The backend source lives in a separate repo
+([`Emergeflow-Ebizz/wilo-pipe-recommendation-chatbot`](https://github.com/Emergeflow-Ebizz/wilo-pipe-recommendation-chatbot)),
+which also serves this same frontend under its `static/` folder on Vercel.
+
+## Running locally
+
+This is a static site with no build step. Serve the folder and open it in a
+browser, e.g.:
 
 ```
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-pytest
+python3 -m http.server 5500
 ```
+
+Then visit `http://localhost:5500`. Point `API_BASE_URL` in `app.js` at a
+running instance of the backend.
