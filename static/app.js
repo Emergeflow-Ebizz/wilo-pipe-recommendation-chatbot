@@ -60,11 +60,10 @@
   // everything about sizing the pump (which questions to ask, in what order)
   // is driven live by the backend's /{slug}/next_question endpoint.
   // ---------------------------------------------------------------------
-  var phoneValidate = function (value) {
-    return /^\d{10}$/.test(value.trim()) ? null : "Please enter a valid 10-digit phone number.";
-  };
-  var emailValidate = function (value) {
-    return /^\S+@\S+\.\S+$/.test(value.trim()) ? null : "Please enter a valid email address.";
+  var contactValidate = function (value) {
+    var trimmed = value.trim();
+    if (/^\d{10}$/.test(trimmed) || /^\S+@\S+\.\S+$/.test(trimmed)) return null;
+    return "Please enter a valid email address or 10-digit phone number.";
   };
   var pincodeValidate = function (value) {
     return /^\d{6}$/.test(value.trim()) ? null : "Please enter a valid 6-digit pincode.";
@@ -139,40 +138,17 @@
         { label: "No, proceed", value: "proceed", icon: "✅", subtitle: "Continue to next steps" },
       ],
       next: function (value) {
-        return value === "more" ? "application" : "lead-name";
+        return value === "more" ? "application" : "lead-contact";
       },
     },
     {
-      id: "lead-name",
+      id: "lead-contact",
       kind: "input",
       bot: function () {
-        return "One last thing, could I get your name so our dealer can reach out to you?";
+        return "Please provide your Email address or Contact number. So we can send detailed pump specifications";
       },
-      placeholder: "Your name",
-      next: function () {
-        return "lead-phone";
-      },
-    },
-    {
-      id: "lead-phone",
-      kind: "input",
-      bot: function (answers) {
-        return "Thanks, " + answers["lead-name"] + "! What's your phone number?";
-      },
-      placeholder: "10-digit mobile number",
-      validate: phoneValidate,
-      next: function () {
-        return "lead-email";
-      },
-    },
-    {
-      id: "lead-email",
-      kind: "input",
-      bot: function () {
-        return "Got it. What's your email address?";
-      },
-      placeholder: "you@example.com",
-      validate: emailValidate,
+      placeholder: "Email or 10-digit phone number",
+      validate: contactValidate,
       next: function () {
         return "lead-pincode";
       },
@@ -181,7 +157,7 @@
       id: "lead-pincode",
       kind: "input",
       bot: function () {
-        return "And what's your pincode?";
+        return "What is your area pin code so we can locate the nearest dealer to you.";
       },
       placeholder: "6-digit pincode",
       validate: pincodeValidate,
@@ -192,11 +168,9 @@
     {
       id: "thank-you",
       kind: "final",
-      bot: function (answers) {
+      bot: function () {
         return (
-          "✅ Thank you, " +
-          answers["lead-name"] +
-          "! Our dealer will reach out to you shortly, and your details have been shared with dealer."
+          "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer."
         );
       },
       followUp: function () {
