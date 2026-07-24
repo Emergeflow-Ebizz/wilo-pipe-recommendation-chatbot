@@ -125,9 +125,44 @@ def _generate_clarification_question(
     units_str = ", ".join(allowed_units) if allowed_units else "the available units"
     subject = question_key.replace('_', ' ')
 
+    has_value = extracted_value is not None
+    has_unit = extracted_unit is not None
+
+    # Generic rule, not specific to value/unit: whatever piece the system
+    # already has recorded must be acknowledged in the question, so the user
+    # can see their earlier answer was understood and kept - not silently
+    # reused behind the scenes, which reads as if the bot forgot it and is
+    # asking from scratch. Whatever piece is still missing must be asked for
+    # without also re-requesting the piece that's already known.
+    if has_value and not has_unit:
+        missing_instruction = (
+            f"The user already told you the number: {extracted_value}. Confirm "
+            f"you've got that number, and ask only for the unit it's in - do not "
+            f"ask the user to repeat the number. Do not name any specific unit "
+            f"(e.g. do not say 'is that in {units_str}?'); ask which unit it is, "
+            f"phrased as an open question."
+        )
+    elif has_unit and not has_value:
+        missing_instruction = (
+            f"The user already told you the unit: {extracted_unit}. Confirm "
+            f"you've got that unit, and ask only for the number - do not ask the "
+            f"user to state the unit again or name any unit in your question "
+            f"(e.g. do not say 'in {extracted_unit}' or list the valid units)."
+        )
+    else:
+        missing_instruction = (
+            "The user has not given a usable number or unit yet. Ask for both."
+        )
+
+    # Only mention the valid units at all when the unit is still what's
+    # missing - stating them in the "value is missing" branch primes the
+    # model to work a unit into the question even when told not to.
+    units_line = f"Valid units: {units_str}. " if not has_unit else ""
+
     prompt = (
         f"User is being asked about: {subject}. "
-        f"Valid units: {units_str}. "
+        f"{units_line}"
+        f"{missing_instruction} "
         f"They've been asked {unit_ask_attempts + 1} time(s). "
         f"Ask them naturally. Only about this specific question for pump selection. "
         f"Output only the question."
@@ -382,19 +417,21 @@ def parse_answer(
                 ),
             )
 
-    # Defensive: don't let an already-recorded value get silently dropped just
+    # Defensive: don't let an already-recorded field get silently dropped just
     # because this turn's reply didn't repeat it (e.g. "idk", "how would I
-    # know?", a bare unit correction). The prompt asks the model to carry
-    # previous_value forward on its own, but that's not reliable enough to
-    # trust alone - if the model came back with value=None while we were
-    # given a previous_value, and this isn't a redirect/skip, restore it.
-    if (
-        not data.get("redirect_key")
-        and not data.get("skipped")
-        and data.get("value") is None
-        and previous_value is not None
-    ):
-        data["value"] = previous_value
+    # know?", a bare unit correction, a bare number correction). The prompt
+    # asks the model to carry previous_value/previous_unit forward on its
+    # own, but that's not reliable enough to trust alone - applied uniformly
+    # to both fields so a fix for one doesn't need re-deriving for the other.
+    if not data.get("redirect_key") and not data.get("skipped"):
+        for field, previous in (("value", previous_value), ("unit", previous_unit)):
+            if data.get(field) is None and previous is not None:
+                data[field] = previous
+        # A restore above may have supplied everything that was missing -
+        # don't keep asking for clarification once both fields are present.
+        if data.get("value") is not None and (data.get("unit") is not None or allowed_units is None):
+            data["needs_clarification"] = False
+            data["clarification_question"] = None
 
     # Defensive: a question with exactly one valid unit (e.g. hp-only motor
     # power, litres-only tank capacity) never needs a unit-ask - that unit is
@@ -417,7 +454,8 @@ def parse_answer(
 
     # Clarification question: if we're asking for missing value/unit, generate
     # the clarification question with high temperature so the wording varies.
-    # The LLM decides what's actually missing based on what was extracted.
+    # extracted value/unit are passed in so the prompt asks only for whichever
+    # piece is actually missing, instead of always re-asking for both.
     if (
         not data.get("redirect_key")
         and not data.get("skipped")
