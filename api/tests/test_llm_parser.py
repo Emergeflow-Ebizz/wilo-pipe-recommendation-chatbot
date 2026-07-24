@@ -47,6 +47,53 @@ def test_parse_answer_llm_unavailable_falls_back_to_clarification():
     assert result.value is None
 
 
+def test_parse_answer_rule_based_exact_format():
+    question = Question(key="borewell_size", prompt="Borewell Size (mm or Inch)", unit="inch")
+    result = parse_answer(question, "5 inch")
+
+    assert result.value == 5.0
+    assert result.unit == "inch"
+    assert result.needs_clarification is False
+    assert result.clarification_question is None
+
+
+def test_parse_answer_rule_based_with_spacing():
+    question = Question(key="well_depth", prompt="Well Depth (ft or m)", unit="ft")
+    result = parse_answer(question, "  150   ft  ")
+
+    assert result.value == 150.0
+    assert result.unit == "ft"
+    assert result.needs_clarification is False
+
+
+def test_parse_answer_rule_based_case_insensitive():
+    question = Question(key="borewell_size", prompt="Borewell Size (mm or Inch)", unit="inch")
+    result = parse_answer(question, "6 MM")
+
+    assert result.value == 6.0
+    assert result.unit == "mm"
+    assert result.needs_clarification is False
+
+
+def test_parse_answer_rule_based_no_unit_question():
+    question = Question(key="num_floors", prompt="To how many floors above ground level is the water to be delivered?", unit=None)
+    result = parse_answer(question, "5")
+
+    assert result.value == 5.0
+    assert result.unit is None
+    assert result.needs_clarification is False
+
+
+def test_parse_answer_rule_based_no_unit_with_decimal_rejected():
+    question = Question(key="num_floors", prompt="To how many floors above ground level is the water to be delivered?", unit=None)
+    with patch("app.common.llm_parser.llm_client.complete", return_value=json.dumps(
+        {"value": None, "unit": None, "needs_clarification": True, "clarification_question": "Please provide a whole number"}
+    )):
+        result = parse_answer(question, "5.5")
+
+    assert result.needs_clarification is True
+
+
 def test_parse_yes_no_confirmed():
     fake_response = json.dumps({"confirmed": True, "needs_clarification": False})
     with patch("app.common.llm_parser.llm_client.complete", return_value=fake_response):

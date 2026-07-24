@@ -6,6 +6,7 @@ accept/reject/fallback - that logic lives entirely in each use case's
 rules.py and is untouched by anything here.
 """
 import json
+import re
 
 from app.common import llm_client
 from app.common.llm_client import LLMUnavailableError
@@ -32,9 +33,12 @@ def _parse_answer_schema(allowed_units: list[str] | None, other_question_keys: l
             if unit not in combined_units:
                 combined_units.append(unit)
 
+    # No enum here on purpose: the model is asked to normalize noisy input
+    # (typos, filler like "inchhhhh", casing) into a canonical unit itself,
+    # but forcing an enum on a tool-use call makes the provider reject the
+    # whole response when it can't map cleanly - safer to accept any string
+    # and let _normalize_unit() below fuzzy-correct it on our side.
     unit_schema = {"type": ["string", "null"]}
-    if combined_units:
-        unit_schema["enum"] = [*combined_units, None]
 
     redirect_schema = {"type": ["string", "null"]}
     if other_question_keys:
@@ -74,6 +78,12 @@ QUESTION_ALLOWED_UNITS: dict[str, list[str]] = {
 # never need this since there's nothing to disambiguate.
 QUESTIONS_REQUIRING_STATED_UNIT: set[str] = {"borewell_size", "well_depth"}
 
+# Questions with no unit at all whose value must be a whole number (e.g.
+# num_floors - "3.5 floors" is meaningless, unlike a measurement that can
+# have a fractional part). A decimal reply must be rejected as invalid, not
+# silently truncated.
+QUESTIONS_REQUIRING_INTEGER: set[str] = {"num_floors"}
+
 # Extra domain context per question key. This is guidance only - it never
 # changes what rules.py accepts or rejects.
 QUESTION_UNIT_HINTS: dict[str, str] = {
@@ -104,117 +114,164 @@ QUESTION_UNIT_HINTS: dict[str, str] = {
     ),
 }
 
+def _generate_clarification_question(
+    question_key: str,
+    allowed_units: list[str] | None,
+    unit_ask_attempts: int,
+    extracted_value: float | None,
+    extracted_unit: str | None,
+) -> str:
+    """Generate a natural clarification question for pump selection."""
+    units_str = ", ".join(allowed_units) if allowed_units else "the available units"
+    subject = question_key.replace('_', ' ')
+
+    prompt = (
+        f"User is being asked about: {subject}. "
+        f"Valid units: {units_str}. "
+        f"They've been asked {unit_ask_attempts + 1} time(s). "
+        f"Ask them naturally. Only about this specific question for pump selection. "
+        f"Output only the question."
+    )
+
+    try:
+        response = llm_client.complete(
+            "Generate a follow-up question for pump selection. Keep it natural and focused.",
+            prompt,
+            temperature=1.0  # High temp for natural variety
+        ).strip()
+        # Clean up markdown
+        response = "\n".join(line.strip() for line in response.split("\n") if line.strip() and not line.startswith("#"))
+        return response.strip() if response else f"Please provide {subject}."
+    except LLMUnavailableError:
+        return f"Please provide {subject}."
+
+
+def _normalize_unit(raw_unit: str | None, allowed_units: list[str] | None) -> str | None:
+    """Normalize unit text to match allowed units using fuzzy matching.
+
+    Handles typos and variations by checking substring containment. Returns
+    the matching canonical unit, or None if no match found.
+    """
+    if not raw_unit or not allowed_units:
+        return raw_unit
+    cleaned = raw_unit.strip().lower()
+    if cleaned in allowed_units:
+        return cleaned
+    for candidate in allowed_units:
+        if candidate in cleaned or cleaned in candidate:
+            return candidate
+    return raw_unit
+
+
 PARSE_ANSWER_SYSTEM_PROMPT = (
     "You extract a numeric value and its unit from a user's free-text reply "
-    "to a specific question. You do not validate whether the value is "
-    "acceptable for this business (e.g. whether a borewell size is in a "
-    "supported range) - that is decided elsewhere. However, you must never "
-    "silently accept or silently strip the sign of a negative number for a "
-    "physical quantity that cannot be negative (borewell size, well depth, "
-    "motor power, tank capacity) - these are never valid regardless of "
-    "range. If the user's reply contains a negative number for one of "
-    "these, do not return it as the value (do not strip the minus sign to "
-    "make it positive, and do not return the negative number as-is): set "
-    "needs_clarification to true, leave value and unit null, and ask for a "
-    "valid positive value, naming the number they gave so they know what "
-    "was rejected (e.g. \"-50 isn't a valid well depth - depth can't be "
-    "negative. What is the well depth?\"). This overrides skip handling "
-    "below - even on an optional question, a negative number is treated as "
-    "an invalid value needing clarification, not a skip, since the user did "
-    "attempt to give a value. You do not perform any unit conversion "
-    "arithmetic yourself beyond identifying which unit the user meant. "
-    "If this question is listed below as one that REQUIRES A STATED UNIT, "
-    "the user must explicitly say which unit their number is in - you must "
-    "never infer the unit from the number's magnitude or typical values for "
-    "this kind of question, even if one unit would seem obvious. How far "
-    "along this question's unit-ask sequence you already are is given below "
-    "as a count of prior unit-ask attempts - use it exactly as follows: "
-    "(a) Count is 0 (never asked yet): if the user gave a number with no "
-    "unit stated at all (e.g. just '150' or '6'), do not guess a unit and "
-    "do not return a value - set needs_clarification to true, leave value "
-    "and unit null, and ask exactly this form of question, naming the "
-    "question's own subject (not a generic word like 'that'): 'What is the "
-    "unit of <subject>?' - e.g. for well depth: 'What is the unit of well "
-    "depth?'; for borewell size: 'What is the unit of borewell size?'. "
-    "(b) Count is 1 (the plain question above was already asked once): if "
-    "the user's current reply still doesn't state a concrete unit - "
-    "including 'idk', 'not sure', 'I don't know', or similar - set "
-    "needs_clarification to true, leave value and unit null (even if a "
-    "previous value is given below), and reply with exactly: 'I would "
-    "require the unit to recommend the right pump for you - you can enter "
-    "it in any unit you know, and I'll convert it.' Do not repeat the "
-    "plain question a second time; escalate to this explanation instead. "
-    "(c) Count is 2 (that escalation was already given once): if the "
-    "user's current reply STILL doesn't state a concrete unit, do not ask "
-    "again in any form - set needs_clarification to false, gave_up to "
-    "true, value and unit null, and leave clarification_question null; the "
-    "caller will end the conversation for this question rather than ask "
-    "again. "
-    "At any count, if the user's reply (now or previously) DOES state a "
-    "concrete unit - even alone, with no number, as a correction of a "
-    "previous reply - accept it normally regardless of attempt count: "
-    "combine it with whatever number is available (their own reply, or a "
-    "previous value given below) and return that value/unit as a normal "
-    "parsed answer, with needs_clarification and gave_up both false. "
-    "None of this unit-required handling applies to an optional question "
-    "where the user is choosing to skip rather than attempting to give a "
-    "value at all - skip handling below still applies to actual "
-    "skip-intent replies, and gave_up must stay false in that case too. "
-    "If the question is marked optional and the user's reply indicates they "
-    "don't have or don't want to give a value - including explicit 'skip', "
-    "'no', 'not sure', 'don't know', or similar - set skipped to true and "
-    "leave value/unit/needs_clarification/clarification_question at their "
-    "default (null/false). Never ask a clarification question for an "
-    "optional field the user is unsure about; skip it instead. "
-    "If the question is NOT optional, skipped must stay false even if the "
-    "user seems unsure - a required question cannot be skipped, so ask a "
-    "clarification_question that helps them arrive at a value instead; do "
-    "not offer or imply that skipping is an option. "
-    "If the user's reply is genuinely ambiguous and skipping does not apply, "
-    "set needs_clarification to true, leave value and unit null, and provide "
-    "a short, specific clarification_question - do not guess a unit just to "
-    "fill the field, and never fall back to a default unit as a substitute "
-    "for genuine understanding of what the user meant. "
-    "Only ask a clarification question when strictly necessary; never ask "
-    "about anything other than the value/unit of this specific question. "
-    "If a previous value/unit is given below, that is what was parsed and "
-    "shown to the user for this same question in an earlier turn - the "
-    "user's current reply may be correcting that unit rather than giving a "
-    "full restated answer (e.g. after '150 ft' was recorded, the user might "
-    "reply 'no it's meters' or just 'meter', with no number). When the "
-    "current reply states only a different unit and no new number, keep "
-    "the previous value and use the unit the user is now stating - the "
-    "user's stated unit always wins over whatever was recorded before, "
-    "without question. Only ask for clarification here if the reply "
-    "corrects the unit but you cannot tell what value it should apply to. "
-    "If a list of this use case's OTHER questions is given below, the user's "
-    "reply might actually be correcting an answer they already gave to one "
-    "of those, not answering the current question - e.g. the current "
-    "question is motor power, but the user replies 'no 50 meter' or 'wait, "
-    "well depth is actually 50 meters', clearly referring back to the well "
-    "depth question rather than stating a motor power. "
-    "CHECK FOR THIS FIRST, before applying any skip/clarification rule above: "
-    "if the reply unambiguously refers to a different, specific question "
-    "from that list (by its topic - a unit or term that belongs to that "
-    "question, not just any off-topic remark), this is a redirect case and "
-    "ONLY these fields matter - set redirect_key to that question's key, "
-    "put the corrected numeric value in value and its unit in unit (both "
-    "must be non-null - if you cannot determine a concrete value for the "
-    "other question, this is not a valid redirect, so fall through to the "
-    "rules below instead), and set BOTH needs_clarification and skipped to "
-    "false. A leading 'no' in a redirect reply (e.g. 'no 50 meter') is the "
-    "user rejecting your last guess for the OTHER question, not skipping "
-    "the current one - do not let that 'no' trigger the skip rule above. "
-    "redirect_key, skipped, and needs_clarification are mutually exclusive - "
-    "exactly one of them applies to the current question (or none, if this "
-    "is a normal parsed answer); never set more than one of "
-    "redirect_key-is-non-null, skipped=true, needs_clarification=true at "
-    "the same time. "
-    "If the reply is ambiguous about which question it corrects, or doesn't "
-    "clearly reference any other question, leave redirect_key null and "
-    "handle the reply as an answer (or clarification/skip) for the current "
-    "question as usual."
+    "to a specific question. Return only what the user actually said - do not "
+    "validate, do not decide whether to ask follow-up questions, just extract. "
+    "The user's text may be noisy (typos, repeated letters, filler: 'inchhhhh', "
+    "'MM', 'i guess 5 inch', 'idkkk', 'fiveeeee'). Convert spelled-out numbers "
+    "to digits (e.g. 'five' -> 5, 'twenty three' -> 23). Normalize the unit to "
+    "its clean canonical form (e.g. 'inchhhhh' -> 'inch', 'MM' -> 'mm'). If the "
+    "user said a number with no unit, return the number in value and leave unit "
+    "null - the caller will decide what to ask next. "
+    "EXCEPTION: 'num_floors' (floors above ground) allows zero as a valid value "
+    "meaning ground floor. For all other numeric questions (borewell size, well "
+    "depth, motor power, tank capacity), reject any zero or negative number - set "
+    "needs_clarification=true, value/unit null, and ask for a value > zero. "
+    "WHOLE NUMBER: If the question requires a whole number (num_floors), reject "
+    "any non-whole reply (e.g. '5.5') - set needs_clarification=true, value null, "
+    "ask for a whole number. "
+    "SKIP: If optional and the user says skip/no/idk/don't know/etc, set "
+    "skipped=true, leave value/unit/needs_clarification/clarification_question null. "
+    "If NOT optional, never skip - ask for clarification instead. "
+    "REDIRECT: If the user's reply clearly corrects an EARLIER answer to a "
+    "different question (e.g. current question is motor power but user says "
+    "'well depth is 50 meters'), set redirect_key to that question's key, put the "
+    "corrected value/unit in value/unit, set needs_clarification=false, skipped=false. "
+    "Only if you can determine both a concrete value AND its unit for the other question. "
+    "Otherwise treat it as a clarification for the current question. "
+    "PREVIOUS VALUE: If a previous value/unit was recorded for this same question, "
+    "treat it as still valid unless the user's current reply gives a new, different "
+    "number - keep carrying it forward turn after turn. If the current reply states "
+    "only a unit (e.g. 'no it's meters') or is unrelated/confused (e.g. 'idk', 'how "
+    "would I know'), still return the previously recorded value in value - do not "
+    "null it out just because this particular reply didn't repeat the number. Only "
+    "replace it if the user gives an actual new number this turn. The user's stated "
+    "unit always wins over any previously recorded unit. "
+    "AMBIGUOUS: If genuinely unclear, set needs_clarification=true, value/unit null, "
+    "and ask a short clarification_question. "
+    "Never ask about anything other than THIS question's value/unit. "
+    "redirect_key, skipped, and needs_clarification are mutually exclusive."
 )
+
+
+def _try_rule_based_parse(user_text: str, allowed_units: list[str] | None, question_key: str, previous_value: float | None = None) -> dict | None:
+	"""Attempt to extract value + unit using regex/pattern matching.
+
+	Returns a dict matching the LLM response schema if a clear match is found,
+	otherwise None to fall back to LLM parsing.
+	"""
+	user_text = user_text.strip()
+	if not user_text:
+		return None
+
+	if allowed_units is None:
+		match = re.match(r'^\s*([+-]?\d+(?:\.\d+)?)\s*$', user_text)
+		if not match:
+			return None
+		value_str = match.group(1)
+		value = float(value_str)
+		if question_key in QUESTIONS_REQUIRING_INTEGER and value != int(value):
+			return None
+		return {
+			"value": value,
+			"unit": None,
+			"needs_clarification": False,
+			"clarification_question": None,
+			"skipped": False,
+			"redirect_key": None,
+			"gave_up": False,
+		}
+
+	unit_pattern = "|".join(re.escape(unit) for unit in allowed_units)
+	pattern = rf'^\s*([+-]?\d+(?:\.\d+)?)\s*({unit_pattern})\s*$'
+	match = re.match(pattern, user_text, re.IGNORECASE)
+
+	if not match:
+		# Check if it's just a unit correction (no number, but a valid unit)
+		cleaned = user_text.lower()
+		for unit in allowed_units:
+			if cleaned == unit or cleaned in unit or unit in cleaned:
+				if previous_value is not None:
+					return {
+						"value": previous_value,
+						"unit": unit,
+						"needs_clarification": False,
+						"clarification_question": None,
+						"skipped": False,
+						"redirect_key": None,
+						"gave_up": False,
+					}
+		return None
+
+	value_str, unit_str = match.groups()
+	value = float(value_str)
+	unit = unit_str.lower()
+
+	if unit not in allowed_units:
+		return None
+
+	if question_key in QUESTIONS_REQUIRING_INTEGER and value != int(value):
+		return None
+
+	return {
+		"value": value,
+		"unit": unit,
+		"needs_clarification": False,
+		"clarification_question": None,
+		"skipped": False,
+		"redirect_key": None,
+		"gave_up": False,
+	}
 
 
 def parse_answer(
@@ -267,6 +324,12 @@ def parse_answer(
         if question.key in QUESTIONS_REQUIRING_STATED_UNIT
         else ""
     )
+    integer_required_line = (
+        "This question REQUIRES A WHOLE NUMBER (see the whole-number rule "
+        "above) and has no unit.\n"
+        if question.key in QUESTIONS_REQUIRING_INTEGER
+        else ""
+    )
     previous_guess = (
         f"Your previous guess for this question: {previous_value!r} {previous_unit!r}\n"
         if previous_value is not None
@@ -285,10 +348,15 @@ def parse_answer(
         f"Optional: {question.optional!r}\n"
         f"{allowed_units_line}"
         f"{unit_required_line}"
+        f"{integer_required_line}"
         f"{hint}\n"
         f"{previous_guess}"
         f"{other_questions_line}"
-        f"User's reply: {user_text!r}"
+        f"User's reply: {user_text!r}\n"
+        f"Track what's NEW: compare user's current reply against previous answer. "
+        f"If they previously said a number but no unit, and now they say a unit keyword, "
+        f"extract that unit. If they say both, extract both. Always look for evidence "
+        f"of what the user is stating, even in typos or casual language."
     )
 
     try:
@@ -298,16 +366,35 @@ def parse_answer(
             json_schema=_parse_answer_schema(allowed_units, other_question_keys),
         )
         data = json.loads(raw)
+        data["unit"] = _normalize_unit(data.get("unit"), allowed_units)
     except (LLMUnavailableError, json.JSONDecodeError, ValueError):
-        if question.optional:
-            return ParsedAnswer(skipped=True)
-        return ParsedAnswer(
-            needs_clarification=True,
-            clarification_question=(
-                f"I couldn't understand that answer for \"{question.prompt}\". "
-                "Could you rephrase it, including the unit if there is one?"
-            ),
-        )
+        rule_based = _try_rule_based_parse(user_text, allowed_units, question.key, previous_value)
+        if rule_based is not None:
+            data = rule_based
+        else:
+            if question.optional:
+                return ParsedAnswer(skipped=True)
+            return ParsedAnswer(
+                needs_clarification=True,
+                clarification_question=(
+                    f"I couldn't understand that answer for \"{question.prompt}\". "
+                    "Could you rephrase it, including the unit if there is one?"
+                ),
+            )
+
+    # Defensive: don't let an already-recorded value get silently dropped just
+    # because this turn's reply didn't repeat it (e.g. "idk", "how would I
+    # know?", a bare unit correction). The prompt asks the model to carry
+    # previous_value forward on its own, but that's not reliable enough to
+    # trust alone - if the model came back with value=None while we were
+    # given a previous_value, and this isn't a redirect/skip, restore it.
+    if (
+        not data.get("redirect_key")
+        and not data.get("skipped")
+        and data.get("value") is None
+        and previous_value is not None
+    ):
+        data["value"] = previous_value
 
     # Defensive: a question with exactly one valid unit (e.g. hp-only motor
     # power, litres-only tank capacity) never needs a unit-ask - that unit is
@@ -327,6 +414,67 @@ def parse_answer(
             data["unit"] = allowed_units[0]
             data["needs_clarification"] = False
             data["clarification_question"] = None
+
+    # Clarification question: if we're asking for missing value/unit, generate
+    # the clarification question with high temperature so the wording varies.
+    # The LLM decides what's actually missing based on what was extracted.
+    if (
+        not data.get("redirect_key")
+        and not data.get("skipped")
+        and question.key in QUESTIONS_REQUIRING_STATED_UNIT
+        and data.get("needs_clarification")
+        and unit_ask_attempts < 2
+    ):
+        data["clarification_question"] = _generate_clarification_question(
+            question.key,
+            allowed_units,
+            unit_ask_attempts,
+            data.get("value"),
+            data.get("unit"),
+        )
+
+    # Give-up threshold: if we're at attempt 2+ and still missing required info,
+    # stop and give up. Generate a final message via LLM.
+    if (
+        not data.get("redirect_key")
+        and not data.get("skipped")
+        and question.key in QUESTIONS_REQUIRING_STATED_UNIT
+        and data.get("unit") is None
+        and unit_ask_attempts >= 2
+    ):
+        data["value"] = None
+        data["needs_clarification"] = False
+        data["gave_up"] = True
+        # Generate the "cannot recommend" message via LLM
+        try:
+            data["clarification_question"] = llm_client.complete(
+                "You generate brief, empathetic messages. Output only the message itself, nothing else.",
+                f"The user couldn't provide the {question.key.replace('_', ' ')} information after being asked twice. Generate a brief, friendly message saying we cannot recommend a pump model without this information.",
+                temperature=1.0
+            ).strip()
+        except LLMUnavailableError:
+            data["clarification_question"] = "We cannot recommend you a model because of missing information."
+
+    # Defensive: a question requiring a whole number (e.g. num_floors) must
+    # never accept a fractional value - don't rely solely on the model
+    # following the whole-number instruction above. Skipped when this is a
+    # redirect, since the parsed value then belongs to whichever question
+    # redirect_key names, which may be a different, fractional-allowed one.
+    if (
+        not data.get("redirect_key")
+        and question.key in QUESTIONS_REQUIRING_INTEGER
+        and data.get("value") is not None
+        and data["value"] != int(data["value"])
+    ):
+        rejected_number = data["value"]
+        data["value"] = None
+        data["unit"] = None
+        data["skipped"] = False
+        data["needs_clarification"] = True
+        data["clarification_question"] = (
+            f"{rejected_number!r} isn't a whole number - could you give a "
+            f"whole number for \"{question.prompt}\"?"
+        )
 
     # Defensive normalization: redirect_key/skipped/needs_clarification are
     # meant to be mutually exclusive (see the system prompt), and a redirect
@@ -348,13 +496,17 @@ def parse_answer(
         data["needs_clarification"] = False
         data["skipped"] = False
 
-    # Defensive: these are physical quantities that can never be negative.
-    # Don't rely solely on the model following the negative-value
-    # instruction above - if a negative value ever comes back (for the
-    # current question or a redirected one), force clarification instead of
-    # silently accepting or silently stripping the sign.
+    # Defensive: these are physical quantities that must be strictly
+    # positive - zero is just as meaningless as negative for a borewell
+    # diameter, well depth, motor power, or tank capacity (unlike
+    # num_floors, where 0 legitimately means ground floor). Don't rely
+    # solely on the model following the negative-value instruction above -
+    # if a non-positive value ever comes back (for the current question or
+    # a redirected one), force clarification instead of silently accepting
+    # or silently stripping the sign.
     rejected_value = data.get("value")
-    if rejected_value is not None and rejected_value < 0:
+    target_key = data.get("redirect_key") or question.key
+    if rejected_value is not None and rejected_value <= 0 and target_key not in QUESTIONS_REQUIRING_INTEGER:
         target_prompt = question.prompt
         if data.get("redirect_key"):
             target_prompt = next(
@@ -366,30 +518,14 @@ def parse_answer(
         data["redirect_key"] = None
         data["skipped"] = False
         data["needs_clarification"] = True
+        reason = "it can't be negative" if rejected_value < 0 else "it must be greater than zero"
         data["clarification_question"] = (
             f"{rejected_value!r} isn't a valid value for \"{target_prompt}\" - "
-            "it can't be negative. Could you give a valid value?"
+            f"{reason}. Could you give a valid value?"
         )
         data["gave_up"] = False
 
-    # Defensive: after the plain unit-ask and the escalation have both
-    # already been given (attempts >= 2) and the reply still has no concrete
-    # unit, the model should stop asking - don't rely solely on it following
-    # that instruction. Only forces this when the model still left the
-    # question genuinely unanswered (no value); a value it did manage to
-    # extract this turn (e.g. the user finally stated a unit) always wins.
-    if (
-        question.key in QUESTIONS_REQUIRING_STATED_UNIT
-        and unit_ask_attempts >= 2
-        and data.get("value") is None
-        and not data.get("redirect_key")
-        and not data.get("skipped")
-    ):
-        data["gave_up"] = True
-        data["needs_clarification"] = False
-        data["clarification_question"] = None
-    else:
-        data.setdefault("gave_up", False)
+    data.setdefault("gave_up", False)
 
     return ParsedAnswer(**data)
 
