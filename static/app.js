@@ -266,6 +266,22 @@
     state.awaitingKind = first.kind;
   }
 
+  function restartConversation() {
+    state.messages = [];
+    state.answers = {};
+    state.currentStepId = null;
+    state.awaitingKind = null;
+    state.inputError = null;
+    state.virtualOptions = null;
+    state.useCaseSlug = null;
+    state.dynamicAnswers = {};
+    state.unitAskAttempts = {};
+    state.currentQuestion = null;
+    state.lastRecommendation = null;
+    initConversation();
+    render();
+  }
+
   function jumpToStep(stepId) {
     var step = getStep(stepId);
     state.virtualOptions = null;
@@ -1268,6 +1284,10 @@
     el.detailsBody = document.getElementById("details-body");
     el.detailsClose = document.getElementById("details-close");
     el.detailsFav = document.getElementById("details-fav");
+    el.menuBtn = document.getElementById("menu-btn");
+    el.menuDropdown = document.getElementById("menu-dropdown");
+    el.menuRestart = document.getElementById("menu-restart");
+    el.menuContinue = document.getElementById("menu-continue");
 
     el.sendBtn.addEventListener("click", handleSend);
     el.composerInput.addEventListener("keydown", function (event) {
@@ -1285,8 +1305,29 @@
     el.detailsBackdrop.addEventListener("click", function (event) {
       if (event.target === el.detailsBackdrop) closePumpDetailsModal();
     });
+
+    function closeMenu() {
+      el.menuDropdown.hidden = true;
+      el.menuBtn.setAttribute("aria-expanded", "false");
+    }
+    el.menuBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      var wasHidden = el.menuDropdown.hidden;
+      el.menuDropdown.hidden = !wasHidden;
+      el.menuBtn.setAttribute("aria-expanded", wasHidden ? "true" : "false");
+    });
+    el.menuRestart.addEventListener("click", function () {
+      closeMenu();
+      restartConversation();
+    });
+    el.menuContinue.addEventListener("click", closeMenu);
+    document.addEventListener("click", function (event) {
+      if (!el.menuDropdown.hidden && !el.menuDropdown.contains(event.target)) closeMenu();
+    });
+
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && !el.detailsBackdrop.hidden) closePumpDetailsModal();
+      if (event.key === "Escape" && !el.menuDropdown.hidden) closeMenu();
     });
 
     initConversation();
