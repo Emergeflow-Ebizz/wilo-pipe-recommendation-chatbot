@@ -10,7 +10,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 6.2,
       "performance_curves": [
-        { "flow": 0, "head": 57 },
         { "flow": 28, "head": 51 },
         { "flow": 33, "head": 48 },
         { "flow": 38, "head": 45 },
@@ -30,7 +29,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 28, "head": 56 },
         { "flow": 33, "head": 52 },
         { "flow": 38, "head": 48 },
@@ -50,7 +48,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 102 },
         { "flow": 28, "head": 91 },
         { "flow": 33, "head": 87 },
         { "flow": 38, "head": 80 },
@@ -70,7 +67,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 5.3,
       "performance_curves": [
-        { "flow": 0, "head": 35 },
         { "flow": 45, "head": 30 },
         { "flow": 55, "head": 29 },
         { "flow": 65, "head": 26 },
@@ -90,7 +86,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 61 },
         { "flow": 45, "head": 53 },
         { "flow": 55, "head": 51 },
         { "flow": 65, "head": 48 },
@@ -110,7 +105,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 69 },
         { "flow": 45, "head": 61 },
         { "flow": 55, "head": 57 },
         { "flow": 65, "head": 53 },
@@ -130,7 +124,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 86 },
         { "flow": 45, "head": 76 },
         { "flow": 55, "head": 72 },
         { "flow": 65, "head": 66 },
@@ -150,7 +143,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 115 },
         { "flow": 45, "head": 102 },
         { "flow": 55, "head": 95 },
         { "flow": 65, "head": 88 },
@@ -170,7 +162,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 50 },
         { "flow": 55, "head": 44 },
         { "flow": 70, "head": 41 },
         { "flow": 85, "head": 38 },
@@ -190,7 +181,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 63 },
         { "flow": 55, "head": 55 },
         { "flow": 70, "head": 51 },
         { "flow": 85, "head": 47 },
@@ -210,7 +200,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 75 },
         { "flow": 55, "head": 66 },
         { "flow": 70, "head": 62 },
         { "flow": 85, "head": 57 },
@@ -230,7 +219,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 88 },
         { "flow": 55, "head": 77 },
         { "flow": 70, "head": 72 },
         { "flow": 85, "head": 66 },
@@ -250,7 +238,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 52 },
         { "flow": 60, "head": 46 },
         { "flow": 80, "head": 44 },
         { "flow": 100, "head": 41 },
@@ -270,7 +257,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 60, "head": 60 },
         { "flow": 80, "head": 57 },
         { "flow": 100, "head": 54 },
@@ -290,7 +276,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 79 },
         { "flow": 60, "head": 69 },
         { "flow": 80, "head": 66 },
         { "flow": 100, "head": 61 },
@@ -310,7 +295,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 74 },
         { "flow": 18, "head": 65 },
         { "flow": 27, "head": 59 },
         { "flow": 36, "head": 51 },
@@ -330,7 +314,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 104 },
         { "flow": 18, "head": 91 },
         { "flow": 27, "head": 83 },
         { "flow": 36, "head": 71 },
@@ -350,7 +333,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 133 },
         { "flow": 18, "head": 117 },
         { "flow": 27, "head": 106 },
         { "flow": 36, "head": 92 },
@@ -370,7 +352,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 148 },
         { "flow": 18, "head": 130 },
         { "flow": 27, "head": 118 },
         { "flow": 36, "head": 102 },
@@ -390,7 +371,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 66 },
         { "flow": 35, "head": 58 },
         { "flow": 45, "head": 54 },
         { "flow": 55, "head": 50 },
@@ -410,7 +390,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 83 },
         { "flow": 35, "head": 72 },
         { "flow": 45, "head": 68 },
         { "flow": 55, "head": 62 },
@@ -430,7 +409,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 100 },
         { "flow": 35, "head": 86 },
         { "flow": 45, "head": 82 },
         { "flow": 55, "head": 74 },
@@ -450,7 +428,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 116 },
         { "flow": 35, "head": 101 },
         { "flow": 45, "head": 95 },
         { "flow": 55, "head": 87 },
@@ -470,7 +447,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 133 },
         { "flow": 35, "head": 115 },
         { "flow": 45, "head": 109 },
         { "flow": 55, "head": 99 },
@@ -490,7 +466,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 5.3,
       "performance_curves": [
-        { "flow": 0, "head": 61 },
         { "flow": 14, "head": 54 },
         { "flow": 21, "head": 49 },
         { "flow": 28, "head": 43 },
@@ -510,7 +485,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 6.2,
       "performance_curves": [
-        { "flow": 0, "head": 76 },
         { "flow": 14, "head": 67 },
         { "flow": 21, "head": 61 },
         { "flow": 28, "head": 54 },
@@ -530,7 +504,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 106 },
         { "flow": 14, "head": 94 },
         { "flow": 21, "head": 85 },
         { "flow": 28, "head": 76 },
@@ -550,7 +523,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 121 },
         { "flow": 14, "head": 107 },
         { "flow": 21, "head": 97 },
         { "flow": 28, "head": 87 },
@@ -570,7 +542,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 137 },
         { "flow": 14, "head": 121 },
         { "flow": 21, "head": 110 },
         { "flow": 28, "head": 97 },
@@ -590,7 +561,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 152 },
         { "flow": 14, "head": 134 },
         { "flow": 21, "head": 122 },
         { "flow": 28, "head": 108 },
@@ -610,7 +580,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 190 },
         { "flow": 14, "head": 168 },
         { "flow": 21, "head": 153 },
         { "flow": 28, "head": 135 },
@@ -630,7 +599,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 117 },
         { "flow": 13, "head": 104 },
         { "flow": 21, "head": 95 },
         { "flow": 29, "head": 85 },
@@ -650,7 +618,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 130 },
         { "flow": 13, "head": 116 },
         { "flow": 21, "head": 106 },
         { "flow": 29, "head": 94 },
@@ -670,7 +637,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 169 },
         { "flow": 13, "head": 151 },
         { "flow": 21, "head": 138 },
         { "flow": 29, "head": 122 },
@@ -690,7 +656,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 213 },
         { "flow": 13, "head": 189 },
         { "flow": 21, "head": 174 },
         { "flow": 29, "head": 156 },
@@ -710,7 +675,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 249 },
         { "flow": 13, "head": 221 },
         { "flow": 21, "head": 203 },
         { "flow": 29, "head": 182 },
@@ -730,7 +694,6 @@
       "discharge_dia_mm": 65,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 32 },
         { "flow": 180, "head": 25 },
         { "flow": 220, "head": 23 },
         { "flow": 260, "head": 21 },
@@ -750,7 +713,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 6.2,
       "performance_curves": [
-        { "flow": 0, "head": 57 },
         { "flow": 28, "head": 51 },
         { "flow": 33, "head": 48 },
         { "flow": 38, "head": 45 },
@@ -770,7 +732,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 28, "head": 56 },
         { "flow": 33, "head": 52 },
         { "flow": 38, "head": 48 },
@@ -790,7 +751,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 102 },
         { "flow": 28, "head": 91 },
         { "flow": 33, "head": 87 },
         { "flow": 38, "head": 80 },
@@ -810,7 +770,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 5.3,
       "performance_curves": [
-        { "flow": 0, "head": 35 },
         { "flow": 45, "head": 30 },
         { "flow": 55, "head": 29 },
         { "flow": 65, "head": 26 },
@@ -830,7 +789,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 61 },
         { "flow": 45, "head": 53 },
         { "flow": 55, "head": 51 },
         { "flow": 65, "head": 48 },
@@ -850,7 +808,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 69 },
         { "flow": 45, "head": 61 },
         { "flow": 55, "head": 57 },
         { "flow": 65, "head": 53 },
@@ -870,7 +827,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 86 },
         { "flow": 45, "head": 76 },
         { "flow": 55, "head": 72 },
         { "flow": 65, "head": 66 },
@@ -890,7 +846,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 115 },
         { "flow": 45, "head": 102 },
         { "flow": 55, "head": 95 },
         { "flow": 65, "head": 88 },
@@ -910,7 +865,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 150 },
         { "flow": 45, "head": 127 },
         { "flow": 55, "head": 119 },
         { "flow": 65, "head": 110 },
@@ -930,7 +884,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 173 },
         { "flow": 45, "head": 152 },
         { "flow": 55, "head": 143 },
         { "flow": 65, "head": 132 },
@@ -950,7 +903,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 50 },
         { "flow": 55, "head": 44 },
         { "flow": 70, "head": 41 },
         { "flow": 85, "head": 38 },
@@ -970,7 +922,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 63 },
         { "flow": 55, "head": 55 },
         { "flow": 70, "head": 51 },
         { "flow": 85, "head": 47 },
@@ -990,7 +941,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 75 },
         { "flow": 55, "head": 66 },
         { "flow": 70, "head": 62 },
         { "flow": 85, "head": 57 },
@@ -1010,7 +960,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 88 },
         { "flow": 55, "head": 77 },
         { "flow": 70, "head": 72 },
         { "flow": 85, "head": 66 },
@@ -1030,7 +979,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 120 },
         { "flow": 55, "head": 104 },
         { "flow": 70, "head": 98 },
         { "flow": 85, "head": 89 },
@@ -1050,7 +998,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 52 },
         { "flow": 60, "head": 46 },
         { "flow": 80, "head": 44 },
         { "flow": 100, "head": 41 },
@@ -1070,7 +1017,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 60, "head": 60 },
         { "flow": 80, "head": 57 },
         { "flow": 100, "head": 54 },
@@ -1090,7 +1036,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 79 },
         { "flow": 60, "head": 69 },
         { "flow": 80, "head": 66 },
         { "flow": 100, "head": 61 },
@@ -1110,7 +1055,6 @@
       "discharge_dia_mm": 50,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 101 },
         { "flow": 60, "head": 87 },
         { "flow": 80, "head": 82 },
         { "flow": 100, "head": 77 },
@@ -1130,7 +1074,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 74 },
         { "flow": 18, "head": 65 },
         { "flow": 27, "head": 59 },
         { "flow": 36, "head": 51 },
@@ -1150,7 +1093,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 104 },
         { "flow": 18, "head": 91 },
         { "flow": 27, "head": 83 },
         { "flow": 36, "head": 71 },
@@ -1170,7 +1112,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 133 },
         { "flow": 18, "head": 117 },
         { "flow": 27, "head": 106 },
         { "flow": 36, "head": 92 },
@@ -1190,7 +1131,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 148 },
         { "flow": 18, "head": 130 },
         { "flow": 27, "head": 118 },
         { "flow": 36, "head": 102 },
@@ -1210,7 +1150,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 66 },
         { "flow": 35, "head": 58 },
         { "flow": 45, "head": 54 },
         { "flow": 55, "head": 50 },
@@ -1230,7 +1169,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 83 },
         { "flow": 35, "head": 72 },
         { "flow": 45, "head": 68 },
         { "flow": 55, "head": 62 },
@@ -1250,7 +1188,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 100 },
         { "flow": 35, "head": 86 },
         { "flow": 45, "head": 82 },
         { "flow": 55, "head": 74 },
@@ -1270,7 +1207,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 116 },
         { "flow": 35, "head": 101 },
         { "flow": 45, "head": 95 },
         { "flow": 55, "head": 87 },
@@ -1290,7 +1226,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 133 },
         { "flow": 35, "head": 115 },
         { "flow": 45, "head": 109 },
         { "flow": 55, "head": 99 },
@@ -1310,7 +1245,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 191 },
         { "flow": 35, "head": 166 },
         { "flow": 45, "head": 156 },
         { "flow": 55, "head": 143 },
@@ -1330,7 +1264,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 5.3,
       "performance_curves": [
-        { "flow": 0, "head": 61 },
         { "flow": 14, "head": 54 },
         { "flow": 21, "head": 49 },
         { "flow": 28, "head": 43 },
@@ -1350,7 +1283,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 6.2,
       "performance_curves": [
-        { "flow": 0, "head": 76 },
         { "flow": 14, "head": 67 },
         { "flow": 21, "head": 61 },
         { "flow": 28, "head": 54 },
@@ -1370,7 +1302,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 106 },
         { "flow": 14, "head": 94 },
         { "flow": 21, "head": 85 },
         { "flow": 28, "head": 76 },
@@ -1390,7 +1321,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 121 },
         { "flow": 14, "head": 107 },
         { "flow": 21, "head": 97 },
         { "flow": 28, "head": 87 },
@@ -1410,7 +1340,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 137 },
         { "flow": 14, "head": 121 },
         { "flow": 21, "head": 110 },
         { "flow": 28, "head": 97 },
@@ -1430,7 +1359,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 152 },
         { "flow": 14, "head": 134 },
         { "flow": 21, "head": 122 },
         { "flow": 28, "head": 108 },
@@ -1450,7 +1378,6 @@
       "discharge_dia_mm": 40,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 190 },
         { "flow": 14, "head": 168 },
         { "flow": 21, "head": 153 },
         { "flow": 28, "head": 135 },
@@ -1470,7 +1397,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 7.5,
       "performance_curves": [
-        { "flow": 0, "head": 117 },
         { "flow": 13, "head": 104 },
         { "flow": 21, "head": 95 },
         { "flow": 29, "head": 85 },
@@ -1490,7 +1416,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 130 },
         { "flow": 13, "head": 116 },
         { "flow": 21, "head": 106 },
         { "flow": 29, "head": 94 },
@@ -1510,7 +1435,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 10.5,
       "performance_curves": [
-        { "flow": 0, "head": 169 },
         { "flow": 13, "head": 151 },
         { "flow": 21, "head": 138 },
         { "flow": 29, "head": 122 },
@@ -1530,7 +1454,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 213 },
         { "flow": 13, "head": 189 },
         { "flow": 21, "head": 174 },
         { "flow": 29, "head": 156 },
@@ -1550,7 +1473,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 249 },
         { "flow": 13, "head": 221 },
         { "flow": 21, "head": 203 },
         { "flow": 29, "head": 182 },
@@ -1570,7 +1492,6 @@
       "discharge_dia_mm": 32,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 284 },
         { "flow": 13, "head": 252 },
         { "flow": 21, "head": 232 },
         { "flow": 29, "head": 208 },
@@ -1590,7 +1511,6 @@
       "discharge_dia_mm": 65,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 40 },
         { "flow": 145, "head": 33 },
         { "flow": 190, "head": 29 },
         { "flow": 235, "head": 27 },
@@ -1610,7 +1530,6 @@
       "discharge_dia_mm": 65,
       "rated_current_1ph": 13.8,
       "performance_curves": [
-        { "flow": 0, "head": 32 },
         { "flow": 180, "head": 25 },
         { "flow": 220, "head": 23 },
         { "flow": 260, "head": 21 },
@@ -1630,7 +1549,6 @@
       "discharge_dia_mm": 65,
       "rated_current_1ph": 19.8,
       "performance_curves": [
-        { "flow": 0, "head": 43 },
         { "flow": 180, "head": 33 },
         { "flow": 220, "head": 31 },
         { "flow": 260, "head": 28 },
@@ -1652,7 +1570,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 115 },
         { "flow": 45, "head": 102 },
         { "flow": 55, "head": 95 },
         { "flow": 65, "head": 88 },
@@ -1672,7 +1589,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 115 },
         { "flow": 45, "head": 102 },
         { "flow": 55, "head": 95 },
         { "flow": 65, "head": 88 },
@@ -1692,7 +1608,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 150 },
         { "flow": 45, "head": 127 },
         { "flow": 55, "head": 119 },
         { "flow": 65, "head": 110 },
@@ -1712,7 +1627,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 173 },
         { "flow": 45, "head": 152 },
         { "flow": 55, "head": 143 },
         { "flow": 65, "head": 132 },
@@ -1732,7 +1646,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 75 },
         { "flow": 55, "head": 66 },
         { "flow": 70, "head": 62 },
         { "flow": 85, "head": 57 },
@@ -1752,7 +1665,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 88 },
         { "flow": 55, "head": 77 },
         { "flow": 70, "head": 72 },
         { "flow": 85, "head": 66 },
@@ -1772,7 +1684,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 75 },
         { "flow": 55, "head": 66 },
         { "flow": 70, "head": 62 },
         { "flow": 85, "head": 57 },
@@ -1792,7 +1703,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 82 },
         { "flow": 55, "head": 70 },
         { "flow": 70, "head": 67 },
         { "flow": 85, "head": 62 },
@@ -1812,7 +1722,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 120 },
         { "flow": 55, "head": 104 },
         { "flow": 70, "head": 98 },
         { "flow": 85, "head": 89 },
@@ -1832,7 +1741,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 195 },
         { "flow": 55, "head": 165 },
         { "flow": 70, "head": 154 },
         { "flow": 85, "head": 141 },
@@ -1852,7 +1760,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 60, "head": 60 },
         { "flow": 80, "head": 57 },
         { "flow": 100, "head": 54 },
@@ -1872,7 +1779,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 60, "head": 60 },
         { "flow": 80, "head": 57 },
         { "flow": 100, "head": 54 },
@@ -1892,7 +1798,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 79 },
         { "flow": 60, "head": 69 },
         { "flow": 80, "head": 66 },
         { "flow": 100, "head": 61 },
@@ -1912,7 +1817,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 101 },
         { "flow": 60, "head": 87 },
         { "flow": 80, "head": 82 },
         { "flow": 100, "head": 77 },
@@ -1932,7 +1836,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 132 },
         { "flow": 60, "head": 116 },
         { "flow": 80, "head": 110 },
         { "flow": 100, "head": 102 },
@@ -1952,7 +1855,6 @@
       "discharge_dia_mm": 50,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 163 },
         { "flow": 60, "head": 145 },
         { "flow": 80, "head": 137 },
         { "flow": 100, "head": 128 },
@@ -1972,7 +1874,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 133 },
         { "flow": 18, "head": 117 },
         { "flow": 27, "head": 106 },
         { "flow": 36, "head": 92 },
@@ -1992,7 +1893,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 148 },
         { "flow": 18, "head": 130 },
         { "flow": 27, "head": 118 },
         { "flow": 36, "head": 102 },
@@ -2012,7 +1912,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 133 },
         { "flow": 18, "head": 117 },
         { "flow": 27, "head": 106 },
         { "flow": 36, "head": 92 },
@@ -2032,7 +1931,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 148 },
         { "flow": 18, "head": 130 },
         { "flow": 27, "head": 118 },
         { "flow": 36, "head": 102 },
@@ -2052,7 +1950,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 180 },
         { "flow": 18, "head": 156 },
         { "flow": 27, "head": 142 },
         { "flow": 36, "head": 127 },
@@ -2072,7 +1969,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 225 },
         { "flow": 18, "head": 195 },
         { "flow": 27, "head": 177 },
         { "flow": 36, "head": 159 },
@@ -2092,7 +1988,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 370 },
         { "flow": 18, "head": 325 },
         { "flow": 27, "head": 295 },
         { "flow": 36, "head": 255 },
@@ -2112,7 +2007,6 @@
       "discharge_dia_mm": 32,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 83 },
         { "flow": 35, "head": 72 },
         { "flow": 45, "head": 68 },
         { "flow": 55, "head": 62 },
@@ -2132,7 +2026,6 @@
       "discharge_dia_mm": 32,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 100 },
         { "flow": 35, "head": 86 },
         { "flow": 45, "head": 82 },
         { "flow": 55, "head": 74 },
@@ -2152,7 +2045,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 298 },
         { "flow": 35, "head": 252 },
         { "flow": 45, "head": 238 },
         { "flow": 55, "head": 217 },
@@ -2172,7 +2064,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 340 },
         { "flow": 35, "head": 288 },
         { "flow": 45, "head": 272 },
         { "flow": 55, "head": 248 },
@@ -2192,7 +2083,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 190 },
         { "flow": 14, "head": 168 },
         { "flow": 21, "head": 152 },
         { "flow": 28, "head": 135 },
@@ -2212,7 +2102,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 190 },
         { "flow": 14, "head": 168 },
         { "flow": 21, "head": 152 },
         { "flow": 28, "head": 135 },
@@ -2232,7 +2121,6 @@
       "discharge_dia_mm": 40,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 258 },
         { "flow": 14, "head": 228 },
         { "flow": 21, "head": 207 },
         { "flow": 28, "head": 184 },
@@ -2252,7 +2140,6 @@
       "discharge_dia_mm": 32,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 284 },
         { "flow": 13, "head": 252 },
         { "flow": 21, "head": 232 },
         { "flow": 29, "head": 208 },
@@ -2272,7 +2159,6 @@
       "discharge_dia_mm": 65,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 67 },
         { "flow": 145, "head": 54 },
         { "flow": 190, "head": 49 },
         { "flow": 235, "head": 45 },
@@ -2292,7 +2178,6 @@
       "discharge_dia_mm": 65,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 46 },
         { "flow": 155, "head": 37 },
         { "flow": 200, "head": 33 },
         { "flow": 245, "head": 30 },
@@ -2312,7 +2197,6 @@
       "discharge_dia_mm": 65,
       "rated_current_3ph": 10.6,
       "performance_curves": [
-        { "flow": 0, "head": 71 },
         { "flow": 155, "head": 57 },
         { "flow": 200, "head": 51 },
         { "flow": 245, "head": 46 },
@@ -2332,7 +2216,6 @@
       "discharge_dia_mm": 65,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 32 },
         { "flow": 180, "head": 25 },
         { "flow": 220, "head": 23 },
         { "flow": 260, "head": 21 },
@@ -2352,7 +2235,6 @@
       "discharge_dia_mm": 65,
       "rated_current_3ph": 4.8,
       "performance_curves": [
-        { "flow": 0, "head": 32 },
         { "flow": 180, "head": 25 },
         { "flow": 220, "head": 23 },
         { "flow": 260, "head": 21 },
@@ -2372,7 +2254,6 @@
       "discharge_dia_mm": 65,
       "rated_current_3ph": 6.9,
       "performance_curves": [
-        { "flow": 0, "head": 43 },
         { "flow": 180, "head": 33 },
         { "flow": 220, "head": 31 },
         { "flow": 260, "head": 28 },

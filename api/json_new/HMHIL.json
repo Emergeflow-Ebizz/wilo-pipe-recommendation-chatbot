@@ -9,7 +9,6 @@
     "discharge_dia_mm": 25,
     "pressure_tank_size_ltrs": 24,
     "performance_curves": [
-      { "flow": 0, "head": 20 },
       { "flow": 8, "head": 19 },
       { "flow": 17, "head": 18 },
       { "flow": 25, "head": 16 },
@@ -30,7 +29,6 @@
     "discharge_dia_mm": 25,
     "pressure_tank_size_ltrs": 24,
     "performance_curves": [
-      { "flow": 0, "head": 29 },
       { "flow": 8, "head": 27 },
       { "flow": 17, "head": 26 },
       { "flow": 25, "head": 24 },
@@ -51,7 +49,6 @@
     "discharge_dia_mm": 25,
     "pressure_tank_size_ltrs": 24,
     "performance_curves": [
-      { "flow": 0, "head": 39 },
       { "flow": 8, "head": 38 },
       { "flow": 17, "head": 35 },
       { "flow": 25, "head": 32 },
@@ -72,7 +69,6 @@
     "discharge_dia_mm": 25,
     "pressure_tank_size_ltrs": 24,
     "performance_curves": [
-      { "flow": 0, "head": 50 },
       { "flow": 8, "head": 47 },
       { "flow": 17, "head": 44 },
       { "flow": 25, "head": 40 },
@@ -93,7 +89,6 @@
     "discharge_dia_mm": 25,
     "pressure_tank_size_ltrs": 24,
     "performance_curves": [
-      { "flow": 0, "head": 61 },
       { "flow": 8, "head": 57 },
       { "flow": 17, "head": 53 },
       { "flow": 25, "head": 47 },
