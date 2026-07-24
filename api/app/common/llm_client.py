@@ -21,20 +21,25 @@ def _get_config() -> tuple[str, str, str]:
     return provider, api_key, model
 
 
-def complete(system_prompt: str, user_prompt: str, *, json_schema: dict | None = None) -> str:
+def complete(system_prompt: str, user_prompt: str, *, json_schema: dict | None = None, temperature: float | None = None) -> str:
     """Send a single-turn prompt to the configured LLM provider and return text.
 
     If json_schema is given, the provider is forced to call a tool whose
     input matches that schema - the API itself returns a parsed JSON object
     (no free text, no markdown fences to strip), which is re-serialized here
-    so callers can json.loads() it uniformly. Raises LLMUnavailableError if
-    not configured or the call fails, so callers can degrade gracefully.
+    so callers can json.loads() it uniformly.
+
+    temperature: optional override. If None, uses default (0 for schema calls,
+    1.0 for text). Pass explicitly to override.
+
+    Raises LLMUnavailableError if not configured or the call fails, so callers
+    can degrade gracefully.
     """
     provider, api_key, model = _get_config()
 
     try:
         if provider == "anthropic":
-            return _complete_anthropic(api_key, model, system_prompt, user_prompt, json_schema)
+            return _complete_anthropic(api_key, model, system_prompt, user_prompt, json_schema, temperature)
         raise LLMUnavailableError(f"Unsupported LLM_PROVIDER: {provider}")
     except LLMUnavailableError:
         raise
@@ -43,16 +48,26 @@ def complete(system_prompt: str, user_prompt: str, *, json_schema: dict | None =
 
 
 def _complete_anthropic(
-    api_key: str, model: str, system_prompt: str, user_prompt: str, json_schema: dict | None
+    api_key: str, model: str, system_prompt: str, user_prompt: str, json_schema: dict | None, temperature: float | None = None
 ) -> str:
     # Calls the Anthropic REST API directly over HTTP instead of using the
     # `anthropic` SDK, which depends on the native `jiter` extension - that
     # extension is blocked by this machine's Application Control policy.
     import httpx
+    import time
+
+    # Determine max_tokens and temperature based on whether structured output
+    # (tool-use with schema) is being used. Structured calls are just extracting
+    # JSON from a fixed schema - they need less headroom and zero temperature
+    # for determinism. Unstructured text calls get standard tokens and temp.
+    max_tokens = 256 if json_schema else 1024
+    if temperature is None:
+        temperature = 0.0 if json_schema else 1.0
 
     request_body = {
         "model": model,
-        "max_tokens": 1024,
+        "max_tokens": max_tokens,
+        "temperature": temperature,
         "system": system_prompt,
         "messages": [{"role": "user", "content": user_prompt}],
     }
@@ -70,18 +85,28 @@ def _complete_anthropic(
         ]
         request_body["tool_choice"] = {"type": "tool", "name": "respond"}
 
-    response = httpx.post(
-        "https://api.anthropic.com/v1/messages",
-        headers={
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-        json=request_body,
-        timeout=30,
-    )
-    response.raise_for_status()
-    data = response.json()
+    max_retries = 1
+    for attempt in range(max_retries + 1):
+        try:
+            response = httpx.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={
+                    "x-api-key": api_key,
+                    "anthropic-version": "2023-06-01",
+                    "content-type": "application/json",
+                },
+                json=request_body,
+                timeout=30,
+            )
+            response.raise_for_status()
+            data = response.json()
+            break
+        except httpx.HTTPError as e:
+            # Retry once on transient 5xx or 429 (rate limit)
+            if attempt < max_retries and response.status_code in (429, 500, 502, 503, 504):
+                time.sleep(0.5)
+                continue
+            raise
 
     if json_schema is not None:
         tool_use = next(block for block in data["content"] if block["type"] == "tool_use")
