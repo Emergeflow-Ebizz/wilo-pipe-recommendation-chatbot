@@ -224,6 +224,7 @@
     useCaseSlug: null, // "water_transfer" | "tank_filling" while the dynamic loop is active
     dynamicAnswers: {}, // accumulated answers fed to next_question, then to recommend as-is
     clarificationAttempts: {}, // question_key -> retry count, sent back to /answer as clarification_attempts
+    clarificationUserInput: {}, // question_key -> original user input that triggered clarification
     currentQuestion: null, // last { key, prompt, unit, optional } from next_question
     lastRecommendation: null, // the ok recommendation, kept around for /explain_model follow-ups
   };
@@ -276,6 +277,7 @@
     state.useCaseSlug = null;
     state.dynamicAnswers = {};
     state.clarificationAttempts = {};
+    state.clarificationUserInput = {};
     state.currentQuestion = null;
     state.lastRecommendation = null;
     initConversation();
@@ -569,7 +571,12 @@
    * an unanswered/optional-skip, otherwise records the parsed value (+ unit)
    * and moves to the next question. */
   async function submitFreeTextAnswer(question, trimmed) {
-    var payload = { question_key: question.key, user_text: trimmed };
+    var userText = trimmed;
+    // If we're in a clarification turn, combine the original input with the clarification
+    if (state.clarificationUserInput[question.key]) {
+      userText = state.clarificationUserInput[question.key] + " " + trimmed;
+    }
+    var payload = { question_key: question.key, user_text: userText };
     var previousValue = state.dynamicAnswers[question.key];
     if (previousValue !== undefined && previousValue !== null) {
       payload.previous_value = previousValue;
@@ -599,6 +606,10 @@
 
     if (data.needs_clarification) {
       state.clarificationAttempts[question.key] = (state.clarificationAttempts[question.key] || 0) + 1;
+      // Store the user's original input so we can combine it with their clarification on next attempt
+      if (!state.clarificationUserInput[question.key]) {
+        state.clarificationUserInput[question.key] = trimmed;
+      }
       if (data.previous_value !== undefined) {
         state.dynamicAnswers[question.key] = data.previous_value;
         if (data.previous_unit !== undefined) {
@@ -637,6 +648,10 @@
     console.log("[submitFreeTextAnswer] accepted:", question.key, "=", data.value, unit ? "(unit: " + unit + ")" : "");
     console.log("[submitFreeTextAnswer] state.dynamicAnswers:", state.dynamicAnswers);
 
+    // Clear clarification tracking now that this question is resolved
+    delete state.clarificationUserInput[question.key];
+    delete state.clarificationAttempts[question.key];
+
     state.currentQuestion = null;
     await fetchNextQuestion(data.confirmation_message);
   }
@@ -670,6 +685,7 @@
       state.useCaseSlug = nextId.slice("__dynamic__".length);
       state.dynamicAnswers = {};
       state.clarificationAttempts = {};
+      state.clarificationUserInput = {};
       state.currentQuestion = null;
       return fetchNextQuestion(); // returns a Promise
     }
