@@ -106,7 +106,8 @@ def _generate_clarification_question(
     prompt = (
         f"User is being asked about: {subject}. Question as shown to the user: "
         f"{question.prompt!r}. "
-        f"Domain context: {question.domain_context or 'none provided.'} "
+        f"Domain context (the ONLY facts you may draw on): "
+        f"{question.domain_context or 'none provided.'} "
         f"Valid units: {units_str}. "
         f"Reason clarification is needed: {reason}. "
         f"What was extracted so far: value={extracted_value!r}, unit={extracted_unit!r}. "
@@ -114,18 +115,24 @@ def _generate_clarification_question(
         f"They've been asked {attempts + 1} time(s) about this question. "
         f"If the user's reply shows they don't know HOW to find or determine this "
         f"value (e.g. 'idk how would I know', 'not sure where to check') rather than "
-        f"just being noncommittal, give a brief, concrete pointer drawn from the "
-        f"domain context above (e.g. where the number is usually printed, a typical "
-        f"range, or how to measure/check it) before asking again - don't just repeat "
-        f"the same question in different words. Ask them naturally. Only about this "
+        f"just being noncommittal, give a brief, concrete pointer - but ONLY using "
+        f"facts stated in the domain context above (e.g. where the number is usually "
+        f"printed, a typical range, or how to measure/check it, if and only if the "
+        f"domain context mentions it). Do not invent or add any fact, tip, typical "
+        f"value, or suggestion that isn't explicitly present in the domain context - "
+        f"if the domain context is empty or doesn't cover how to find the value, just "
+        f"ask again without fabricating guidance. Ask them naturally. Only about this "
         f"specific question for pump selection. Output only the message."
     )
 
     try:
         response = llm_client.complete(
             "Generate a follow-up message for pump selection, helping the user "
-            "actually answer if they seem unsure how to. Keep it natural, "
-            "focused, and grounded in the domain context given. Keep it short.",
+            "actually answer if they seem unsure how to. You must ground every "
+            "factual claim strictly in the domain context text given in the user "
+            "message - never supply outside/general knowledge, invented typical "
+            "values, or suggestions not present in that text, even if they sound "
+            "plausible. Keep it natural, focused, and short.",
             prompt,
             temperature=1.0,  # High temp for natural variety
         ).strip()
