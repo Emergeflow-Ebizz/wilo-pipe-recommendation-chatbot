@@ -675,7 +675,8 @@
     if (!trimmed) return;
     var error = step.validate ? step.validate(trimmed) : null;
     if (error) {
-      state.inputError = error;
+      addUserMessage(trimmed);
+      addBotMessage(error);
       render();
       return;
     }
