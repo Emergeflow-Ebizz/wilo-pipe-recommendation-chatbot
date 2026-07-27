@@ -461,17 +461,21 @@
 
     console.log("[fetchNextQuestion] response:", data, "confirmationMessage:", confirmationMessage);
 
-    if (confirmationMessage) {
-      addBotMessage(confirmationMessage);
-    }
-
     if (data.question) {
       console.log("[fetchNextQuestion] advancing to question:", data.question.key);
       state.currentQuestion = data.question;
       state.awaitingKind = "dynamic-input";
-      addBotMessage(data.question.prompt);
+      var messageText = data.question.prompt;
+      if (confirmationMessage) {
+        messageText = confirmationMessage + " " + data.question.prompt;
+      }
+      addBotMessage(messageText);
       render();
       return;
+    }
+
+    if (confirmationMessage) {
+      addBotMessage(confirmationMessage);
     }
 
     render();
