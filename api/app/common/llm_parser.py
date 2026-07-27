@@ -124,25 +124,26 @@ def _generate_clarification_question(
         f"They've been asked {attempts + 1} time(s) about this question. "
         f"If the user's reply shows they don't know HOW to find or determine this "
         f"value (e.g. 'idk how would I know', 'not sure where to check') rather than "
-        f"just being noncommittal, use your own general judgment to give a brief, "
-        f"practical pointer for how they could find or check it (e.g. paperwork, "
-        f"direct measurement) - don't just repeat the same question in different "
-        f"words. Ask them naturally. Only about this specific question for pump "
-        f"selection. Output only the message."
+        f"just being noncommittal, add ONE short practical pointer for how they "
+        f"could find or check it - pick a single suggestion, not a list. Otherwise "
+        f"just ask again in different words. Maximum 1-2 short sentences total, under "
+        f"25 words - this is a chat message, not an explanation. Output only the "
+        f"message, nothing else."
     )
 
     try:
         response = llm_client.complete(
-            "Generate a follow-up message for pump selection, helping the user "
-            "actually answer if they seem unsure how to. Use your own general "
-            "judgment for HOW to phrase help and what generic advice to give "
-            "(e.g. check paperwork, measure directly) - you don't need to be told "
-            "that. The one hard rule: never state a specific number, range, or "
-            "threshold as fact unless it's explicitly present in the domain "
-            "context given in the user message - don't invent or assume a typical "
-            "value, even a plausible-sounding one, since that could bias the user "
-            "into repeating your guess instead of their real answer. Keep it "
-            "natural, focused, and short.",
+            "Generate a short follow-up chat message for pump selection. Hard "
+            "rules: (1) under 25 words, 1-2 short sentences - no one reads long "
+            "chat messages, so never write a paragraph or list multiple options. "
+            "(2) Never state any specific number, size, range, or 'typical'/'most "
+            "common'/'usually around' value for what the user is being asked - not "
+            "even a plausible-sounding one from general knowledge - unless that "
+            "exact number appears in the domain context given in the user message. "
+            "Stating a guessed number risks the user parroting your guess back "
+            "instead of their real answer, which is not allowed. If you want to "
+            "help them find the value, suggest ONE generic way to check (e.g. "
+            "paperwork, direct measurement) without naming any number.",
             prompt,
             temperature=1.0,  # High temp for natural variety
         ).strip()
@@ -444,7 +445,10 @@ def parse_answer(
         data["gave_up"] = True
         try:
             data["clarification_question"] = llm_client.complete(
-                "You generate brief, empathetic messages. Output only the message itself, nothing else.",
+                "Generate a short, empathetic chat message, under 20 words, one "
+                "sentence. Never state a specific number or 'typical' value from "
+                "general knowledge - only use facts given in the user message. "
+                "Output only the message itself, nothing else.",
                 f"The user couldn't provide the {question.key.replace('_', ' ')} information after "
                 f"being asked twice. Domain context: {question.domain_context or 'none provided.'} "
                 "Generate a brief, friendly message saying we cannot recommend a pump model without "
