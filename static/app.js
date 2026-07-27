@@ -223,7 +223,7 @@
     virtualOptions: null, // [{ label, onSelect }] - used for backend-driven branches
     useCaseSlug: null, // "water_transfer" | "tank_filling" while the dynamic loop is active
     dynamicAnswers: {}, // accumulated answers fed to next_question, then to recommend as-is
-    unitAskAttempts: {}, // question_key -> retry count, sent back to /answer as unit_ask_attempts
+    clarificationAttempts: {}, // question_key -> retry count, sent back to /answer as clarification_attempts
     currentQuestion: null, // last { key, prompt, unit, optional } from next_question
     lastRecommendation: null, // the ok recommendation, kept around for /explain_model follow-ups
   };
@@ -275,7 +275,7 @@
     state.virtualOptions = null;
     state.useCaseSlug = null;
     state.dynamicAnswers = {};
-    state.unitAskAttempts = {};
+    state.clarificationAttempts = {};
     state.currentQuestion = null;
     state.lastRecommendation = null;
     initConversation();
@@ -459,11 +459,17 @@
       return;
     }
 
+    console.log("[fetchNextQuestion] response:", data, "confirmationMessage:", confirmationMessage);
+
+    if (confirmationMessage) {
+      addBotMessage(confirmationMessage);
+    }
+
     if (data.question) {
+      console.log("[fetchNextQuestion] advancing to question:", data.question.key);
       state.currentQuestion = data.question;
       state.awaitingKind = "dynamic-input";
-      var message = confirmationMessage ? confirmationMessage + "\n" + data.question.prompt : data.question.prompt;
-      addBotMessage(message);
+      addBotMessage(data.question.prompt);
       render();
       return;
     }
@@ -488,7 +494,7 @@
             addBotMessage("Let me help you explore other pump options. Would you like to try a different application?");
             state.useCaseSlug = null;
             state.dynamicAnswers = {};
-            state.unitAskAttempts = {};
+            state.clarificationAttempts = {};
             state.currentQuestion = null;
             jumpToStep("application");
             render();
@@ -554,7 +560,7 @@
 
   /** Sends the user's free-text reply to the backend's LLM parser (ParsedAnswer)
    * for the current question; loops back on needs_clarification without
-   * advancing (tracking retries via unit_ask_attempts), reroutes the value to
+   * advancing (tracking retries via clarification_attempts), reroutes the value to
    * redirect_key if the user answered a different question, treats gave_up as
    * an unanswered/optional-skip, otherwise records the parsed value (+ unit)
    * and moves to the next question. */
@@ -566,8 +572,8 @@
       var previousUnit = state.dynamicAnswers[unitFieldNameFor(question.key)];
       if (previousUnit !== undefined) payload.previous_unit = previousUnit;
     }
-    if (state.unitAskAttempts[question.key]) {
-      payload.unit_ask_attempts = state.unitAskAttempts[question.key];
+    if (state.clarificationAttempts[question.key]) {
+      payload.clarification_attempts = state.clarificationAttempts[question.key];
     }
 
     var data;
@@ -585,14 +591,16 @@
       return;
     }
 
+    console.log("[submitFreeTextAnswer] response for", question.key, ":", data);
+
     if (data.needs_clarification) {
-      state.unitAskAttempts[question.key] = (state.unitAskAttempts[question.key] || 0) + 1;
+      state.clarificationAttempts[question.key] = (state.clarificationAttempts[question.key] || 0) + 1;
       addBotMessage(data.clarification_question || "Could you clarify that?");
       state.awaitingKind = "dynamic-input";
       render();
       return;
     }
-    delete state.unitAskAttempts[question.key];
+    delete state.clarificationAttempts[question.key];
 
     if (data.gave_up) {
       handleUnansweredQuestion(question);
@@ -615,6 +623,9 @@
     state.dynamicAnswers[question.key] = data.value;
     var unit = data.unit || question.unit;
     if (unit) state.dynamicAnswers[unitFieldNameFor(question.key)] = unit;
+
+    console.log("[submitFreeTextAnswer] accepted:", question.key, "=", data.value, unit ? "(unit: " + unit + ")" : "");
+    console.log("[submitFreeTextAnswer] state.dynamicAnswers:", state.dynamicAnswers);
 
     state.currentQuestion = null;
     fetchNextQuestion(data.confirmation_message);
@@ -648,7 +659,7 @@
     if (nextId.indexOf("__dynamic__") === 0) {
       state.useCaseSlug = nextId.slice("__dynamic__".length);
       state.dynamicAnswers = {};
-      state.unitAskAttempts = {};
+      state.clarificationAttempts = {};
       state.currentQuestion = null;
       return fetchNextQuestion(); // returns a Promise
     }
