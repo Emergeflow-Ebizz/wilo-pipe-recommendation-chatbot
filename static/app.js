@@ -599,6 +599,12 @@
 
     if (data.needs_clarification) {
       state.clarificationAttempts[question.key] = (state.clarificationAttempts[question.key] || 0) + 1;
+      if (data.previous_value !== undefined) {
+        state.dynamicAnswers[question.key] = data.previous_value;
+        if (data.previous_unit !== undefined) {
+          state.dynamicAnswers[unitFieldNameFor(question.key)] = data.previous_unit;
+        }
+      }
       addBotMessage(data.clarification_question || "Could you clarify that?");
       state.awaitingKind = "dynamic-input";
       render();
