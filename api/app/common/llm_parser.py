@@ -95,9 +95,18 @@ def _generate_clarification_question(
     answer), so it ends up repeating a near-identical question every
     attempt instead of actually helping. With it, the model can recognize
     when the user is asking HOW to determine the value (not just refusing
-    to answer) and use domain_context to give a brief, concrete pointer
-    (e.g. where the number is usually printed, or how to measure it)
-    before asking again.
+    to answer) and reason about how to help them - e.g. suggest checking
+    paperwork or measuring directly - using its own general judgment for
+    HOW to phrase that help.
+
+    What it may NOT do is state any specific number, range, or threshold
+    that isn't explicitly written in question.domain_context - domain_context
+    is the single source of truth for facts about this system (what pump
+    sheets cover, what's required, why a question matters); the model must
+    not invent a "typical value" to nudge the user toward, since that risks
+    the user parroting a guessed number back instead of their real one.
+    Generic how-to-find-it advice, by contrast, doesn't need to be spelled
+    out here - that's ordinary reasoning the model already has.
     """
     subject = question.key.replace("_", " ")
     units_str = ", ".join(question.allowed_units) if question.allowed_units else "the available units"
@@ -106,8 +115,8 @@ def _generate_clarification_question(
     prompt = (
         f"User is being asked about: {subject}. Question as shown to the user: "
         f"{question.prompt!r}. "
-        f"Domain context (the ONLY facts you may draw on): "
-        f"{question.domain_context or 'none provided.'} "
+        f"Domain context - facts about THIS system, e.g. constraints, ranges, "
+        f"why the question matters: {question.domain_context or 'none provided.'} "
         f"Valid units: {units_str}. "
         f"Reason clarification is needed: {reason}. "
         f"What was extracted so far: value={extracted_value!r}, unit={extracted_unit!r}. "
@@ -115,24 +124,25 @@ def _generate_clarification_question(
         f"They've been asked {attempts + 1} time(s) about this question. "
         f"If the user's reply shows they don't know HOW to find or determine this "
         f"value (e.g. 'idk how would I know', 'not sure where to check') rather than "
-        f"just being noncommittal, give a brief, concrete pointer - but ONLY using "
-        f"facts stated in the domain context above (e.g. where the number is usually "
-        f"printed, a typical range, or how to measure/check it, if and only if the "
-        f"domain context mentions it). Do not invent or add any fact, tip, typical "
-        f"value, or suggestion that isn't explicitly present in the domain context - "
-        f"if the domain context is empty or doesn't cover how to find the value, just "
-        f"ask again without fabricating guidance. Ask them naturally. Only about this "
-        f"specific question for pump selection. Output only the message."
+        f"just being noncommittal, use your own general judgment to give a brief, "
+        f"practical pointer for how they could find or check it (e.g. paperwork, "
+        f"direct measurement) - don't just repeat the same question in different "
+        f"words. Ask them naturally. Only about this specific question for pump "
+        f"selection. Output only the message."
     )
 
     try:
         response = llm_client.complete(
             "Generate a follow-up message for pump selection, helping the user "
-            "actually answer if they seem unsure how to. You must ground every "
-            "factual claim strictly in the domain context text given in the user "
-            "message - never supply outside/general knowledge, invented typical "
-            "values, or suggestions not present in that text, even if they sound "
-            "plausible. Keep it natural, focused, and short.",
+            "actually answer if they seem unsure how to. Use your own general "
+            "judgment for HOW to phrase help and what generic advice to give "
+            "(e.g. check paperwork, measure directly) - you don't need to be told "
+            "that. The one hard rule: never state a specific number, range, or "
+            "threshold as fact unless it's explicitly present in the domain "
+            "context given in the user message - don't invent or assume a typical "
+            "value, even a plausible-sounding one, since that could bias the user "
+            "into repeating your guess instead of their real answer. Keep it "
+            "natural, focused, and short.",
             prompt,
             temperature=1.0,  # High temp for natural variety
         ).strip()
