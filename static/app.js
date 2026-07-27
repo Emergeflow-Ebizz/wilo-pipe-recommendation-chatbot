@@ -474,8 +474,37 @@
    * the user; an optional one is recorded as null and the loop moves on. */
   function handleUnansweredQuestion(question) {
     if (!question.optional) {
-      state.awaitingKind = "dynamic-input";
-      state.inputError = "This one's required, please provide a value.";
+      addBotMessage("I'm sorry, I can't recommend a pump based on the information provided so far.");
+
+      state.virtualOptions = [
+        {
+          label: "Explore other pumps",
+          icon: "🔍",
+          subtitle: "Try a different approach",
+          onSelect: function () {
+            addUserMessage("Explore other pumps");
+            addBotMessage("Let me help you explore other pump options. Would you like to try a different application?");
+            state.useCaseSlug = null;
+            state.dynamicAnswers = {};
+            state.unitAskAttempts = {};
+            state.currentQuestion = null;
+            jumpToStep("application");
+            render();
+          }
+        },
+        {
+          label: "No, that's okay",
+          icon: "👋",
+          subtitle: "End this conversation",
+          onSelect: function () {
+            addUserMessage("No, that's okay");
+            jumpToStep("thank-you");
+            render();
+          }
+        }
+      ];
+
+      state.awaitingKind = "options";
       render();
       return;
     }
@@ -646,7 +675,8 @@
     if (!trimmed) return;
     var error = step.validate ? step.validate(trimmed) : null;
     if (error) {
-      state.inputError = error;
+      addUserMessage(trimmed);
+      addBotMessage(error);
       render();
       return;
     }
