@@ -6,11 +6,14 @@ accept/reject/fallback - that logic lives entirely in each use case's
 rules.py and is untouched by anything here.
 """
 import json
+import logging
 import re
 
 from app.common import llm_client
 from app.common.llm_client import LLMUnavailableError
 from app.common.schemas import ParsedAnswer, ParsedCategory, Question
+
+logger = logging.getLogger(__name__)
 
 def _parse_answer_schema(
     allowed_units: list[str] | None, other_questions: list[Question]
@@ -384,7 +387,12 @@ def parse_answer(
         )
         data = json.loads(raw)
         data["unit"] = _normalize_unit(data.get("unit"), allowed_units)
-    except (LLMUnavailableError, json.JSONDecodeError, ValueError):
+    except (LLMUnavailableError, json.JSONDecodeError, ValueError) as e:
+        logger.warning(
+            "parse_answer: LLM extraction failed for question=%r, falling back "
+            "to rule-based parsing: %r",
+            question.key, e,
+        )
         rule_based = _try_rule_based_parse(user_text, allowed_units, question, previous_value)
         if rule_based is not None:
             data = rule_based
@@ -611,7 +619,10 @@ def parse_category(
             json_schema=_parse_category_schema(valid_categories),
         )
         data = json.loads(raw)
-    except (LLMUnavailableError, json.JSONDecodeError, ValueError):
+    except (LLMUnavailableError, json.JSONDecodeError, ValueError) as e:
+        logger.warning(
+            "parse_category: LLM extraction failed for question=%r: %r", question.key, e,
+        )
         if question.optional:
             return ParsedCategory(skipped=True)
         return ParsedCategory(
@@ -661,6 +672,7 @@ def parse_yes_no(user_text: str) -> bool:
         )
         data = json.loads(raw)
     except (LLMUnavailableError, json.JSONDecodeError, ValueError) as e:
+        logger.warning("parse_yes_no: LLM extraction failed: %r", e)
         raise AmbiguousConfirmationError(
             f"Could not confidently interpret {user_text!r} as yes or no."
         ) from e
