@@ -480,7 +480,7 @@
 
   /** A required question that comes back "skipped" (or given-up-on) re-prompts
    * the user; an optional one is recorded as null and the loop moves on. */
-  function handleUnansweredQuestion(question) {
+  async function handleUnansweredQuestion(question) {
     if (!question.optional) {
       addBotMessage("I'm sorry, I can't recommend a pump based on the information provided so far.");
 
@@ -518,7 +518,7 @@
     }
     state.dynamicAnswers[question.key] = null;
     state.currentQuestion = null;
-    fetchNextQuestion();
+    await fetchNextQuestion();
   }
 
   /** Sends the user's free-text reply to the backend's fixed-choice parser
@@ -555,7 +555,7 @@
 
     state.dynamicAnswers[question.key] = data.category;
     state.currentQuestion = null;
-    fetchNextQuestion(data.confirmation_message);
+    await fetchNextQuestion(data.confirmation_message);
   }
 
   /** Sends the user's free-text reply to the backend's LLM parser (ParsedAnswer)
@@ -611,7 +611,7 @@
       state.dynamicAnswers[data.redirect_key] = data.value;
       if (data.unit) state.dynamicAnswers[unitFieldNameFor(data.redirect_key)] = data.unit;
       state.currentQuestion = null;
-      fetchNextQuestion();
+      await fetchNextQuestion();
       return;
     }
 
@@ -628,7 +628,7 @@
     console.log("[submitFreeTextAnswer] state.dynamicAnswers:", state.dynamicAnswers);
 
     state.currentQuestion = null;
-    fetchNextQuestion(data.confirmation_message);
+    await fetchNextQuestion(data.confirmation_message);
   }
 
   function submitDynamicAnswer(rawValue) {
