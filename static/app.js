@@ -223,7 +223,8 @@
     virtualOptions: null, // [{ label, onSelect }] - used for backend-driven branches
     useCaseSlug: null, // "water_transfer" | "tank_filling" while the dynamic loop is active
     dynamicAnswers: {}, // accumulated answers fed to next_question, then to recommend as-is
-    unitAskAttempts: {}, // question_key -> retry count, sent back to /answer as unit_ask_attempts
+    clarificationAttempts: {}, // question_key -> retry count, sent back to /answer as clarification_attempts
+    clarificationUserInput: {}, // question_key -> original user input that triggered clarification
     currentQuestion: null, // last { key, prompt, unit, optional } from next_question
     lastRecommendation: null, // the ok recommendation, kept around for /explain_model follow-ups
   };
@@ -275,7 +276,8 @@
     state.virtualOptions = null;
     state.useCaseSlug = null;
     state.dynamicAnswers = {};
-    state.unitAskAttempts = {};
+    state.clarificationAttempts = {};
+    state.clarificationUserInput = {};
     state.currentQuestion = null;
     state.lastRecommendation = null;
     initConversation();
@@ -459,13 +461,23 @@
       return;
     }
 
+    console.log("[fetchNextQuestion] response:", data, "confirmationMessage:", confirmationMessage);
+
     if (data.question) {
+      console.log("[fetchNextQuestion] advancing to question:", data.question.key);
       state.currentQuestion = data.question;
       state.awaitingKind = "dynamic-input";
-      var message = confirmationMessage ? confirmationMessage + "\n" + data.question.prompt : data.question.prompt;
-      addBotMessage(message);
+      var messageText = data.question.prompt;
+      if (confirmationMessage) {
+        messageText = confirmationMessage + "\n" + data.question.prompt;
+      }
+      addBotMessage(messageText);
       render();
       return;
+    }
+
+    if (confirmationMessage) {
+      addBotMessage(confirmationMessage);
     }
 
     render();
@@ -474,7 +486,7 @@
 
   /** A required question that comes back "skipped" (or given-up-on) re-prompts
    * the user; an optional one is recorded as null and the loop moves on. */
-  function handleUnansweredQuestion(question) {
+  async function handleUnansweredQuestion(question) {
     if (!question.optional) {
       addBotMessage("I'm sorry, I can't recommend a pump based on the information provided so far.");
 
@@ -488,7 +500,7 @@
             addBotMessage("Let me help you explore other pump options. Would you like to try a different application?");
             state.useCaseSlug = null;
             state.dynamicAnswers = {};
-            state.unitAskAttempts = {};
+            state.clarificationAttempts = {};
             state.currentQuestion = null;
             jumpToStep("application");
             render();
@@ -512,7 +524,7 @@
     }
     state.dynamicAnswers[question.key] = null;
     state.currentQuestion = null;
-    fetchNextQuestion();
+    await fetchNextQuestion();
   }
 
   /** Sends the user's free-text reply to the backend's fixed-choice parser
@@ -549,25 +561,30 @@
 
     state.dynamicAnswers[question.key] = data.category;
     state.currentQuestion = null;
-    fetchNextQuestion(data.confirmation_message);
+    await fetchNextQuestion(data.confirmation_message);
   }
 
   /** Sends the user's free-text reply to the backend's LLM parser (ParsedAnswer)
    * for the current question; loops back on needs_clarification without
-   * advancing (tracking retries via unit_ask_attempts), reroutes the value to
+   * advancing (tracking retries via clarification_attempts), reroutes the value to
    * redirect_key if the user answered a different question, treats gave_up as
    * an unanswered/optional-skip, otherwise records the parsed value (+ unit)
    * and moves to the next question. */
   async function submitFreeTextAnswer(question, trimmed) {
-    var payload = { question_key: question.key, user_text: trimmed };
+    var userText = trimmed;
+    // If we're in a clarification turn, combine the original input with the clarification
+    if (state.clarificationUserInput[question.key]) {
+      userText = state.clarificationUserInput[question.key] + " " + trimmed;
+    }
+    var payload = { question_key: question.key, user_text: userText };
     var previousValue = state.dynamicAnswers[question.key];
     if (previousValue !== undefined && previousValue !== null) {
       payload.previous_value = previousValue;
       var previousUnit = state.dynamicAnswers[unitFieldNameFor(question.key)];
       if (previousUnit !== undefined) payload.previous_unit = previousUnit;
     }
-    if (state.unitAskAttempts[question.key]) {
-      payload.unit_ask_attempts = state.unitAskAttempts[question.key];
+    if (state.clarificationAttempts[question.key]) {
+      payload.clarification_attempts = state.clarificationAttempts[question.key];
     }
 
     var data;
@@ -585,14 +602,26 @@
       return;
     }
 
+    console.log("[submitFreeTextAnswer] response for", question.key, ":", data);
+
     if (data.needs_clarification) {
-      state.unitAskAttempts[question.key] = (state.unitAskAttempts[question.key] || 0) + 1;
+      state.clarificationAttempts[question.key] = (state.clarificationAttempts[question.key] || 0) + 1;
+      // Store the user's original input so we can combine it with their clarification on next attempt
+      if (!state.clarificationUserInput[question.key]) {
+        state.clarificationUserInput[question.key] = trimmed;
+      }
+      if (data.previous_value !== undefined) {
+        state.dynamicAnswers[question.key] = data.previous_value;
+        if (data.previous_unit !== undefined) {
+          state.dynamicAnswers[unitFieldNameFor(question.key)] = data.previous_unit;
+        }
+      }
       addBotMessage(data.clarification_question || "Could you clarify that?");
       state.awaitingKind = "dynamic-input";
       render();
       return;
     }
-    delete state.unitAskAttempts[question.key];
+    delete state.clarificationAttempts[question.key];
 
     if (data.gave_up) {
       handleUnansweredQuestion(question);
@@ -603,7 +632,7 @@
       state.dynamicAnswers[data.redirect_key] = data.value;
       if (data.unit) state.dynamicAnswers[unitFieldNameFor(data.redirect_key)] = data.unit;
       state.currentQuestion = null;
-      fetchNextQuestion();
+      await fetchNextQuestion();
       return;
     }
 
@@ -616,8 +645,15 @@
     var unit = data.unit || question.unit;
     if (unit) state.dynamicAnswers[unitFieldNameFor(question.key)] = unit;
 
+    console.log("[submitFreeTextAnswer] accepted:", question.key, "=", data.value, unit ? "(unit: " + unit + ")" : "");
+    console.log("[submitFreeTextAnswer] state.dynamicAnswers:", state.dynamicAnswers);
+
+    // Clear clarification tracking now that this question is resolved
+    delete state.clarificationUserInput[question.key];
+    delete state.clarificationAttempts[question.key];
+
     state.currentQuestion = null;
-    fetchNextQuestion(data.confirmation_message);
+    await fetchNextQuestion(data.confirmation_message);
   }
 
   function submitDynamicAnswer(rawValue) {
@@ -648,7 +684,8 @@
     if (nextId.indexOf("__dynamic__") === 0) {
       state.useCaseSlug = nextId.slice("__dynamic__".length);
       state.dynamicAnswers = {};
-      state.unitAskAttempts = {};
+      state.clarificationAttempts = {};
+      state.clarificationUserInput = {};
       state.currentQuestion = null;
       return fetchNextQuestion(); // returns a Promise
     }
@@ -696,7 +733,7 @@
   function mascotImage() {
     var img = document.createElement("img");
     img.className = "mascot";
-    img.src = "./mascot.jpeg";
+    img.src = "./Boondiram.png";
     img.alt = "Wilo Pumps Selection Chatbot mascot";
     return img;
   }
