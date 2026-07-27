@@ -12,7 +12,9 @@ from app.common import llm_client
 from app.common.llm_client import LLMUnavailableError
 from app.common.schemas import ParsedAnswer, ParsedCategory, Question
 
-def _parse_answer_schema(allowed_units: list[str] | None, other_question_keys: list[str]) -> dict:
+def _parse_answer_schema(
+    allowed_units: list[str] | None, other_questions: list[Question]
+) -> dict:
     """Build the structured-output schema for one question.
 
     Constraining unit to the exact canonical strings this use case's
@@ -27,9 +29,10 @@ def _parse_answer_schema(allowed_units: list[str] | None, other_question_keys: l
     other questions in this use case's sequence - the LLM can only name a
     question that actually exists, never invent one.
     """
+    other_question_keys = [q.key for q in other_questions]
     combined_units: list[str] = list(allowed_units or [])
-    for key in other_question_keys:
-        for unit in QUESTION_ALLOWED_UNITS.get(key, []):
+    for other in other_questions:
+        for unit in other.allowed_units or []:
             if unit not in combined_units:
                 combined_units.append(unit)
 
@@ -62,88 +65,55 @@ def _parse_answer_schema(allowed_units: list[str] | None, other_question_keys: l
     }
 
 
-# The exact canonical unit strings each question's normalize_*() function in
-# its use case's rules.py accepts - keep in sync with those functions.
-QUESTION_ALLOWED_UNITS: dict[str, list[str]] = {
-    "borewell_size": ["inch", "mm"],
-    "well_depth": ["ft", "m"],
-    "tank_capacity": ["litres"],
-    "roof_tank_capacity": ["litres"],
-    "motor_power_hp": ["hp"],
+REASON_FALLBACKS: dict[str, str] = {
+    "missing_unit": "Please provide {subject} along with its unit.",
+    "missing_value": "Please provide {subject}.",
+    "non_integer": "{subject} must be a whole number - could you give a whole number?",
+    "non_positive": "{subject} must be greater than zero - could you give a valid value?",
+    "generic": "Could you clarify your answer for {subject}?",
 }
 
-# Questions with more than one valid unit require the user to state which
-# one they mean - see the "unit required" flow in the system prompt below.
-# Single-unit questions (litres-only tank capacity, hp-only motor power)
-# never need this since there's nothing to disambiguate.
-QUESTIONS_REQUIRING_STATED_UNIT: set[str] = {"borewell_size", "well_depth"}
-
-# Questions with no unit at all whose value must be a whole number (e.g.
-# num_floors - "3.5 floors" is meaningless, unlike a measurement that can
-# have a fractional part). A decimal reply must be rejected as invalid, not
-# silently truncated.
-QUESTIONS_REQUIRING_INTEGER: set[str] = {"num_floors"}
-
-# Extra domain context per question key. This is guidance only - it never
-# changes what rules.py accepts or rejects.
-QUESTION_UNIT_HINTS: dict[str, str] = {
-    "borewell_size": (
-        "Valid units are inch and mm - the user must state which one, this "
-        "is never inferred from the number alone (e.g. a bare '6' is not "
-        "assumed to mean inches just because that's a typical size)."
-    ),
-    "well_depth": (
-        "Valid units are ft and m - the user must state which one, this is "
-        "never inferred from the number alone (e.g. a bare '150' is not "
-        "assumed to mean feet just because that's a typical depth)."
-    ),
-    "tank_capacity": (
-        "Tank capacity is always in litres - there is no other unit option "
-        "in this application. Never ask the user what unit it's in; just "
-        "extract the number and set unit to 'litres'."
-    ),
-    "roof_tank_capacity": (
-        "Roof tank capacity is always in litres - there is no other unit "
-        "option in this application. Never ask the user what unit it's in; "
-        "just extract the number and set unit to 'litres'."
-    ),
-    "motor_power_hp": (
-        "Motor power is always in HP - there is no other unit option in "
-        "this application. Never ask the user what unit it's in; just "
-        "extract the number and set unit to 'hp'."
-    ),
-}
 
 def _generate_clarification_question(
-    question_key: str,
-    allowed_units: list[str] | None,
-    unit_ask_attempts: int,
-    extracted_value: float | None,
-    extracted_unit: str | None,
+    question: Question,
+    reason: str,
+    attempts: int,
+    extracted_value: float | None = None,
+    extracted_unit: str | None = None,
 ) -> str:
-    """Generate a natural clarification question for pump selection."""
-    units_str = ", ".join(allowed_units) if allowed_units else "the available units"
-    subject = question_key.replace('_', ' ')
+    """Generate a natural clarification question for pump selection.
+
+    reason is one of REASON_FALLBACKS's keys, describing what's still
+    missing or invalid. Falls back to a plain templated sentence only if
+    the LLM itself is unreachable - this is never the first choice.
+    """
+    subject = question.key.replace("_", " ")
+    units_str = ", ".join(question.allowed_units) if question.allowed_units else "the available units"
 
     prompt = (
-        f"User is being asked about: {subject}. "
+        f"User is being asked about: {subject}. Question as shown to the user: "
+        f"{question.prompt!r}. "
+        f"Domain context: {question.domain_context or 'none provided.'} "
         f"Valid units: {units_str}. "
-        f"They've been asked {unit_ask_attempts + 1} time(s). "
+        f"Reason clarification is needed: {reason}. "
+        f"What was extracted so far: value={extracted_value!r}, unit={extracted_unit!r}. "
+        f"They've been asked {attempts + 1} time(s) about this question. "
         f"Ask them naturally. Only about this specific question for pump selection. "
         f"Output only the question."
     )
 
     try:
         response = llm_client.complete(
-            "Generate a follow-up question for pump selection. Keep it natural and focused.",
+            "Generate a follow-up question for pump selection. Keep it natural, "
+            "focused, and grounded in the domain context given. Keep it short.",
             prompt,
-            temperature=1.0  # High temp for natural variety
+            temperature=1.0,  # High temp for natural variety
         ).strip()
         # Clean up markdown
         response = "\n".join(line.strip() for line in response.split("\n") if line.strip() and not line.startswith("#"))
-        return response.strip() if response else f"Please provide {subject}."
+        return response.strip() if response else REASON_FALLBACKS[reason].format(subject=subject)
     except LLMUnavailableError:
-        return f"Please provide {subject}."
+        return REASON_FALLBACKS[reason].format(subject=subject)
 
 
 def _normalize_unit(raw_unit: str | None, allowed_units: list[str] | None) -> str | None:
@@ -204,7 +174,7 @@ PARSE_ANSWER_SYSTEM_PROMPT = (
 )
 
 
-def _try_rule_based_parse(user_text: str, allowed_units: list[str] | None, question_key: str, previous_value: float | None = None) -> dict | None:
+def _try_rule_based_parse(user_text: str, allowed_units: list[str] | None, question: Question, previous_value: float | None = None) -> dict | None:
 	"""Attempt to extract value + unit using regex/pattern matching.
 
 	Returns a dict matching the LLM response schema if a clear match is found,
@@ -220,7 +190,7 @@ def _try_rule_based_parse(user_text: str, allowed_units: list[str] | None, quest
 			return None
 		value_str = match.group(1)
 		value = float(value_str)
-		if question_key in QUESTIONS_REQUIRING_INTEGER and value != int(value):
+		if question.requires_integer and value != int(value):
 			return None
 		return {
 			"value": value,
@@ -260,7 +230,7 @@ def _try_rule_based_parse(user_text: str, allowed_units: list[str] | None, quest
 	if unit not in allowed_units:
 		return None
 
-	if question_key in QUESTIONS_REQUIRING_INTEGER and value != int(value):
+	if question.requires_integer and value != int(value):
 		return None
 
 	return {
@@ -281,13 +251,13 @@ def parse_answer(
     previous_value: float | None = None,
     previous_unit: str | None = None,
     other_questions: list[Question] = (),
-    unit_ask_attempts: int = 0,
+    clarification_attempts: int = 0,
 ) -> ParsedAnswer:
     """Parse a free-text answer into a numeric value + unit for `question`.
 
-    For questions in QUESTIONS_REQUIRING_STATED_UNIT, the LLM never infers
-    the unit from magnitude - the user must state it explicitly. The
-    resulting (value, unit) still flows through this use case's own
+    When question.requires_stated_unit is set, the LLM never infers the
+    unit from magnitude - the user must state it explicitly. The resulting
+    (value, unit) still flows through this use case's own
     normalize_*/rules.py logic unchanged.
 
     previous_value/previous_unit, when given, are the value/unit this
@@ -296,21 +266,24 @@ def parse_answer(
     previously stated number instead of being treated as a fresh,
     number-less reply.
 
-    unit_ask_attempts tracks how far along this question's unit-ask
-    sequence the caller already is: 0 = never asked, 1 = the plain "What is
-    the unit of X?" question was already asked once, 2 = the "I would
-    require the unit..." escalation was already given once. At 2, a further
-    non-answer sets gave_up=true instead of asking again - the caller
-    should end the conversation for this question in that case rather than
-    call parse_answer for it again.
+    clarification_attempts tracks how far along this question's
+    clarification sequence the caller already is: 0 = never asked, 1 = a
+    clarification was already asked once, 2 = a second clarification was
+    already given once. This applies to every non-optional (required)
+    question, not just unit-bearing ones - any required question whose
+    value (and, if requires_stated_unit, unit) is still missing gets up to
+    two LLM-generated clarification attempts. At 2, a further non-answer
+    sets gave_up=true instead of asking again - the caller should end the
+    conversation for this question in that case rather than call
+    parse_answer for it again. Optional questions never enter this flow -
+    an unclear reply to an optional question is skipped, not clarified.
 
     other_questions, when given, lets the LLM recognize a reply that's
     actually correcting an earlier answer rather than answering the current
     question - the caller is responsible for updating its own answers state
     and re-asking the current question when redirect_key comes back set.
     """
-    hint = QUESTION_UNIT_HINTS.get(question.key, "")
-    allowed_units = QUESTION_ALLOWED_UNITS.get(question.key)
+    allowed_units = question.allowed_units
     allowed_units_line = (
         f"Valid unit values for this question - unit must be exactly one of these "
         f"strings (or null): {allowed_units!r}\n"
@@ -319,15 +292,15 @@ def parse_answer(
     )
     unit_required_line = (
         f"This question REQUIRES A STATED UNIT (see the unit-required rule "
-        f"above) - never infer the unit from magnitude. Prior unit-ask "
-        f"attempts so far for this question: {unit_ask_attempts!r}.\n"
-        if question.key in QUESTIONS_REQUIRING_STATED_UNIT
+        f"above) - never infer the unit from magnitude. Prior clarification "
+        f"attempts so far for this question: {clarification_attempts!r}.\n"
+        if question.requires_stated_unit
         else ""
     )
     integer_required_line = (
         "This question REQUIRES A WHOLE NUMBER (see the whole-number rule "
         "above) and has no unit.\n"
-        if question.key in QUESTIONS_REQUIRING_INTEGER
+        if question.requires_integer
         else ""
     )
     previous_guess = (
@@ -335,7 +308,6 @@ def parse_answer(
         if previous_value is not None
         else ""
     )
-    other_question_keys = [q.key for q in other_questions]
     other_questions_line = (
         "This use case's OTHER questions, in case the reply corrects one of "
         "these instead of answering the current question - each is "
@@ -343,13 +315,14 @@ def parse_answer(
         if other_questions
         else ""
     )
+    domain_context_line = f"Domain context: {question.domain_context}\n" if question.domain_context else ""
     user_prompt = (
         f"Question asked: {question.prompt!r}\n"
         f"Optional: {question.optional!r}\n"
         f"{allowed_units_line}"
         f"{unit_required_line}"
         f"{integer_required_line}"
-        f"{hint}\n"
+        f"{domain_context_line}"
         f"{previous_guess}"
         f"{other_questions_line}"
         f"User's reply: {user_text!r}\n"
@@ -363,12 +336,12 @@ def parse_answer(
         raw = llm_client.complete(
             PARSE_ANSWER_SYSTEM_PROMPT,
             user_prompt,
-            json_schema=_parse_answer_schema(allowed_units, other_question_keys),
+            json_schema=_parse_answer_schema(allowed_units, other_questions),
         )
         data = json.loads(raw)
         data["unit"] = _normalize_unit(data.get("unit"), allowed_units)
     except (LLMUnavailableError, json.JSONDecodeError, ValueError):
-        rule_based = _try_rule_based_parse(user_text, allowed_units, question.key, previous_value)
+        rule_based = _try_rule_based_parse(user_text, allowed_units, question, previous_value)
         if rule_based is not None:
             data = rule_based
         else:
@@ -408,52 +381,55 @@ def parse_answer(
         not data.get("redirect_key")
         and allowed_units
         and len(allowed_units) == 1
-        and question.key not in QUESTIONS_REQUIRING_STATED_UNIT
+        and not question.requires_stated_unit
     ):
         if data.get("value") is not None:
             data["unit"] = allowed_units[0]
             data["needs_clarification"] = False
             data["clarification_question"] = None
 
-    # Clarification question: if we're asking for missing value/unit, generate
-    # the clarification question with high temperature so the wording varies.
-    # The LLM decides what's actually missing based on what was extracted.
-    if (
-        not data.get("redirect_key")
-        and not data.get("skipped")
-        and question.key in QUESTIONS_REQUIRING_STATED_UNIT
-        and data.get("needs_clarification")
-        and unit_ask_attempts < 2
-    ):
+    # Whether required info is still missing for this question: either the
+    # value itself, or - for questions that require it - the unit. Optional
+    # questions are never subject to the clarification/give-up flow below.
+    missing_required_info = not question.optional and (
+        data.get("value") is None or (question.requires_stated_unit and data.get("unit") is None)
+    )
+    not_redirect_or_skip = not data.get("redirect_key") and not data.get("skipped")
+
+    # Give-up threshold: if we're at attempt 2+ and still missing required
+    # info, stop and give up instead of asking again. Generate the "cannot
+    # recommend" message via LLM - applies to any required question, not
+    # just unit-bearing ones.
+    if not_redirect_or_skip and missing_required_info and clarification_attempts >= 2:
+        data["value"] = None
+        data["unit"] = None
+        data["needs_clarification"] = False
+        data["gave_up"] = True
+        try:
+            data["clarification_question"] = llm_client.complete(
+                "You generate brief, empathetic messages. Output only the message itself, nothing else.",
+                f"The user couldn't provide the {question.key.replace('_', ' ')} information after "
+                f"being asked twice. Domain context: {question.domain_context or 'none provided.'} "
+                "Generate a brief, friendly message saying we cannot recommend a pump model without "
+                "this information.",
+                temperature=1.0,
+            ).strip()
+        except LLMUnavailableError:
+            data["clarification_question"] = "We cannot recommend you a model because of missing information."
+    elif not_redirect_or_skip and missing_required_info and data.get("needs_clarification"):
+        # Clarification question: generate it with high temperature so the
+        # wording varies and it's grounded in this question's domain
+        # context, rather than reusing whatever (possibly generic) wording
+        # the main extraction call produced.
+        reason = "missing_unit" if data.get("value") is not None else "missing_value"
         data["clarification_question"] = _generate_clarification_question(
-            question.key,
-            allowed_units,
-            unit_ask_attempts,
+            question,
+            reason,
+            clarification_attempts,
             data.get("value"),
             data.get("unit"),
         )
 
-    # Give-up threshold: if we're at attempt 2+ and still missing required info,
-    # stop and give up. Generate a final message via LLM.
-    if (
-        not data.get("redirect_key")
-        and not data.get("skipped")
-        and question.key in QUESTIONS_REQUIRING_STATED_UNIT
-        and data.get("unit") is None
-        and unit_ask_attempts >= 2
-    ):
-        data["value"] = None
-        data["needs_clarification"] = False
-        data["gave_up"] = True
-        # Generate the "cannot recommend" message via LLM
-        try:
-            data["clarification_question"] = llm_client.complete(
-                "You generate brief, empathetic messages. Output only the message itself, nothing else.",
-                f"The user couldn't provide the {question.key.replace('_', ' ')} information after being asked twice. Generate a brief, friendly message saying we cannot recommend a pump model without this information.",
-                temperature=1.0
-            ).strip()
-        except LLMUnavailableError:
-            data["clarification_question"] = "We cannot recommend you a model because of missing information."
     # Defensive: a question requiring a whole number (e.g. num_floors) must
     # never accept a fractional value - don't rely solely on the model
     # following the whole-number instruction above. Skipped when this is a
@@ -461,19 +437,17 @@ def parse_answer(
     # redirect_key names, which may be a different, fractional-allowed one.
     if (
         not data.get("redirect_key")
-        and question.key in QUESTIONS_REQUIRING_INTEGER
+        and question.requires_integer
         and data.get("value") is not None
         and data["value"] != int(data["value"])
     ):
-        rejected_number = data["value"]
-        data["value"] = None
         data["unit"] = None
         data["skipped"] = False
         data["needs_clarification"] = True
-        data["clarification_question"] = (
-            f"{rejected_number!r} isn't a whole number - could you give a "
-            f"whole number for \"{question.prompt}\"?"
+        data["clarification_question"] = _generate_clarification_question(
+            question, "non_integer", clarification_attempts, data["value"], data.get("unit")
         )
+        data["value"] = None
 
     # Defensive normalization: redirect_key/skipped/needs_clarification are
     # meant to be mutually exclusive (see the system prompt), and a redirect
@@ -486,11 +460,9 @@ def parse_answer(
         data["redirect_key"] = None
         data["needs_clarification"] = True
         data["skipped"] = False
-        data.setdefault("clarification_question", None)
-        if not data["clarification_question"]:
-            data["clarification_question"] = (
-                f"Could you clarify that answer for \"{question.prompt}\"?"
-            )
+        data["clarification_question"] = _generate_clarification_question(
+            question, "generic", clarification_attempts
+        )
     elif data.get("redirect_key"):
         data["needs_clarification"] = False
         data["skipped"] = False
@@ -505,26 +477,28 @@ def parse_answer(
     # or silently stripping the sign.
     rejected_value = data.get("value")
     target_key = data.get("redirect_key") or question.key
-    if rejected_value is not None and rejected_value <= 0 and target_key not in QUESTIONS_REQUIRING_INTEGER:
-        target_prompt = question.prompt
-        if data.get("redirect_key"):
-            target_prompt = next(
-                (q.prompt for q in other_questions if q.key == data["redirect_key"]),
-                target_prompt,
-            )
+    target_question = next((q for q in other_questions if q.key == target_key), question)
+    if rejected_value is not None and rejected_value <= 0 and not target_question.requires_integer:
         data["value"] = None
         data["unit"] = None
         data["redirect_key"] = None
         data["skipped"] = False
         data["needs_clarification"] = True
-        reason = "it can't be negative" if rejected_value < 0 else "it must be greater than zero"
-        data["clarification_question"] = (
-            f"{rejected_value!r} isn't a valid value for \"{target_prompt}\" - "
-            f"{reason}. Could you give a valid value?"
+        data["clarification_question"] = _generate_clarification_question(
+            target_question, "non_positive", clarification_attempts, rejected_value
         )
         data["gave_up"] = False
 
     data.setdefault("gave_up", False)
+    if (
+        not data.get("needs_clarification")
+        and not data.get("skipped")
+        and not data.get("gave_up")
+        and data.get("value") is not None
+    ):
+        data["confirmation_message"] = (
+            f"Got it: {data['value']} {data['unit']}" if data.get("unit") else f"Got it: {data['value']}"
+        )
 
     return ParsedAnswer(**data)
 
@@ -599,6 +573,9 @@ def parse_category(
                 f"Please choose one of: {', '.join(valid_categories)}."
             ),
         )
+
+    if not data.get("needs_clarification") and not data.get("skipped") and data.get("category"):
+        data["confirmation_message"] = f"Got it: {data['category']}"
 
     return ParsedCategory(**data)
 

@@ -6,6 +6,10 @@ class Question(BaseModel):
     prompt: str
     unit: str | None = None
     optional: bool = False
+    allowed_units: list[str] | None = None
+    requires_stated_unit: bool = False
+    requires_integer: bool = False
+    domain_context: str = ""
 
 
 class WaterTransferRequest(BaseModel):
@@ -43,6 +47,7 @@ class ParsedAnswer(BaseModel):
     skipped: bool = False
     redirect_key: str | None = None
     gave_up: bool = False
+    confirmation_message: str | None = None
 
 
 class ParsedCategory(BaseModel):
@@ -50,3 +55,4 @@ class ParsedCategory(BaseModel):
     needs_clarification: bool = False
     clarification_question: str | None = None
     skipped: bool = False
+    confirmation_message: str | None = None

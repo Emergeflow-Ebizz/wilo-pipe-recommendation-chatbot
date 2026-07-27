@@ -89,7 +89,7 @@ class AnswerRequest(BaseModel):
     user_text: str
     previous_value: float | None = None
     previous_unit: str | None = None
-    unit_ask_attempts: int = 0
+    clarification_attempts: int = 0
 
 
 @app.post("/{use_case_slug}/answer", response_model=ParsedAnswer)
@@ -107,7 +107,7 @@ def parse_free_text_answer(use_case_slug: str, request: AnswerRequest) -> Parsed
         previous_value=request.previous_value,
         previous_unit=request.previous_unit,
         other_questions=other_questions,
-        unit_ask_attempts=request.unit_ask_attempts,
+        clarification_attempts=request.clarification_attempts,
     )
 
 
