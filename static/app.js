@@ -484,6 +484,7 @@
           subtitle: option.subtitle,
           onSelect: function () {
             addUserMessage(option.label);
+            addBotMessage("Great! Let me ask you some questions to find the right pump for this application.");
             state.useCaseSlug = null;
             state.dynamicAnswers = {};
             state.unitAskAttempts = {};
@@ -493,6 +494,22 @@
             render();
           }
         };
+      });
+
+      state.virtualOptions.push({
+        label: "Explore other pumps",
+        icon: "🔍",
+        subtitle: "Try a different approach",
+        onSelect: function () {
+          addUserMessage("Explore other pumps");
+          addBotMessage("Let me help you explore other pump options. Would you like to try a different application?");
+          state.useCaseSlug = null;
+          state.dynamicAnswers = {};
+          state.unitAskAttempts = {};
+          state.currentQuestion = null;
+          jumpToStep("application");
+          render();
+        }
       });
 
       state.virtualOptions.push({
