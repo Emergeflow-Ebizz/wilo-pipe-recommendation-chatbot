@@ -90,6 +90,11 @@ class AnswerRequest(BaseModel):
     previous_value: float | None = None
     previous_unit: str | None = None
     clarification_attempts: int = 0
+    # TODO(frontend): drop once static/app.js sends clarification_attempts
+    # instead of the old unit_ask_attempts name. Until then this silently
+    # falling back to 0 on every request would mean the give-up mechanic in
+    # llm_parser.parse_answer could never fire in production.
+    unit_ask_attempts: int | None = None
 
 
 @app.post("/{use_case_slug}/answer", response_model=ParsedAnswer)
@@ -101,13 +106,16 @@ def parse_free_text_answer(use_case_slug: str, request: AnswerRequest) -> Parsed
     if question is None:
         raise HTTPException(status_code=404, detail=f"Unknown question: {request.question_key}")
     other_questions = [q for key, q in questions.items() if key != request.question_key]
+    clarification_attempts = (
+        request.unit_ask_attempts if request.unit_ask_attempts is not None else request.clarification_attempts
+    )
     return llm_parser.parse_answer(
         question,
         request.user_text,
         previous_value=request.previous_value,
         previous_unit=request.previous_unit,
         other_questions=other_questions,
-        clarification_attempts=request.clarification_attempts,
+        clarification_attempts=clarification_attempts,
     )
 
 
