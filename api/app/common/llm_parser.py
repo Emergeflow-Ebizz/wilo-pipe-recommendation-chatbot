@@ -80,15 +80,28 @@ def _generate_clarification_question(
     attempts: int,
     extracted_value: float | None = None,
     extracted_unit: str | None = None,
+    user_text: str | None = None,
 ) -> str:
     """Generate a natural clarification question for pump selection.
 
     reason is one of REASON_FALLBACKS's keys, describing what's still
     missing or invalid. Falls back to a plain templated sentence only if
     the LLM itself is unreachable - this is never the first choice.
+
+    user_text, when given, is the user's actual reply that triggered this
+    clarification. Without it, the generator can only reword the same
+    question - it can't tell "idk" (mild reluctance) apart from "idk how
+    would I know this" (a genuine request for help figuring out the
+    answer), so it ends up repeating a near-identical question every
+    attempt instead of actually helping. With it, the model can recognize
+    when the user is asking HOW to determine the value (not just refusing
+    to answer) and use domain_context to give a brief, concrete pointer
+    (e.g. where the number is usually printed, or how to measure it)
+    before asking again.
     """
     subject = question.key.replace("_", " ")
     units_str = ", ".join(question.allowed_units) if question.allowed_units else "the available units"
+    user_reply_line = f"The user's actual reply just now: {user_text!r}. " if user_text else ""
 
     prompt = (
         f"User is being asked about: {subject}. Question as shown to the user: "
@@ -97,14 +110,21 @@ def _generate_clarification_question(
         f"Valid units: {units_str}. "
         f"Reason clarification is needed: {reason}. "
         f"What was extracted so far: value={extracted_value!r}, unit={extracted_unit!r}. "
+        f"{user_reply_line}"
         f"They've been asked {attempts + 1} time(s) about this question. "
-        f"Ask them naturally. Only about this specific question for pump selection. "
-        f"Output only the question."
+        f"If the user's reply shows they don't know HOW to find or determine this "
+        f"value (e.g. 'idk how would I know', 'not sure where to check') rather than "
+        f"just being noncommittal, give a brief, concrete pointer drawn from the "
+        f"domain context above (e.g. where the number is usually printed, a typical "
+        f"range, or how to measure/check it) before asking again - don't just repeat "
+        f"the same question in different words. Ask them naturally. Only about this "
+        f"specific question for pump selection. Output only the message."
     )
 
     try:
         response = llm_client.complete(
-            "Generate a follow-up question for pump selection. Keep it natural, "
+            "Generate a follow-up message for pump selection, helping the user "
+            "actually answer if they seem unsure how to. Keep it natural, "
             "focused, and grounded in the domain context given. Keep it short.",
             prompt,
             temperature=1.0,  # High temp for natural variety
@@ -428,6 +448,7 @@ def parse_answer(
             clarification_attempts,
             data.get("value"),
             data.get("unit"),
+            user_text=user_text,
         )
 
     # Defensive: a question requiring a whole number (e.g. num_floors) must
@@ -445,7 +466,7 @@ def parse_answer(
         data["skipped"] = False
         data["needs_clarification"] = True
         data["clarification_question"] = _generate_clarification_question(
-            question, "non_integer", clarification_attempts, data["value"], data.get("unit")
+            question, "non_integer", clarification_attempts, data["value"], data.get("unit"), user_text=user_text
         )
         data["value"] = None
 
@@ -461,7 +482,7 @@ def parse_answer(
         data["needs_clarification"] = True
         data["skipped"] = False
         data["clarification_question"] = _generate_clarification_question(
-            question, "generic", clarification_attempts
+            question, "generic", clarification_attempts, user_text=user_text
         )
     elif data.get("redirect_key"):
         data["needs_clarification"] = False
@@ -485,7 +506,7 @@ def parse_answer(
         data["skipped"] = False
         data["needs_clarification"] = True
         data["clarification_question"] = _generate_clarification_question(
-            target_question, "non_positive", clarification_attempts, rejected_value
+            target_question, "non_positive", clarification_attempts, rejected_value, user_text=user_text
         )
         data["gave_up"] = False
 

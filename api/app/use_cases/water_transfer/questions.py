@@ -11,10 +11,18 @@ QUESTIONS: list[Question] = [
             "Determines pump casing compatibility - the pump must physically fit "
             "inside the borewell. Available pump sheets cover 4-10 inches "
             "(roughly 100-250mm); below 4 inches no pump fits, above 10 inches "
-            "the user is asked to confirm using the largest available size. "
-            "Valid units are inch and mm - the user must state which one, this "
-            "is never inferred from the number alone (e.g. a bare '6' is not "
-            "assumed to mean inches just because that's a typical size)."
+            "the user is asked to confirm using the largest available size. Most "
+            "domestic borewells are 6 or 6.5 inches (150-165mm). Valid units are "
+            "inch and mm - the user must state which one, this is never inferred "
+            "from the number alone (e.g. a bare '6' is not assumed to mean inches "
+            "just because that's a typical size). "
+            "IF THE USER DOESN'T KNOW HOW TO FIND THIS: the diameter is set by the "
+            "drilling/casing pipe used when the borewell was drilled. It's usually "
+            "written on the drilling contractor's invoice or completion report, or "
+            "stamped/printed on the casing pipe itself just above ground level. If "
+            "they truly can't find it, suggest they measure the inner diameter of "
+            "the casing pipe opening directly, or contact the driller who installed "
+            "it - most residential borewells turn out to be 6 or 6.5 inches."
         ),
     ),
     Question(
@@ -28,7 +36,13 @@ QUESTIONS: list[Question] = [
             "together with num_floors. Valid units are ft and m - the user must "
             "state which one, this is never inferred from the number alone (e.g. "
             "a bare '150' is not assumed to mean feet just because that's a "
-            "typical depth)."
+            "typical depth). "
+            "IF THE USER DOESN'T KNOW HOW TO FIND THIS: it's usually recorded on "
+            "the drilling contractor's completion report or invoice from when the "
+            "borewell was drilled. If that's unavailable, suggest lowering a "
+            "weighted tape measure or string down the borewell until it hits the "
+            "bottom, or contacting the driller who installed it. Depths commonly "
+            "range from 100-600 feet (30-180m) depending on the local water table."
         ),
     ),
     Question(
