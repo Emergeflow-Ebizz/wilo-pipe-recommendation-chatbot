@@ -39,6 +39,22 @@ class PumpRecommendation(BaseModel):
     tied_alternatives: list["PumpRecommendation"] = []
 
 
+class AdditionalAnswer(BaseModel):
+    """A value the user volunteered for a DIFFERENT question than the one
+    they were just asked, extracted from the same reply as the primary
+    answer (e.g. "value unit borewell, value unit deep, number floors" answers
+    borewell_size AND well_depth AND num_floors in one message).
+
+    Unlike redirect_key (which fires when the reply does NOT answer the
+    current question at all), additional_answers coexist with a normal
+    primary value/unit - the current question's own answer is unaffected.
+    """
+
+    key: str
+    value: float
+    unit: str | None = None
+
+
 class ParsedAnswer(BaseModel):
     value: float | None = None
     unit: str | None = None
@@ -48,6 +64,7 @@ class ParsedAnswer(BaseModel):
     redirect_key: str | None = None
     gave_up: bool = False
     confirmation_message: str | None = None
+    additional_answers: list[AdditionalAnswer] = []
 
 
 class ParsedCategory(BaseModel):

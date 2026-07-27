@@ -161,6 +161,68 @@ def test_parse_answer_confirmation_message_absent_on_skip():
     assert result.confirmation_message is None
 
 
+def test_parse_answer_extracts_additional_answers_for_other_questions():
+    """One reply answering multiple questions at once (e.g. "4 inch borewell,
+    300 ft deep, 2 floors") should surface the extra answers via
+    additional_answers, not just the current question's own value."""
+    extraction = _answer_json(
+        value=4.0,
+        unit="inch",
+        additional_answers=[
+            {"key": "well_depth", "value": 300.0, "unit": "ft"},
+            {"key": "num_floors", "value": 2.0, "unit": None},
+        ],
+    )
+    with patch("app.common.llm_parser.llm_client.complete", return_value=extraction):
+        result = parse_answer(
+            BOREWELL_SIZE,
+            "I have a 4-inch borewell, depth 300 ft, 2 floors.",
+            other_questions=[WELL_DEPTH, NUM_FLOORS, MOTOR_POWER_HP],
+        )
+
+    assert result.value == 4.0
+    assert result.unit == "inch"
+    additional_by_key = {a.key: a for a in result.additional_answers}
+    assert additional_by_key["well_depth"].value == 300.0
+    assert additional_by_key["well_depth"].unit == "ft"
+    assert additional_by_key["num_floors"].value == 2.0
+
+
+def test_parse_answer_drops_additional_answer_missing_required_unit():
+    """well_depth requires a stated unit - an additional_answers entry for it
+    with no unit can't be trusted, so it should be dropped rather than passed
+    through with a missing unit."""
+    extraction = _answer_json(
+        value=4.0,
+        unit="inch",
+        additional_answers=[{"key": "well_depth", "value": 300.0, "unit": None}],
+    )
+    with patch("app.common.llm_parser.llm_client.complete", return_value=extraction):
+        result = parse_answer(
+            BOREWELL_SIZE, "4 inch borewell, 300 deep",
+            other_questions=[WELL_DEPTH, NUM_FLOORS],
+        )
+
+    assert result.additional_answers == []
+
+
+def test_parse_answer_drops_additional_answer_for_unknown_key():
+    """A key the model invents that isn't in other_questions must never be
+    passed through - only questions that actually exist in this sequence."""
+    extraction = _answer_json(
+        value=4.0,
+        unit="inch",
+        additional_answers=[{"key": "not_a_real_question", "value": 5.0, "unit": None}],
+    )
+    with patch("app.common.llm_parser.llm_client.complete", return_value=extraction):
+        result = parse_answer(
+            BOREWELL_SIZE, "4 inch, and something else too",
+            other_questions=[WELL_DEPTH, NUM_FLOORS],
+        )
+
+    assert result.additional_answers == []
+
+
 def test_parse_yes_no_confirmed():
     fake_response = json.dumps({"confirmed": True, "needs_clarification": False})
     with patch("app.common.llm_parser.llm_client.complete", return_value=fake_response):

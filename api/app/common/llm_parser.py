@@ -50,6 +50,10 @@ def _parse_answer_schema(
     if other_question_keys:
         redirect_schema["enum"] = [*other_question_keys, None]
 
+    additional_answer_key_schema = {"type": "string"}
+    if other_question_keys:
+        additional_answer_key_schema["enum"] = other_question_keys
+
     return {
         "type": "object",
         "properties": {
@@ -60,10 +64,22 @@ def _parse_answer_schema(
             "skipped": {"type": "boolean"},
             "redirect_key": redirect_schema,
             "gave_up": {"type": "boolean"},
+            "additional_answers": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "key": additional_answer_key_schema,
+                        "value": {"type": "number"},
+                        "unit": {"type": ["string", "null"]},
+                    },
+                    "required": ["key", "value", "unit"],
+                },
+            },
         },
         "required": [
             "value", "unit", "needs_clarification", "clarification_question",
-            "skipped", "redirect_key", "gave_up",
+            "skipped", "redirect_key", "gave_up", "additional_answers",
         ],
     }
 
@@ -173,6 +189,47 @@ def _normalize_unit(raw_unit: str | None, allowed_units: list[str] | None) -> st
     return raw_unit
 
 
+def _validate_additional_answers(
+    raw_entries: list[dict], other_questions: list[Question], current_question_key: str
+) -> list[dict]:
+    """Apply the same defensive checks used for the primary answer to each
+    additional_answers entry, dropping anything that doesn't hold up.
+
+    additional_answers lets the model report answers to OTHER questions
+    volunteered in the same reply (see the ADDITIONAL ANSWERS rule in
+    PARSE_ANSWER_SYSTEM_PROMPT) - since those values skip the caller's own
+    per-question validation entirely if passed through blindly, each entry
+    gets the same never-guess/never-accept-invalid treatment as the primary
+    question's value/unit: unit normalization, unit-required check,
+    whole-number check, and positive-value check. An entry that fails any
+    of these is dropped silently - the caller will simply ask that question
+    normally later, which is always safe, rather than accepting a shaky value.
+    """
+    validated = []
+    for entry in raw_entries:
+        key = entry.get("key")
+        if not key or key == current_question_key:
+            continue
+        target_question = next((q for q in other_questions if q.key == key), None)
+        if target_question is None:
+            continue
+        value = entry.get("value")
+        if value is None:
+            continue
+        unit = _normalize_unit(entry.get("unit"), target_question.allowed_units)
+        if target_question.allowed_units and len(target_question.allowed_units) == 1:
+            unit = target_question.allowed_units[0]
+        if target_question.requires_stated_unit and unit is None:
+            continue
+        if target_question.requires_integer:
+            if value != int(value):
+                continue
+        elif value <= 0:
+            continue
+        validated.append({"key": key, "value": value, "unit": unit})
+    return validated
+
+
 PARSE_ANSWER_SYSTEM_PROMPT = (
     "You extract a numeric value and its unit from a user's free-text reply "
     "to a specific question. Return only what the user actually said - do not "
@@ -200,12 +257,28 @@ PARSE_ANSWER_SYSTEM_PROMPT = (
     "SKIP: If optional and the user says skip/no/idk/don't know/etc, set "
     "skipped=true, leave value/unit/needs_clarification/clarification_question null. "
     "If NOT optional, never skip - ask for clarification instead. "
-    "REDIRECT: If the user's reply clearly corrects an EARLIER answer to a "
-    "different question (e.g. current question is motor power but user says "
-    "'well depth is 50 meters'), set redirect_key to that question's key, put the "
-    "corrected value/unit in value/unit, set needs_clarification=false, skipped=false. "
-    "Only if you can determine both a concrete value AND its unit for the other question. "
-    "Otherwise treat it as a clarification for the current question. "
+    "REDIRECT: If the user's reply does NOT answer the current question at all, "
+    "and instead clearly corrects a DIFFERENT question (e.g. current question is "
+    "motor power but user says 'well depth is 50 meters'), set redirect_key to "
+    "that question's key, put the corrected value/unit in value/unit, set "
+    "needs_clarification=false, skipped=false. Only if you can determine both a "
+    "concrete value AND its unit for the other question. Otherwise treat it as a "
+    "clarification for the current question. "
+    "ADDITIONAL ANSWERS: Different from REDIRECT - if the user's reply DOES answer "
+    "the current question (value/unit filled normally) AND ALSO clearly states a "
+    "concrete value (and unit, if that other question needs one) for one or more "
+    "OTHER questions in this sequence - whether already asked or not yet asked - "
+    "add an entry per extra question to additional_answers: {key, value, unit}. "
+    "Example: current question is borewell diameter, user replies '4 inch "
+    "borewell, 300 ft deep, 2 floors' - value=4, unit='inch' for the current "
+    "question, PLUS additional_answers=[{key: 'well_depth', value: 300, unit: "
+    "'ft'}, {key: 'num_floors', value: 2, unit: null}]. Only add an entry when you "
+    "have a genuinely concrete, unambiguous value (and required unit) for that "
+    "specific other question - never guess, infer, or split up a value that "
+    "wasn't clearly and separately stated for that question. When in doubt, leave "
+    "it out of additional_answers rather than including a shaky guess - the "
+    "caller will simply ask that question normally later. Leave additional_answers "
+    "as an empty array if nothing else was volunteered. "
     "PREVIOUS VALUE: If a previous value/unit was recorded for this same question, "
     "treat it as still valid unless the user's current reply gives a new, different "
     "number - keep carrying it forward turn after turn. If the current reply states "
@@ -546,6 +619,9 @@ def parse_answer(
         data["gave_up"] = False
 
     data.setdefault("gave_up", False)
+    data["additional_answers"] = _validate_additional_answers(
+        data.get("additional_answers") or [], other_questions, question.key
+    )
     if (
         not data.get("needs_clarification")
         and not data.get("skipped")
