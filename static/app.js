@@ -476,52 +476,33 @@
     if (!question.optional) {
       addBotMessage("I'm sorry, I can't recommend a pump based on the information provided so far.");
 
-      var applicationStep = getStep("application");
-      state.virtualOptions = applicationStep.options.map(function (option) {
-        return {
-          label: option.label,
-          icon: option.icon,
-          subtitle: option.subtitle,
+      state.virtualOptions = [
+        {
+          label: "Explore other pumps",
+          icon: "🔍",
+          subtitle: "Try a different approach",
           onSelect: function () {
-            addUserMessage(option.label);
-            addBotMessage("Great! Let me ask you some questions to find the right pump for this application.");
+            addUserMessage("Explore other pumps");
+            addBotMessage("Let me help you explore other pump options. Would you like to try a different application?");
             state.useCaseSlug = null;
             state.dynamicAnswers = {};
             state.unitAskAttempts = {};
             state.currentQuestion = null;
-            state.answers[applicationStep.id] = option.value;
-            advance(applicationStep, option.value);
+            jumpToStep("application");
             render();
           }
-        };
-      });
-
-      state.virtualOptions.push({
-        label: "Explore other pumps",
-        icon: "🔍",
-        subtitle: "Try a different approach",
-        onSelect: function () {
-          addUserMessage("Explore other pumps");
-          addBotMessage("Let me help you explore other pump options. Would you like to try a different application?");
-          state.useCaseSlug = null;
-          state.dynamicAnswers = {};
-          state.unitAskAttempts = {};
-          state.currentQuestion = null;
-          jumpToStep("application");
-          render();
+        },
+        {
+          label: "No, that's okay",
+          icon: "👋",
+          subtitle: "End this conversation",
+          onSelect: function () {
+            addUserMessage("No, that's okay");
+            jumpToStep("thank-you");
+            render();
+          }
         }
-      });
-
-      state.virtualOptions.push({
-        label: "No, that's okay",
-        icon: "👋",
-        subtitle: "End this conversation",
-        onSelect: function () {
-          addUserMessage("No, that's okay");
-          jumpToStep("thank-you");
-          render();
-        }
-      });
+      ];
 
       state.awaitingKind = "options";
       render();
