@@ -1,0 +1,2 @@
+fastapi
+# plus anything else you import (pydantic, jinja2, etc.)
