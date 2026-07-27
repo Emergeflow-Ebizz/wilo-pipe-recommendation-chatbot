@@ -124,26 +124,25 @@ def _generate_clarification_question(
         f"They've been asked {attempts + 1} time(s) about this question. "
         f"If the user's reply shows they don't know HOW to find or determine this "
         f"value (e.g. 'idk how would I know', 'not sure where to check') rather than "
-        f"just being noncommittal, add ONE short practical pointer for how they "
-        f"could find or check it - pick a single suggestion, not a list. Otherwise "
-        f"just ask again in different words. Maximum 1-2 short sentences total, under "
-        f"25 words - this is a chat message, not an explanation. Output only the "
-        f"message, nothing else."
+        f"just being noncommittal, fold in ONE short practical pointer. Otherwise "
+        f"just ask again in different words. ONE sentence, 15 words max, no preamble. "
+        f"Example of the right length/style: 'Check your borewell papers for the "
+        f"diameter - is it in inches or mm?' Output only that one sentence, nothing else."
     )
 
     try:
         response = llm_client.complete(
-            "Generate a short follow-up chat message for pump selection. Hard "
-            "rules: (1) under 25 words, 1-2 short sentences - no one reads long "
-            "chat messages, so never write a paragraph or list multiple options. "
-            "(2) Never state any specific number, size, range, or 'typical'/'most "
-            "common'/'usually around' value for what the user is being asked - not "
-            "even a plausible-sounding one from general knowledge - unless that "
-            "exact number appears in the domain context given in the user message. "
-            "Stating a guessed number risks the user parroting your guess back "
-            "instead of their real answer, which is not allowed. If you want to "
-            "help them find the value, suggest ONE generic way to check (e.g. "
-            "paperwork, direct measurement) without naming any number.",
+            "Generate ONE short chat-message sentence, 15 words maximum, for a "
+            "pump-selection follow-up question. Hard rules: (1) exactly one "
+            "sentence, no more than 15 words, no preamble or empathy opener like "
+            "'I understand' or 'no problem' - go straight to the point. (2) Never "
+            "state any specific number, size, range, or 'typical'/'most common' "
+            "value for what the user is being asked, even a plausible-sounding one "
+            "from general knowledge, unless that exact number appears in the "
+            "domain context given in the user message - a guessed number risks the "
+            "user parroting it back instead of their real answer. (3) At most one "
+            "practical pointer (e.g. 'check your paperwork') folded into that same "
+            "single sentence - never a list of options.",
             prompt,
             temperature=1.0,  # High temp for natural variety
         ).strip()
@@ -445,10 +444,10 @@ def parse_answer(
         data["gave_up"] = True
         try:
             data["clarification_question"] = llm_client.complete(
-                "Generate a short, empathetic chat message, under 20 words, one "
-                "sentence. Never state a specific number or 'typical' value from "
-                "general knowledge - only use facts given in the user message. "
-                "Output only the message itself, nothing else.",
+                "Generate ONE short, friendly chat-message sentence, 15 words "
+                "maximum, no preamble. Never state a specific number or 'typical' "
+                "value from general knowledge - only use facts given in the user "
+                "message. Output only that one sentence, nothing else.",
                 f"The user couldn't provide the {question.key.replace('_', ' ')} information after "
                 f"being asked twice. Domain context: {question.domain_context or 'none provided.'} "
                 "Generate a brief, friendly message saying we cannot recommend a pump model without "
