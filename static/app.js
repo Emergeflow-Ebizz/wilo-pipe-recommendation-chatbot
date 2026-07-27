@@ -441,10 +441,9 @@
 
   /** Asks the backend what to ask next for the active use case; once it
    * returns question: null, moves on to /recommend. */
-  async function fetchNextQuestion() {
+  async function fetchNextQuestion(confirmationMessage) {
     state.awaitingKind = "loading";
     state.virtualOptions = null;
-    render();
 
     var data;
     try {
@@ -455,18 +454,21 @@
       });
       data = await res.json();
     } catch (err) {
-      showUnreachableBackendError(fetchNextQuestion);
+      render();
+      showUnreachableBackendError(function () { return fetchNextQuestion(confirmationMessage); });
       return;
     }
 
     if (data.question) {
       state.currentQuestion = data.question;
       state.awaitingKind = "dynamic-input";
-      addBotMessage(data.question.prompt);
+      var message = confirmationMessage ? confirmationMessage + "\n" + data.question.prompt : data.question.prompt;
+      addBotMessage(message);
       render();
       return;
     }
 
+    render();
     return runRecommendation();
   }
 
@@ -547,7 +549,7 @@
 
     state.dynamicAnswers[question.key] = data.category;
     state.currentQuestion = null;
-    fetchNextQuestion();
+    fetchNextQuestion(data.confirmation_message);
   }
 
   /** Sends the user's free-text reply to the backend's LLM parser (ParsedAnswer)
@@ -615,7 +617,7 @@
     if (unit) state.dynamicAnswers[unitFieldNameFor(question.key)] = unit;
 
     state.currentQuestion = null;
-    fetchNextQuestion();
+    fetchNextQuestion(data.confirmation_message);
   }
 
   function submitDynamicAnswer(rawValue) {
