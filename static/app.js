@@ -733,7 +733,7 @@
   function mascotImage() {
     var img = document.createElement("img");
     img.className = "mascot";
-    img.src = "./mascot.jpeg";
+    img.src = "./mascot.svg";
     img.alt = "Wilo Pumps Selection Chatbot mascot";
     return img;
   }
