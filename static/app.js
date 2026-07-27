@@ -30,7 +30,7 @@
 
   function formatDetailValue(value) {
     if (typeof value === "number" && !Number.isInteger(value)) {
-      return String(Math.round(value * 100) / 100);
+      return String(Math.round(value * 100) / 100);``
     }
     return String(value);
   }
