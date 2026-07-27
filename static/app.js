@@ -467,7 +467,7 @@
       state.awaitingKind = "dynamic-input";
       var messageText = data.question.prompt;
       if (confirmationMessage) {
-        messageText = confirmationMessage + " " + data.question.prompt;
+        messageText = confirmationMessage + "\n" + data.question.prompt;
       }
       addBotMessage(messageText);
       render();
