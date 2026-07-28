@@ -733,8 +733,8 @@
   function mascotImage() {
     var img = document.createElement("img");
     img.className = "mascot";
-    img.src = "./Boondiram.png";
-    img.alt = "Wilo Pumps Selection Chatbot mascot";
+    img.src = "./logo.png";
+    img.alt = "Wilo Pumps Selection Chatbot logo";
     return img;
   }
 

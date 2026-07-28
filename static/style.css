@@ -319,6 +319,7 @@ body {
   flex-shrink: 0;
   object-fit: contain;
   border-radius: 12px;
+  background: transparent;
 }
 
 .thread {
