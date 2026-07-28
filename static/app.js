@@ -153,14 +153,38 @@
     },
     {
       id: "thank-you",
-      kind: "options",
+      kind: "final",
       bot: function () {
         return (
-          "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer.\n\n" +
-          "🙏 Thank you for visiting Wilo!\n\n" +
-          "We appreciate your interest in our products and services. If you need any further assistance, our support team is ready to help.\n\n" +
-          "Do you want to explore more pumps for your application?"
+          "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer."
         );
+      },
+      followUp: function () {
+        return [
+          {
+            kind: "text",
+            text:
+              "🙏 Thank you for visiting Wilo!\n\n" +
+              "We appreciate your interest in our products and services. If you need any further assistance, our support team is ready to help. 😊",
+          },
+          {
+            kind: "html",
+            html:
+              "Contact Support:<br>" +
+              '📧 <a href="mailto:sales@wilo.com">sales@wilo.com</a><br>' +
+              '🌐 <a href="https://wilo.com/in/en/Dealers/" target="_blank" rel="noopener noreferrer">https://wilo.com/in/en/Dealers/</a>',
+          },
+        ];
+      },
+      next: function () {
+        return "explore-more";
+      },
+    },
+    {
+      id: "explore-more",
+      kind: "options",
+      bot: function () {
+        return "Do you want to explore more pumps for your application?";
       },
       options: [
         { label: "Yes, explore more pumps", value: "yes", icon: "🔍", subtitle: "See other applications" },
