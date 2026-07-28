@@ -676,6 +676,17 @@
     state.currentStepId = nextStep.id;
     state.awaitingKind = nextStep.kind;
     state.inputError = null;
+
+    // If this step is final but has a next function, continue to the next step
+    if (nextStep.kind === "final" && nextStep.next) {
+      var followUpId = nextStep.next(answerValue, state.answers);
+      if (followUpId) {
+        var followUpStep = getStep(followUpId);
+        addStepMessages(followUpStep, state.answers);
+        state.currentStepId = followUpStep.id;
+        state.awaitingKind = followUpStep.kind;
+      }
+    }
     return null;
   }
 
