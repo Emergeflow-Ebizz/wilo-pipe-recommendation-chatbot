@@ -153,28 +153,18 @@
     },
     {
       id: "thank-you",
-      kind: "options",
+      kind: "final",
       bot: function () {
         return (
           "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer."
         );
       },
-      options: [
-        { label: "Yes, explore more pumps", value: "yes", icon: "🔍", subtitle: "See other applications" },
-        { label: "No, that's all", value: "no", icon: "👋", subtitle: "End conversation" },
-      ],
-      next: function (value) {
-        return value === "yes" ? "application" : "final-goodbye";
-      },
-    },
-    {
-      id: "final-goodbye",
-      kind: "final",
-      bot: function () {
-        return "Have a nice day! 👋";
-      },
       followUp: function () {
         return [
+          {
+            kind: "text",
+            text: "Have a nice day! 👋",
+          },
           {
             kind: "text",
             text: "Pumps we offer:",
