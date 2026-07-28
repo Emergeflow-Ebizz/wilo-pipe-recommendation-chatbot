@@ -217,7 +217,7 @@
         return [
           {
             kind: "text",
-            text: "Pumps we offer:",
+            text: "Pumps we are providing for your application:",
           },
           {
             kind: "text",
@@ -226,13 +226,6 @@
           {
             kind: "text",
             text: "💧 Transfer of water from a ground-level reservoir to an elevated tank",
-          },
-          {
-            kind: "html",
-            html:
-              "Contact Support:<br>" +
-              '📧 <a href="mailto:sales@wilo.com">sales@wilo.com</a><br>' +
-              '🌐 <a href="https://wilo.com/in/en/Dealers/" target="_blank" rel="noopener noreferrer">https://wilo.com/in/en/Dealers/</a>',
           },
         ];
       },
