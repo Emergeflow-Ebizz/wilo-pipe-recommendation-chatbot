@@ -349,65 +349,6 @@
     render();
   }
 
-  /** Offers to answer a free-text question about the just-shown recommendation
-   * via /explain_model, looping back here after each answer so the user can
-   * ask more than one before moving on. */
-  function offerExplainOrContinue() {
-    state.awaitingKind = "options";
-    state.virtualOptions = [
-      {
-        label: "Ask a question about this pump",
-        icon: "💬",
-        subtitle: "Get more details from the assistant",
-        onSelect: function () {
-          addUserMessage("Ask a question about this pump");
-          state.awaitingKind = "explain-input";
-          addBotMessage("Sure, what would you like to know?");
-          render();
-        },
-      },
-      {
-        label: "Continue",
-        icon: "➡️",
-        subtitle: "Move on to next steps",
-        onSelect: function () {
-          addUserMessage("Continue");
-          jumpToStep("explore-more");
-          render();
-        },
-      },
-    ];
-    render();
-  }
-
-  /** Sends a free-text follow-up about state.lastRecommendation to
-   * /explain_model and shows the plain-language answer. */
-  async function submitExplainQuestion(rawValue) {
-    var trimmed = rawValue.trim();
-    if (!trimmed) return;
-
-    addUserMessage(trimmed);
-    state.awaitingKind = "loading";
-    render();
-
-    var data;
-    try {
-      var res = await fetch(API_BASE_URL + "/explain_model", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recommendation: state.lastRecommendation, user_question: trimmed }),
-      });
-      data = await res.json();
-    } catch (err) {
-      showUnreachableBackendError(function () {
-        return submitExplainQuestion(rawValue);
-      });
-      return;
-    }
-
-    addBotMessage(data.answer || "Sorry, I couldn't find an answer to that.");
-    offerExplainOrContinue();
-  }
 
   /** Calls the recommendation backend for the active use case and handles
    * ok / confirmation_required / rejected / network-error. */
@@ -439,7 +380,7 @@
       addBotMessage("Based on what you shared, here's a pump that matches your requirement:");
       addRecommendationMessage(data.recommendation, data.recommendation && data.recommendation.tied_alternatives);
       state.lastRecommendation = data.recommendation;
-      offerExplainOrContinue();
+      render();
       return;
     }
 
@@ -1316,7 +1257,6 @@
       var hint = q.unit ? " in " + q.unit : "";
       return "Enter a value" + hint + (q.optional ? ", or 'skip'" : "");
     }
-    if (state.awaitingKind === "explain-input") return "Ask your question";
     if (state.awaitingKind === "input") return getStep(state.currentStepId).placeholder;
     if (state.awaitingKind === "loading") return "Checking...";
     return "Choose an option above";
@@ -1363,7 +1303,7 @@
     }
 
     var isInputStep =
-      (state.awaitingKind === "input" || state.awaitingKind === "dynamic-input" || state.awaitingKind === "explain-input") &&
+      (state.awaitingKind === "input" || state.awaitingKind === "dynamic-input") &&
       !state.virtualOptions;
     el.composerInput.disabled = !isInputStep;
     el.composerInput.placeholder = composerPlaceholder();
@@ -1387,8 +1327,6 @@
     el.composerInput.value = "";
     if (state.awaitingKind === "dynamic-input") {
       submitDynamicAnswer(value);
-    } else if (state.awaitingKind === "explain-input") {
-      submitExplainQuestion(value);
     } else {
       submitText(value);
     }
