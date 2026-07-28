@@ -516,6 +516,13 @@ body {
   cursor: pointer;
   font-family: inherit;
 }
+.select-btn {
+  margin-top: 10px;
+}
+.select-btn.selected {
+  background: #ffc107;
+  color: #1c2a28;
+}
 .section-tag {
   text-align: center;
   color: var(--muted);

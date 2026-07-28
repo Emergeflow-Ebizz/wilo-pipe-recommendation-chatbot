@@ -128,20 +128,6 @@
       },
     },
     {
-      id: "explore-more",
-      kind: "options",
-      bot: function () {
-        return "Would you like to explore a few more pump options, or shall we go ahead with the next steps?";
-      },
-      options: [
-        { label: "Yes, show me more", value: "more", icon: "🔍", subtitle: "See another option" },
-        { label: "No, proceed", value: "proceed", icon: "✅", subtitle: "Continue to next steps" },
-      ],
-      next: function (value) {
-        return value === "more" ? "application" : "lead-contact";
-      },
-    },
-    {
       id: "lead-contact",
       kind: "input",
       bot: function () {
@@ -167,14 +153,40 @@
     },
     {
       id: "thank-you",
-      kind: "final",
+      kind: "options",
       bot: function () {
         return (
           "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer."
         );
       },
+      options: [
+        { label: "Yes, explore more pumps", value: "yes", icon: "🔍", subtitle: "See other applications" },
+        { label: "No, that's all", value: "no", icon: "👋", subtitle: "End conversation" },
+      ],
+      next: function (value) {
+        return value === "yes" ? "application" : "final-goodbye";
+      },
+    },
+    {
+      id: "final-goodbye",
+      kind: "final",
+      bot: function () {
+        return "Have a nice day! 👋";
+      },
       followUp: function () {
         return [
+          {
+            kind: "text",
+            text: "Pumps we offer:",
+          },
+          {
+            kind: "text",
+            text: "⛽ Water extraction from a borewell/well",
+          },
+          {
+            kind: "text",
+            text: "💧 Transfer of water from a ground-level reservoir to an elevated tank",
+          },
           {
             kind: "text",
             text:
@@ -227,6 +239,7 @@
     clarificationUserInput: {}, // question_key -> original user input that triggered clarification
     currentQuestion: null, // last { key, prompt, unit, optional } from next_question
     lastRecommendation: null, // the ok recommendation, kept around for /explain_model follow-ups
+    selectedPump: null, // { recommendation, tierLabel } when user selects a pump
   };
 
   function addBotMessage(text) {
@@ -280,6 +293,7 @@
     state.clarificationUserInput = {};
     state.currentQuestion = null;
     state.lastRecommendation = null;
+    state.selectedPump = null;
     initConversation();
     render();
   }
@@ -1177,10 +1191,25 @@
       openPumpDetailsModal(recommendation);
     });
 
+    var selectBtn = document.createElement("button");
+    selectBtn.type = "button";
+    selectBtn.className = "view-btn select-btn";
+    var isSelected = state.selectedPump && state.selectedPump.recommendation.model_name === recommendation.model_name;
+    selectBtn.textContent = isSelected ? "✓ Selected" : "Select";
+    if (isSelected) selectBtn.classList.add("selected");
+    selectBtn.addEventListener("click", function () {
+      state.selectedPump = { recommendation: recommendation, tierLabel: tierLabel };
+      addUserMessage("Select");
+      addBotMessage("Great! You've selected " + recommendation.model_name + ". Now, let me collect your details to connect you with a dealer.");
+      jumpToStep("lead-contact");
+      render();
+    });
+
     body.appendChild(catLabel);
     body.appendChild(modelName);
     body.appendChild(specs);
     body.appendChild(viewBtn);
+    body.appendChild(selectBtn);
 
     card.appendChild(banner);
     card.appendChild(body);
