@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class Question(BaseModel):
@@ -9,10 +9,12 @@ class Question(BaseModel):
     allowed_units: list[str] | None = None
     requires_stated_unit: bool = False
     requires_integer: bool = False
+    min_value: float | None = None
     domain_context: str = ""
 
 
 class WaterTransferRequest(BaseModel):
+    delivery_type: str
     borewell_size: float = Field(gt=0)
     borewell_unit: str
     well_depth: float = Field(gt=0)
@@ -22,6 +24,13 @@ class WaterTransferRequest(BaseModel):
     roof_tank_capacity: float | None = Field(default=None, gt=0)
     confirm_oversize: bool = False
     confirm_oversize_text: str | None = None
+
+    @field_validator("num_floors")
+    @classmethod
+    def validate_num_floors(cls, v, info):
+        if info.data.get("delivery_type") == "elevated_tank" and v < 1:
+            raise ValueError("num_floors must be at least 1 for elevated_tank delivery")
+        return v
 
 
 class TankFillingRequest(BaseModel):

@@ -48,11 +48,11 @@ QUESTIONS: list[Question] = [
         key="num_floors",
         prompt="To how many floors above ground level is the water to be delivered?",
         requires_integer=True,
+        min_value=1,
         domain_context=(
             "Used with well_depth to calculate the total head the pump must "
-            "overcome - each floor adds a fixed height. Zero is a valid answer "
-            "meaning water is only needed at ground level. Must be a whole "
-            "number - fractional floors are meaningless."
+            "overcome - each floor adds a fixed height. Must be at least 1 "
+            "floor - fractional floors are meaningless."
         ),
     ),
     Question(
@@ -73,17 +73,32 @@ QUESTIONS: list[Question] = [
     ),
 ]
 
+DELIVERY_TYPE_QUESTION = Question(
+    key="delivery_type",
+    prompt="Is the pumped water to be delivered to ground-floor level, or to an elevated roof/terrace tank?",
+    domain_context=(
+        "Determines which follow-up questions are asked. Ground-floor delivery "
+        "requires only borewell diameter, depth, and optional motor power. "
+        "Elevated-tank delivery requires all fields including floors above ground "
+        "and tank capacity."
+    ),
+)
+
 
 def next_question(answers: dict) -> Question | None:
     """Return the next question to ask given answers collected so far.
 
-    Skips roof_tank_capacity when num_floors is 0 - there's no roof tank
-    to fill if the pump isn't feeding any floor.
+    Branches on delivery_type: ground-floor delivery skips num_floors and
+    roof_tank_capacity questions, since those only apply to elevated tanks.
     """
+    if "delivery_type" not in answers:
+        return DELIVERY_TYPE_QUESTION
+
+    delivery_type = answers["delivery_type"]
     for question in QUESTIONS:
         if question.key in answers:
             continue
-        if question.key == "roof_tank_capacity" and answers.get("num_floors") == 0:
+        if delivery_type == "ground_floor" and question.key in ("num_floors", "roof_tank_capacity"):
             continue
         return question
     return None

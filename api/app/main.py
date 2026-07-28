@@ -21,6 +21,7 @@ from app.common.schemas import (
 from app.use_cases.tank_filling.questions import HORIZONTAL_OR_VERTICAL_QUESTION
 from app.use_cases.tank_filling.questions import QUESTIONS as TANK_FILLING_QUESTIONS
 from app.use_cases.tank_filling.questions import next_question as tank_filling_next_question
+from app.use_cases.water_transfer.questions import DELIVERY_TYPE_QUESTION
 from app.use_cases.tank_filling.rules import NoTankFillingMatchError, TankFillingUseCase
 from app.use_cases.water_transfer.questions import QUESTIONS as WATER_TRANSFER_QUESTIONS
 from app.use_cases.water_transfer.questions import next_question as water_transfer_next_question
@@ -35,6 +36,7 @@ from app.use_cases.water_transfer.rules import (
     calculate_head as water_transfer_calculate_head,
     normalize_well_depth,
 )
+from app.common.units import m_to_ft
 from app.use_cases.tank_filling.rules import calculate_head as tank_filling_calculate_head
 
 app = FastAPI()
@@ -69,6 +71,9 @@ QUESTIONS_BY_SLUG = {
 # strings that rules.py compares against literally - not free numeric input.
 # Maps question_key -> (Question, valid category strings).
 CATEGORY_QUESTIONS_BY_SLUG: dict[str, dict[str, tuple[Question, list[str]]]] = {
+    "water_transfer": {
+        "delivery_type": (DELIVERY_TYPE_QUESTION, ["ground_floor", "elevated_tank"]),
+    },
     "tank_filling": {
         "inside_or_outside": (QUESTIONS_BY_SLUG["tank_filling"]["inside_or_outside"], ["inside", "outside"]),
         "horizontal_or_vertical": (HORIZONTAL_OR_VERTICAL_QUESTION, ["horizontal", "vertical"]),
@@ -178,16 +183,20 @@ class WaterTransferResponse(BaseModel):
 
 @app.post("/water_transfer/recommend", response_model=WaterTransferResponse)
 def water_transfer_recommend(request: WaterTransferRequest) -> WaterTransferResponse:
+    resolved_num_floors = 0 if request.delivery_type == "ground_floor" else request.num_floors
+
     answers = {
+        "delivery_type": request.delivery_type,
         "borewell_size": (request.borewell_size, request.borewell_unit),
         "well_depth": (request.well_depth, request.well_depth_unit),
         "motor_power_hp": request.motor_power_hp,
-        "num_floors": request.num_floors,
-        "roof_tank_capacity": request.roof_tank_capacity,
+        "num_floors": resolved_num_floors,
+        "roof_tank_capacity": request.roof_tank_capacity if resolved_num_floors > 0 else None,
     }
 
     uc = USE_CASES["water_transfer"]
     facts = {
+        "delivery_type": request.delivery_type,
         "borewell_size": request.borewell_size,
         "borewell_unit": request.borewell_unit,
         "min_borewell_size_inch": MIN_BOREWELL_SIZE,
@@ -197,7 +206,10 @@ def water_transfer_recommend(request: WaterTransferRequest) -> WaterTransferResp
         "desired_motor_power_hp": request.motor_power_hp,
     }
     well_depth_ft = normalize_well_depth(request.well_depth, request.well_depth_unit)
-    target_head = water_transfer_calculate_head(well_depth_ft, request.num_floors)
+    target_head_m = water_transfer_calculate_head(well_depth_ft, resolved_num_floors)
+
+    target_head = target_head_m if request.well_depth_unit == "m" else m_to_ft(target_head_m)
+    head_unit = request.well_depth_unit
 
     confirm_oversize = request.confirm_oversize
     explicitly_declined = False
@@ -226,6 +238,21 @@ def water_transfer_recommend(request: WaterTransferRequest) -> WaterTransferResp
             return WaterTransferResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
     except NoModelAvailableError as e:
         return WaterTransferResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
+
+    if request.well_depth_unit == "ft":
+        recommendation.details["target_head"] = m_to_ft(recommendation.details["target_head"])
+        recommendation.details["matched_head"] = m_to_ft(recommendation.details["matched_head"])
+        recommendation.details["head_unit"] = "ft"
+    else:
+        recommendation.details["head_unit"] = "m"
+
+    for alt in recommendation.tied_alternatives:
+        if request.well_depth_unit == "ft":
+            alt.details["target_head"] = m_to_ft(alt.details["target_head"])
+            alt.details["matched_head"] = m_to_ft(alt.details["matched_head"])
+            alt.details["head_unit"] = "ft"
+        else:
+            alt.details["head_unit"] = "m"
 
     return WaterTransferResponse(status="ok", recommendation=recommendation)
 

@@ -101,9 +101,19 @@ def _complete_anthropic(
             response.raise_for_status()
             data = response.json()
             break
-        except httpx.HTTPError as e:
-            # Retry once on transient 5xx or 429 (rate limit)
-            if attempt < max_retries and response.status_code in (429, 500, 502, 503, 504):
+        except httpx.HTTPStatusError as e:
+            # A response did come back, just with a bad status - retry once
+            # on transient 5xx or 429 (rate limit).
+            if attempt < max_retries and e.response.status_code in (429, 500, 502, 503, 504):
+                time.sleep(0.5)
+                continue
+            raise
+        except httpx.RequestError:
+            # The request itself never completed (timeout, connection reset,
+            # DNS failure, etc.) - there's no response object to inspect here,
+            # unlike HTTPStatusError above. Retry once, since these are
+            # typically transient too.
+            if attempt < max_retries:
                 time.sleep(0.5)
                 continue
             raise

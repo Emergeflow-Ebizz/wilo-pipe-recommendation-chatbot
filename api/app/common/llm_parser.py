@@ -224,6 +224,8 @@ def _validate_additional_answers(
         if target_question.requires_integer:
             if value != int(value):
                 continue
+            if target_question.min_value is not None and value < target_question.min_value:
+                continue
         elif value <= 0:
             continue
         validated.append({"key": key, "value": value, "unit": unit})
@@ -247,13 +249,16 @@ PARSE_ANSWER_SYSTEM_PROMPT = (
     "(e.g. 'five' -> 5). If the user said a number with no unit, return the "
     "number in value and leave unit null - the caller will decide what to ask "
     "next. "
-    "EXCEPTION: 'num_floors' (floors above ground) allows zero as a valid value "
-    "meaning ground floor. For all other numeric questions (borewell size, well "
-    "depth, motor power, tank capacity), reject any zero or negative number - set "
-    "needs_clarification=true, value/unit null, and ask for a value > zero. "
-    "WHOLE NUMBER: If the question requires a whole number (num_floors), reject "
+    "WHOLE NUMBER: If the question requires a whole number, reject "
     "any non-whole reply (e.g. '5.5') - set needs_clarification=true, value null, "
     "ask for a whole number. "
+    "MINIMUM VALUE: Some questions have a stated minimum value (e.g. 'num_floors' "
+    "may require >= 1 to mean at least one floor, or >= 0 to allow ground floor). "
+    "If a minimum is stated in the question details, reject any value below it - "
+    "set needs_clarification=true, value/unit null. If no minimum is stated, zero "
+    "is allowed for integer questions. For non-integer questions (borewell size, "
+    "well depth, motor power, tank capacity), zero and negative numbers are always "
+    "rejected - these are physical quantities that must be strictly positive. "
     "SKIP: If optional and the user says skip/no/idk/don't know/etc, set "
     "skipped=true, leave value/unit/needs_clarification/clarification_question null. "
     "If NOT optional, never skip - ask for clarification instead. "
@@ -423,6 +428,12 @@ def parse_answer(
         if question.requires_integer
         else ""
     )
+    min_value_line = (
+        f"This question has a minimum value of {question.min_value} "
+        f"(see the MINIMUM VALUE rule above).\n"
+        if question.min_value is not None
+        else ""
+    )
     previous_guess = (
         f"Your previous guess for this question: {previous_value!r} {previous_unit!r}\n"
         if previous_value is not None
@@ -442,6 +453,7 @@ def parse_answer(
         f"{allowed_units_line}"
         f"{unit_required_line}"
         f"{integer_required_line}"
+        f"{min_value_line}"
         f"{domain_context_line}"
         f"{previous_guess}"
         f"{other_questions_line}"
@@ -596,27 +608,34 @@ def parse_answer(
         data["needs_clarification"] = False
         data["skipped"] = False
 
-    # Defensive: these are physical quantities that must be strictly
-    # positive - zero is just as meaningless as negative for a borewell
-    # diameter, well depth, motor power, or tank capacity (unlike
-    # num_floors, where 0 legitimately means ground floor). Don't rely
-    # solely on the model following the negative-value instruction above -
-    # if a non-positive value ever comes back (for the current question or
-    # a redirected one), force clarification instead of silently accepting
-    # or silently stripping the sign.
+    # Defensive: check minimum value constraints and positive-value constraints.
+    # Integer questions with a min_value must meet that floor. Non-integer
+    # questions (physical quantities like borewell diameter, depth, power, capacity)
+    # must always be strictly positive (>0). Don't rely solely on the model
+    # following the rules above - enforce it here as a safety net.
     rejected_value = data.get("value")
     target_key = data.get("redirect_key") or question.key
     target_question = next((q for q in other_questions if q.key == target_key), question)
-    if rejected_value is not None and rejected_value <= 0 and not target_question.requires_integer:
-        data["value"] = None
-        data["unit"] = None
-        data["redirect_key"] = None
-        data["skipped"] = False
-        data["needs_clarification"] = True
-        data["clarification_question"] = _generate_clarification_question(
-            target_question, "non_positive", clarification_attempts, rejected_value, user_text=user_text
-        )
-        data["gave_up"] = False
+
+    if rejected_value is not None:
+        min_floor = target_question.min_value if target_question.min_value is not None else (0 if target_question.requires_integer else 0)
+        should_reject = False
+
+        if target_question.requires_integer and target_question.min_value is not None:
+            should_reject = rejected_value < target_question.min_value
+        elif not target_question.requires_integer:
+            should_reject = rejected_value <= 0
+
+        if should_reject:
+            data["value"] = None
+            data["unit"] = None
+            data["redirect_key"] = None
+            data["skipped"] = False
+            data["needs_clarification"] = True
+            data["clarification_question"] = _generate_clarification_question(
+                target_question, "non_positive", clarification_attempts, rejected_value, user_text=user_text
+            )
+            data["gave_up"] = False
 
     data.setdefault("gave_up", False)
     data["additional_answers"] = _validate_additional_answers(
