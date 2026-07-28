@@ -195,16 +195,19 @@
     },
     {
       id: "explore-more",
-      kind: "options",
+      kind: "input",
       bot: function () {
-        return "Do you want to explore more pumps for your application?";
+        return "Do you want to explore more pumps for your application? (yes/no)";
       },
-      options: [
-        { label: "Yes, explore more pumps", value: "yes", icon: "🔍", subtitle: "See other applications" },
-        { label: "No, that's all", value: "no", icon: "👋", subtitle: "End conversation" },
-      ],
-      next: function (value) {
-        return value === "yes" ? "application" : "final-goodbye";
+      placeholder: "Type yes or no",
+      validate: function (value) {
+        var trimmed = value.toLowerCase().trim();
+        if (trimmed === "yes" || trimmed === "no") return null;
+        return "Please answer with 'yes' or 'no'.";
+      },
+      next: function () {
+        var answer = state.answers["explore-more"];
+        return answer && answer.toLowerCase().trim() === "yes" ? "application" : "final-goodbye";
       },
     },
     {
