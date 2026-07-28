@@ -155,9 +155,22 @@
       id: "thank-you",
       kind: "final",
       bot: function () {
-        return (
-          "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer."
-        );
+        var msg = "✅ Thank you! Our dealer will reach out to you shortly, and your details have been shared with dealer.";
+        if (state.selectedPump) {
+          var pump = state.selectedPump.recommendation;
+          var details = pump.details || {};
+          msg += "\n\nSelected Pump:\n" + (pump.model_name || "Unknown model");
+          DETAIL_DISPLAY_RULES.forEach(function (rule) {
+            var matchedKey = Object.keys(details).find(rule.test);
+            if (matchedKey != null && details[matchedKey] != null && details[matchedKey] !== "") {
+              msg += "\n" + rule.label + ": " + rule.format(details[matchedKey]);
+            }
+          });
+          if (pump.art_no != null) {
+            msg += "\nArticle No.: " + String(pump.art_no);
+          }
+        }
+        return msg;
       },
       followUp: function () {
         return [
