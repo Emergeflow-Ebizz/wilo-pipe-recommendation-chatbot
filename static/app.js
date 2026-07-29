@@ -50,10 +50,9 @@
     return UNIT_FIELD_OVERRIDES[key] || key + "_unit";
   }
 
-  // tank_filling's inside_or_outside and horizontal_or_vertical are the only
-  // fixed-choice questions the backend currently has; they go through
-  // /answer_category (ParsedCategory) instead of /answer (ParsedAnswer).
-  var CATEGORY_QUESTION_KEYS = ["inside_or_outside", "horizontal_or_vertical"];
+  // Fixed-choice questions that go through /answer_category (ParsedCategory)
+  // instead of /answer (ParsedAnswer).
+  var CATEGORY_QUESTION_KEYS = ["delivery_type", "inside_or_outside", "horizontal_or_vertical"];
 
   // ---------------------------------------------------------------------
   // Conversation flow. The application question and lead-capture are fixed;
@@ -212,27 +211,29 @@
     },
     {
       id: "final-goodbye",
-      kind: "final",
+      kind: "options",
       bot: function () {
-        return "Have a nice day! 👋";
+        return "Would you like to explore our other pump solutions?";
       },
-      followUp: function () {
-        return [
-          {
-            kind: "text",
-            text: "Pumps we are providing for your application:",
-          },
-          {
-            kind: "text",
-            text: "⛽ Water extraction from a borewell/well",
-          },
-          {
-            kind: "text",
-            text: "💧 Transfer of water from a ground-level reservoir to an elevated tank",
-          },
-        ];
+      options: [
+        {
+          label: "Water extraction from a borewell/well",
+          value: "water-transfer",
+          icon: "⛽",
+          subtitle: "Borewell to overhead tank",
+        },
+        {
+          label: "Transfer of water from a ground-level reservoir to an elevated tank",
+          value: "tank-filling",
+          icon: "💧",
+          subtitle: "Ground tank to upper tank",
+        },
+      ],
+      next: function (value) {
+        if (value === "water-transfer") return "__dynamic__water_transfer";
+        if (value === "tank-filling") return "__dynamic__tank_filling";
+        return "final-goodbye";
       },
-      next: null,
     },
   ];
 
@@ -432,6 +433,29 @@
     state.awaitingKind = "loading";
     state.virtualOptions = null;
 
+    // For first question in water_transfer/tank_filling, ask for delivery_type (categorical)
+    if (!state.dynamicAnswers.delivery_type && state.useCaseSlug === "water_transfer") {
+      state.awaitingKind = "dynamic-input";
+      state.currentQuestion = {
+        key: "delivery_type",
+        prompt: "Is the pumped water to be delivered to ground-floor level, or to an elevated roof/terrace tank?",
+      };
+      addBotMessage(state.currentQuestion.prompt);
+      render();
+      return;
+    }
+
+    if (!state.dynamicAnswers.inside_or_outside && state.useCaseSlug === "tank_filling") {
+      state.awaitingKind = "dynamic-input";
+      state.currentQuestion = {
+        key: "inside_or_outside",
+        prompt: "Is the tank inside the building or outside?",
+      };
+      addBotMessage(state.currentQuestion.prompt);
+      render();
+      return;
+    }
+
     var data;
     try {
       var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/next_question", {
@@ -457,6 +481,13 @@
         messageText = confirmationMessage + "\n" + data.question.prompt;
       }
       addBotMessage(messageText);
+      render();
+      return;
+    }
+
+    if (data.detail) {
+      addBotMessage("Sorry, something went wrong with the recommendation engine. Please try again.");
+      jumpToStep("application");
       render();
       return;
     }
