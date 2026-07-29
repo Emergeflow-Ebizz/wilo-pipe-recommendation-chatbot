@@ -54,6 +54,12 @@
   // instead of /answer (ParsedAnswer).
   var CATEGORY_QUESTION_KEYS = ["delivery_type", "inside_or_outside", "horizontal_or_vertical"];
 
+  // API configuration for sending pump and user data
+  var PUMP_DATA_API = {
+    endpoint: "https://wiloscan.pumpsearch.com/PumpManagement_V4/api/chatbot/send-selected-pump-mail",
+    apiKey: "qwdbdvfbnfgmuyijfbfbfnbirgjn89gfnfbfbvioffhdhhccfkcxoiydbdvfkmhgshfvnjfbkfvbdvbdjdbvbvdbvdvbdvdvndklfklbldgvaczwdwuywqvwcsncsbfhefh",
+  };
+
   // ---------------------------------------------------------------------
   // Conversation flow. The application question and lead-capture are fixed;
   // everything about sizing the pump (which questions to ask, in what order)
@@ -357,6 +363,68 @@
       },
     ];
     render();
+  }
+
+  async function sendPumpDataToAPI() {
+    if (!state.selectedPump) {
+      console.log("[API] No pump selected, skipping API call");
+      return;
+    }
+
+    var pump = state.selectedPump.recommendation;
+    var details = pump.details || {};
+
+    // Map application type based on use case
+    var applicationMap = {
+      "water_transfer": "Water Extraction From Borewell",
+      "tank_filling": "Transfer of water from a ground-level reservoir to an elevated tank",
+    };
+
+    var payload = {
+      data: {
+        userDetails: {
+          pincode: state.answers["lead-pincode"] || "",
+          name: "",
+          contactNumber: "",
+          email: state.answers["lead-contact"] || "",
+        },
+        searchDetails: {
+          application: applicationMap[state.useCaseSlug] || "Unknown",
+          RequiredHead: details.target_head ? Math.round(details.target_head) + " meter" : "",
+          RequiredPower: state.dynamicAnswers.motor_power_hp ? state.dynamicAnswers.motor_power_hp + " HP" : "",
+        },
+        selectedPump: {
+          pumpModel: pump.model_name || "",
+          articleNo: pump.art_no ? String(pump.art_no) : "",
+          motorRating: details.hp ? details.hp + " Hp" : "",
+          selectedHead: details.matched_head ? Math.round(details.matched_head) + " meter" : "",
+          selectedFlow: details.flow ? details.flow + " lpm" : "",
+          features: "",
+        },
+      },
+    };
+
+    try {
+      console.log("[API] Sending pump data to backend...");
+      console.log("[API] Payload:", JSON.stringify(payload, null, 2));
+
+      var res = await fetch(PUMP_DATA_API.endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": PUMP_DATA_API.apiKey,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      var data = await res.json();
+      console.log("[API] Success! Response:", data);
+      console.log("[API] Status:", res.status);
+      return data;
+    } catch (err) {
+      console.error("[API] Error sending pump data:", err);
+      console.error("[API] Error details:", err.message);
+    }
   }
 
 
@@ -748,6 +816,12 @@
     }
     state.answers[step.id] = trimmed;
     addUserMessage(trimmed);
+
+    // Send pump data to API when pincode is submitted
+    if (step.id === "lead-pincode" && state.selectedPump) {
+      sendPumpDataToAPI();
+    }
+
     advance(step, trimmed);
     render();
   }
