@@ -87,3 +87,35 @@ class ParsedCategory(BaseModel):
     clarification_question: str | None = None
     skipped: bool = False
     confirmation_message: str | None = None
+
+
+class PumpDataUserDetails(BaseModel):
+    pincode: str
+    name: str
+    contactNumber: str
+    email: str
+
+
+class PumpDataSearchDetails(BaseModel):
+    application: str
+    RequiredHead: str
+    RequiredPower: str
+
+
+class PumpDataSelectedPump(BaseModel):
+    pumpModel: str
+    articleNo: str
+    motorRating: str
+    selectedHead: str
+    selectedFlow: str
+    features: str
+
+
+class PumpDataPayload(BaseModel):
+    userDetails: PumpDataUserDetails
+    searchDetails: PumpDataSearchDetails
+    selectedPump: PumpDataSelectedPump
+
+
+class SendPumpDataRequest(BaseModel):
+    data: PumpDataPayload

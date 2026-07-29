@@ -1,9 +1,11 @@
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
+import httpx
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -16,6 +18,7 @@ from app.common.schemas import (
     PressureBoostingRequest,
     PumpRecommendation,
     Question,
+    SendPumpDataRequest,
     TankFillingRequest,
     WaterTransferRequest,
 )
@@ -343,6 +346,40 @@ def pressure_boosting_recommend(request: PressureBoostingRequest) -> PressureBoo
         return PressureBoostingResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
 
     return PressureBoostingResponse(status="ok", recommendation=recommendation)
+
+
+SEND_PUMP_DATA_URL = "https://wiloscan.pumpsearch.com/PumpManagement_V4/api/chatbot/send-selected-pump-mail"
+
+
+@app.post("/send-pump-data")
+def send_pump_data(request: SendPumpDataRequest) -> dict:
+    """Proxy pump/user data to the external pump-search API, avoiding browser CORS."""
+    api_key = os.environ.get("SEND_PUMP_DATA_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="SEND_PUMP_DATA_API_KEY is not configured")
+
+    try:
+        response = httpx.post(
+            SEND_PUMP_DATA_URL,
+            json=request.model_dump(),
+            headers={
+                "Content-Type": "application/json",
+                "X-API-KEY": api_key,
+            },
+            timeout=30,
+        )
+    except httpx.RequestError as e:
+        raise HTTPException(status_code=502, detail=f"Failed to reach external API: {e}") from e
+
+    try:
+        body = response.json()
+    except ValueError:
+        body = response.text
+
+    if response.status_code >= 400:
+        raise HTTPException(status_code=response.status_code, detail=body)
+
+    return body
 
 
 _STATIC_DIR = Path(__file__).parent / "static"
