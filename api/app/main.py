@@ -171,7 +171,20 @@ def get_next_question(use_case_slug: str, request: NextQuestionRequest) -> NextQ
     next_question_fn = NEXT_QUESTION_FNS.get(use_case_slug)
     if next_question_fn is None:
         raise HTTPException(status_code=404, detail=f"Unknown use case: {use_case_slug}")
-    return NextQuestionResponse(question=next_question_fn(request.answers))
+
+    category_questions = CATEGORY_QUESTIONS_BY_SLUG.get(use_case_slug, {})
+
+    next_q = next_question_fn(request.answers)
+    if next_q is None:
+        return NextQuestionResponse(question=None)
+
+    if next_q.key in category_questions:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Question '{next_q.key}' is categorical. Use /{use_case_slug}/answer_category instead of /next_question.",
+        )
+
+    return NextQuestionResponse(question=next_q)
 
 
 class WaterTransferResponse(BaseModel):
