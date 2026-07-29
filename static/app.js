@@ -921,7 +921,9 @@
         return /flow/i.test(key);
       },
       label: "Flow",
-      format: formatDetailValue,
+      format: function (value) {
+        return appendUnitIfPlainNumber(value, "lpm");
+      },
     },
     {
       test: function (key) {
