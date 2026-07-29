@@ -54,11 +54,6 @@
   // instead of /answer (ParsedAnswer).
   var CATEGORY_QUESTION_KEYS = ["delivery_type", "inside_or_outside", "horizontal_or_vertical"];
 
-  // API configuration for sending pump and user data
-  var PUMP_DATA_API = {
-    endpoint: "https://wiloscan.pumpsearch.com/PumpManagement_V4/api/chatbot/send-selected-pump-mail",
-    apiKey: "qwdbdvfbnfgmuyijfbfbfnbirgjn89gfnfbfbvioffhdhhccfkcxoiydbdvfkmhgshfvnjfbkfvbdvbdjdbvbvdbvdvbdvdvndklfklbldgvaczwdwuywqvwcsncsbfhefh",
-  };
 
   // ---------------------------------------------------------------------
   // Conversation flow. The application question and lead-capture are fixed;
@@ -367,12 +362,13 @@
 
   async function sendPumpDataToAPI() {
     if (!state.selectedPump) {
-      console.log("[API] No pump selected, skipping API call");
+      console.log("[Pump Data API] No pump selected, skipping API call");
       return;
     }
 
     var pump = state.selectedPump.recommendation;
     var details = pump.details || {};
+    var contact = state.answers["lead-contact"] || "";
 
     // Map application type based on use case
     var applicationMap = {
@@ -380,14 +376,18 @@
       "tank_filling": "Transfer of water from a ground-level reservoir to an elevated tank",
     };
 
+    // Determine if contact is email or phone
+    var isEmail = /^\S+@\S+\.\S+$/.test(contact);
+    var userDetails = {
+      pincode: state.answers["lead-pincode"] || "",
+      name: "",
+      contactNumber: isEmail ? "" : contact,
+      email: isEmail ? contact : "",
+    };
+
     var payload = {
       data: {
-        userDetails: {
-          pincode: state.answers["lead-pincode"] || "",
-          name: "",
-          contactNumber: "",
-          email: state.answers["lead-contact"] || "",
-        },
+        userDetails: userDetails,
         searchDetails: {
           application: applicationMap[state.useCaseSlug] || "Unknown",
           RequiredHead: details.target_head ? Math.round(details.target_head) + " meter" : "",
@@ -405,25 +405,31 @@
     };
 
     try {
-      console.log("[API] Sending pump data to backend...");
-      console.log("[API] Payload:", JSON.stringify(payload, null, 2));
+      console.log("[Pump Data API] Sending pump data to backend...");
+      console.log("[Pump Data API] Payload:", JSON.stringify(payload, null, 2));
 
-      var res = await fetch(PUMP_DATA_API.endpoint, {
+      var res = await fetch(API_BASE_URL + "/send-pump-data", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": PUMP_DATA_API.apiKey,
         },
         body: JSON.stringify(payload),
       });
 
       var data = await res.json();
-      console.log("[API] Success! Response:", data);
-      console.log("[API] Status:", res.status);
+      console.log("[Pump Data API] Response Status:", res.status);
+      console.log("[Pump Data API] Response Data:", JSON.stringify(data, null, 2));
+
+      if (res.ok) {
+        console.log("[Pump Data API] Success! Pump data has been shared with dealer.");
+      } else {
+        console.error("[Pump Data API] Error - Status:", res.status, "Details:", data);
+      }
+
       return data;
     } catch (err) {
-      console.error("[API] Error sending pump data:", err);
-      console.error("[API] Error details:", err.message);
+      console.error("[Pump Data API] Error sending pump data:", err);
+      console.error("[Pump Data API] Error details:", err.message);
     }
   }
 
