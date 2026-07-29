@@ -41,6 +41,11 @@ class TankFillingRequest(BaseModel):
     motor_power_hp: float | None = Field(default=None, gt=0)
 
 
+class PressureBoostingRequest(BaseModel):
+    num_floors: int = Field(ge=1)
+    bathrooms_per_floor: int = Field(ge=1)
+
+
 class PumpRecommendation(BaseModel):
     model_name: str
     art_no: int | None = None

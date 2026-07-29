@@ -13,10 +13,18 @@ from app.common import llm_explainer, llm_parser
 from app.common.schemas import (
     ParsedAnswer,
     ParsedCategory,
+    PressureBoostingRequest,
     PumpRecommendation,
     Question,
     TankFillingRequest,
     WaterTransferRequest,
+)
+from app.use_cases.pressure_boosting.questions import QUESTIONS as PRESSURE_BOOSTING_QUESTIONS
+from app.use_cases.pressure_boosting.questions import next_question as pressure_boosting_next_question
+from app.use_cases.pressure_boosting.rules import (
+    NoPressureBoostingMatchError,
+    PressureBoostingUseCase,
+    calculate_head as pressure_boosting_calculate_head,
 )
 from app.use_cases.tank_filling.questions import HORIZONTAL_OR_VERTICAL_QUESTION
 from app.use_cases.tank_filling.questions import QUESTIONS as TANK_FILLING_QUESTIONS
@@ -54,17 +62,20 @@ USE_CASES = {
     for uc in (
         WaterTransferUseCase(),
         TankFillingUseCase(),
+        PressureBoostingUseCase(),
     )
 }
 
 NEXT_QUESTION_FNS = {
     "water_transfer": water_transfer_next_question,
     "tank_filling": tank_filling_next_question,
+    "pressure_boosting": pressure_boosting_next_question,
 }
 
 QUESTIONS_BY_SLUG = {
     "water_transfer": {q.key: q for q in WATER_TRANSFER_QUESTIONS},
     "tank_filling": {q.key: q for q in TANK_FILLING_QUESTIONS},
+    "pressure_boosting": {q.key: q for q in PRESSURE_BOOSTING_QUESTIONS},
 }
 
 # Fixed-choice questions whose answer must be one of a small, exact set of
@@ -303,6 +314,35 @@ def tank_filling_recommend(request: TankFillingRequest) -> TankFillingResponse:
         return TankFillingResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
 
     return TankFillingResponse(status="ok", recommendation=recommendation)
+
+
+class PressureBoostingResponse(BaseModel):
+    status: str
+    message: str | None = None
+    recommendation: PumpRecommendation | None = None
+    target_head: float | None = None
+
+
+@app.post("/pressure_boosting/recommend", response_model=PressureBoostingResponse)
+def pressure_boosting_recommend(request: PressureBoostingRequest) -> PressureBoostingResponse:
+    answers = {
+        "num_floors": request.num_floors,
+        "bathrooms_per_floor": request.bathrooms_per_floor,
+    }
+
+    uc = USE_CASES["pressure_boosting"]
+    facts = {
+        "num_floors": request.num_floors,
+        "bathrooms_per_floor": request.bathrooms_per_floor,
+    }
+    target_head = pressure_boosting_calculate_head(request.num_floors)
+
+    try:
+        recommendation = uc.select_pump(answers)
+    except NoPressureBoostingMatchError as e:
+        return PressureBoostingResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
+
+    return PressureBoostingResponse(status="ok", recommendation=recommendation)
 
 
 _STATIC_DIR = Path(__file__).parent / "static"
