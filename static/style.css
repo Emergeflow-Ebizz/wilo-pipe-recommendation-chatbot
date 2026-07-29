@@ -147,8 +147,8 @@ body {
   border-bottom: 2px solid transparent;
 }
 .pd-tab.active {
-  color: var(--teal-dark);
-  border-bottom-color: var(--teal-dark);
+  color: #FFD700;
+  border-bottom-color: #FFD700;
 }
 .pd-tab[disabled] {
   color: #c3cbc9;
