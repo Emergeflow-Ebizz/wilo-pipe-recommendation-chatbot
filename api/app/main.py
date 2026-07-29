@@ -30,6 +30,7 @@ from app.use_cases.pressure_boosting.rules import (
     calculate_head as pressure_boosting_calculate_head,
 )
 from app.use_cases.tank_filling.questions import HORIZONTAL_OR_VERTICAL_QUESTION
+from app.use_cases.tank_filling.questions import INSIDE_OR_OUTSIDE_QUESTION
 from app.use_cases.tank_filling.questions import QUESTIONS as TANK_FILLING_QUESTIONS
 from app.use_cases.tank_filling.questions import next_question as tank_filling_next_question
 from app.use_cases.water_transfer.questions import DELIVERY_TYPE_QUESTION
@@ -89,7 +90,7 @@ CATEGORY_QUESTIONS_BY_SLUG: dict[str, dict[str, tuple[Question, list[str]]]] = {
         "delivery_type": (DELIVERY_TYPE_QUESTION, ["ground_floor", "elevated_tank"]),
     },
     "tank_filling": {
-        "inside_or_outside": (QUESTIONS_BY_SLUG["tank_filling"]["inside_or_outside"], ["inside", "outside"]),
+        "inside_or_outside": (INSIDE_OR_OUTSIDE_QUESTION, ["inside", "outside"]),
         "horizontal_or_vertical": (HORIZONTAL_OR_VERTICAL_QUESTION, ["horizontal", "vertical"]),
     },
 }

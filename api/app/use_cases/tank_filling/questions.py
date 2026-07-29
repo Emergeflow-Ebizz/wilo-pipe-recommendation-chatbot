@@ -2,18 +2,6 @@ from app.common.schemas import Question
 
 QUESTIONS: list[Question] = [
     Question(
-        key="inside_or_outside",
-        prompt=(
-            "Will the pump be installed submerged inside the reservoir, or "
-            "externally at ground level (e.g. in a pump room)?"
-        ),
-        domain_context=(
-            "Determines whether a submersible or a surface (ground-level) pump "
-            "model is required - this is a hard selection criterion, not a "
-            "preference."
-        ),
-    ),
-    Question(
         key="tank_capacity",
         prompt="What is the capacity of the receiving tank, in liters? (optional)",
         unit="litres",
@@ -51,6 +39,16 @@ QUESTIONS: list[Question] = [
     ),
 ]
 
+INSIDE_OR_OUTSIDE_QUESTION = Question(
+    key="inside_or_outside",
+    prompt="Pump is Inside the tank or Outside the tank",
+    domain_context=(
+        "Determines whether a submersible or a surface (ground-level) pump "
+        "model is required - this is a hard selection criterion, not a "
+        "preference."
+    ),
+)
+
 HORIZONTAL_OR_VERTICAL_QUESTION = Question(
     key="horizontal_or_vertical",
     prompt="Is your tank Horizontal or vertical (optional)?",
@@ -65,18 +63,19 @@ HORIZONTAL_OR_VERTICAL_QUESTION = Question(
 def next_question(answers: dict) -> Question | None:
     """Return the next question to ask given answers collected so far.
 
-    horizontal_or_vertical is not a fixed-position question - it only exists
-    as a follow-up asked right after inside_or_outside, and only when
-    inside_or_outside == "inside".
+    inside_or_outside is asked last, after tank_capacity/num_floors/
+    motor_power_hp. horizontal_or_vertical is a follow-up asked right after
+    inside_or_outside, only when inside_or_outside == "inside".
     """
-    if "inside_or_outside" not in answers:
-        return QUESTIONS[0]
-
-    if answers["inside_or_outside"] == "inside" and "horizontal_or_vertical" not in answers:
-        return HORIZONTAL_OR_VERTICAL_QUESTION
-
     for question in QUESTIONS:
         if question.key in answers:
             continue
         return question
+
+    if "inside_or_outside" not in answers:
+        return INSIDE_OR_OUTSIDE_QUESTION
+
+    if answers["inside_or_outside"] == "inside" and "horizontal_or_vertical" not in answers:
+        return HORIZONTAL_OR_VERTICAL_QUESTION
+
     return None
