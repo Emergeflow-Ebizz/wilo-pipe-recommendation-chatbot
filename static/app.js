@@ -516,29 +516,6 @@
     state.awaitingKind = "loading";
     state.virtualOptions = null;
 
-    // For first question in water_transfer/tank_filling, ask for delivery_type (categorical)
-    if (!state.dynamicAnswers.delivery_type && state.useCaseSlug === "water_transfer") {
-      state.awaitingKind = "dynamic-input";
-      state.currentQuestion = {
-        key: "delivery_type",
-        prompt: "Is the pumped water to be delivered to ground-floor level, or to an elevated roof/terrace tank?",
-      };
-      addBotMessage(state.currentQuestion.prompt);
-      render();
-      return;
-    }
-
-    if (!state.dynamicAnswers.inside_or_outside && state.useCaseSlug === "tank_filling") {
-      state.awaitingKind = "dynamic-input";
-      state.currentQuestion = {
-        key: "inside_or_outside",
-        prompt: "Is the tank inside the building or outside?",
-      };
-      addBotMessage(state.currentQuestion.prompt);
-      render();
-      return;
-    }
-
     var data;
     try {
       var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/next_question", {
