@@ -445,6 +445,11 @@
     var payload = Object.assign({}, state.dynamicAnswers);
     if (typeof confirmOversize === "boolean") payload.confirm_oversize = confirmOversize;
 
+    if (state.useCaseSlug === "water_transfer") {
+      if (!payload.num_floors) payload.num_floors = 0;
+      if (!payload.confirm_oversize) payload.confirm_oversize = false;
+    }
+
     var data;
     try {
       var res = await fetch(API_BASE_URL + "/" + state.useCaseSlug + "/recommend", {
