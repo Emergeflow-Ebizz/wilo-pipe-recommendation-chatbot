@@ -454,11 +454,15 @@
       });
       data = await res.json();
     } catch (err) {
+      console.error("[runRecommendation] fetch error:", err);
       showUnreachableBackendError(function () {
         return runRecommendation(confirmOversize);
       });
       return;
     }
+
+    console.log("[runRecommendation] payload:", payload, "slug:", state.useCaseSlug);
+    console.log("[runRecommendation] full response:", data);
 
     if (data.status === "ok") {
       addBotMessage("Based on what you shared, here's a pump that matches your requirement:");
@@ -1442,6 +1446,7 @@
     el.composerInput.placeholder = composerPlaceholder();
     if (!isInputStep) el.composerInput.value = "";
     el.sendBtn.disabled = !isInputStep || !el.composerInput.value.trim();
+    if (isInputStep) el.composerInput.focus();
 
     if (state.inputError) {
       el.inputError.textContent = state.inputError;
