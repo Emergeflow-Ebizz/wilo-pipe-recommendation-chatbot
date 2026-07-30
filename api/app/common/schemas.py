@@ -46,6 +46,12 @@ class PressureBoostingRequest(BaseModel):
     bathrooms_per_floor: int = Field(ge=1)
 
 
+class DewateringRequest(BaseModel):
+    depth_of_pit: float = Field(gt=0)
+    depth_of_pit_unit: str
+    motor_power_hp: float | None = Field(default=None, gt=0)
+
+
 class PumpRecommendation(BaseModel):
     model_name: str
     art_no: int | None = None

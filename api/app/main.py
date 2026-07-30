@@ -13,6 +13,7 @@ from pydantic import BaseModel
 
 from app.common import llm_explainer, llm_parser
 from app.common.schemas import (
+    DewateringRequest,
     ParsedAnswer,
     ParsedCategory,
     PressureBoostingRequest,
@@ -21,6 +22,14 @@ from app.common.schemas import (
     SendPumpDataRequest,
     TankFillingRequest,
     WaterTransferRequest,
+)
+from app.use_cases.dewatering.questions import QUESTIONS as DEWATERING_QUESTIONS
+from app.use_cases.dewatering.questions import next_question as dewatering_next_question
+from app.use_cases.dewatering.rules import (
+    DewateringUseCase,
+    NoDewateringMatchError,
+    calculate_head as dewatering_calculate_head,
+    normalize_depth_of_pit,
 )
 from app.use_cases.pressure_boosting.questions import QUESTIONS as PRESSURE_BOOSTING_QUESTIONS
 from app.use_cases.pressure_boosting.questions import next_question as pressure_boosting_next_question
@@ -67,6 +76,7 @@ USE_CASES = {
         WaterTransferUseCase(),
         TankFillingUseCase(),
         PressureBoostingUseCase(),
+        DewateringUseCase(),
     )
 }
 
@@ -74,12 +84,14 @@ NEXT_QUESTION_FNS = {
     "water_transfer": water_transfer_next_question,
     "tank_filling": tank_filling_next_question,
     "pressure_boosting": pressure_boosting_next_question,
+    "dewatering": dewatering_next_question,
 }
 
 QUESTIONS_BY_SLUG = {
     "water_transfer": {q.key: q for q in WATER_TRANSFER_QUESTIONS},
     "tank_filling": {q.key: q for q in TANK_FILLING_QUESTIONS},
     "pressure_boosting": {q.key: q for q in PRESSURE_BOOSTING_QUESTIONS},
+    "dewatering": {q.key: q for q in DEWATERING_QUESTIONS},
 }
 
 # Fixed-choice questions whose answer must be one of a small, exact set of
@@ -334,6 +346,53 @@ def pressure_boosting_recommend(request: PressureBoostingRequest) -> PressureBoo
         return PressureBoostingResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
 
     return PressureBoostingResponse(status="ok", recommendation=recommendation)
+
+
+class DewateringResponse(BaseModel):
+    status: str
+    message: str | None = None
+    recommendation: PumpRecommendation | None = None
+    target_head: float | None = None
+
+
+@app.post("/dewatering/recommend", response_model=DewateringResponse)
+def dewatering_recommend(request: DewateringRequest) -> DewateringResponse:
+    answers = {
+        "depth_of_pit": (request.depth_of_pit, request.depth_of_pit_unit),
+        "motor_power_hp": request.motor_power_hp,
+    }
+
+    uc = USE_CASES["dewatering"]
+    facts = {
+        "depth_of_pit": request.depth_of_pit,
+        "depth_of_pit_unit": request.depth_of_pit_unit,
+        "desired_motor_power_hp": request.motor_power_hp,
+    }
+    depth_of_pit_ft = normalize_depth_of_pit(request.depth_of_pit, request.depth_of_pit_unit)
+    target_head_m = dewatering_calculate_head(depth_of_pit_ft)
+    target_head = target_head_m if request.depth_of_pit_unit == "m" else m_to_ft(target_head_m)
+
+    try:
+        recommendation = uc.select_pump(answers)
+    except NoDewateringMatchError as e:
+        return DewateringResponse(status="rejected", message=_explain(str(e), facts), target_head=target_head)
+
+    if request.depth_of_pit_unit == "ft":
+        recommendation.details["target_head"] = m_to_ft(recommendation.details["target_head"])
+        recommendation.details["matched_head"] = m_to_ft(recommendation.details["matched_head"])
+        recommendation.details["head_unit"] = "ft"
+    else:
+        recommendation.details["head_unit"] = "m"
+
+    for alt in recommendation.tied_alternatives:
+        if request.depth_of_pit_unit == "ft":
+            alt.details["target_head"] = m_to_ft(alt.details["target_head"])
+            alt.details["matched_head"] = m_to_ft(alt.details["matched_head"])
+            alt.details["head_unit"] = "ft"
+        else:
+            alt.details["head_unit"] = "m"
+
+    return DewateringResponse(status="ok", recommendation=recommendation)
 
 
 SEND_PUMP_DATA_URL = "https://wiloscan.pumpsearch.com/PumpManagement_V4/api/chatbot/send-selected-pump-mail"

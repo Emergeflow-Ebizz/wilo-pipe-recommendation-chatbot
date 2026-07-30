@@ -27,7 +27,7 @@ name via their own `sheet_map.py` rather than owning private copies.
 | `water_transfer` | Implemented |
 | `tank_filling` | implemented |
 | `pressure_boosting` | Implemented |
-| `dewatering` | Not yet implemented |
+| `dewatering` | Implemented |
 | `hot_water_circulation` | Not yet implemented |
 
 ## Running
